@@ -1,0 +1,49 @@
+graph TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef zeroTrust fill:#e6f3ff,stroke:#333;
+    classDef cloud fill:#fff0f0,stroke:#333;
+    classDef secOps fill:#f0fff0,stroke:#333;
+    classDef devOps fill:#fff0ff,stroke:#333;
+
+    %% Zero Trust Security
+    subgraph ZT[Zero Trust Security]
+        IAM[Identity & Access Management]
+        SEC[Security Controls]
+        IAM --> SEC
+    end
+    class ZT zeroTrust
+
+    %% Cloud Infrastructure
+    subgraph CL[Multi-Cloud Infrastructure]
+        AWS[AWS GovCloud]
+        AZ[Azure Government]
+        P1[Platform One]
+        MC[milCloud 2.0]
+    end
+    class CL cloud
+
+    %% Security Operations
+    subgraph SO[Security Operations]
+        SOC[Security Operations Center]
+        IR[Incident Response]
+        MON[Security Monitoring]
+        SOC --> IR
+        SOC --> MON
+    end
+    class SO secOps
+
+    %% DevSecOps Pipeline
+    subgraph DS[DevSecOps Pipeline]
+        CI[CI/CD Pipeline]
+        SCAN[Security Scanning]
+        DEP[Secure Deployment]
+        CI --> SCAN
+        SCAN --> DEP
+    end
+    class DS devOps
+
+    %% Relationships
+    SEC --> SOC
+    AWS & AZ & P1 & MC --> SEC
+    DEP --> AWS & AZ & P1 & MC

@@ -1,0 +1,124 @@
+flowchart TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef identify fill:#e6f3ff,stroke:#333;
+    classDef analyze fill:#f0fff0,stroke:#333;
+    classDef evaluate fill:#fff0f0,stroke:#333;
+    classDef treat fill:#f0f0ff,stroke:#333;
+
+    %% Risk Identification
+    subgraph ID[Risk Identification]
+        ASSET[Asset Inventory]
+        THREAT[Threat Analysis]
+        VULN[Vulnerability Assessment]
+        IMPACT[Impact Analysis]
+        
+        ASSET --> THREAT
+        THREAT --> VULN
+        VULN --> IMPACT
+    end
+    class ID identify
+
+    %% Risk Analysis
+    subgraph ANA[Risk Analysis]
+        QUAL[Qualitative Analysis]
+        QUANT[Quantitative Analysis]
+        PROB[Probability Assessment]
+        SEV[Severity Assessment]
+        
+        QUAL & QUANT --> PROB
+        PROB --> SEV
+    end
+    class ANA analyze
+
+    %% Risk Evaluation
+    subgraph EVAL[Risk Evaluation]
+        SCORE[Risk Scoring]
+        MATRIX[Risk Matrix]
+        PRIOR[Prioritization]
+        ACCEPT[Risk Acceptance]
+        
+        SCORE --> MATRIX
+        MATRIX --> PRIOR
+        PRIOR --> ACCEPT
+    end
+    class EVAL evaluate
+
+    %% Risk Treatment
+    subgraph TREAT[Risk Treatment]
+        AVOID[Risk Avoidance]
+        MITIGATE[Risk Mitigation]
+        TRANSFER[Risk Transfer]
+        ACCEPT_T[Risk Acceptance]
+        
+        AVOID & MITIGATE & TRANSFER --> ACCEPT_T
+    end
+    class TREAT treat
+
+    %% Controls Assessment
+    subgraph CTRL[Controls Assessment]
+        EXIST[Existing Controls]
+        GAP[Gap Analysis]
+        NEW[New Controls]
+        TEST[Control Testing]
+        
+        EXIST --> GAP
+        GAP --> NEW
+        NEW --> TEST
+    end
+
+    %% Compliance Requirements
+    subgraph COMP[Compliance Requirements]
+        DOD[DoD Requirements]
+        NIST[NIST Framework]
+        STIG[STIG Controls]
+        SRG[Security SRG]
+        
+        DOD & NIST & STIG --> SRG
+    end
+
+    %% Monitoring & Review
+    subgraph MON[Monitoring & Review]
+        TRACK[Risk Tracking]
+        REVIEW[Risk Review]
+        UPDATE[Risk Update]
+        REPORT[Risk Reporting]
+        
+        TRACK --> REVIEW
+        REVIEW --> UPDATE
+        UPDATE --> REPORT
+    end
+
+    %% Documentation
+    subgraph DOC[Documentation]
+        SSP[System Security Plan]
+        POA[POA&M]
+        RAR[Risk Assessment Report]
+        
+        SSP --> POA
+        POA --> RAR
+    end
+
+    %% Main Flow
+    IMPACT --> QUAL
+    SEV --> SCORE
+    ACCEPT --> AVOID
+    TEST --> TRACK
+
+    %% Cross-Component Relationships
+    SRG --> EXIST
+    ACCEPT_T --> POA
+    REPORT --> RAR
+
+    %% Risk Communication
+    subgraph COMM[Risk Communication]
+        STAKE[Stakeholders]
+        BRIEF[Security Briefs]
+        DASH[Risk Dashboard]
+        
+        STAKE --> BRIEF
+        BRIEF --> DASH
+    end
+
+    RAR --> STAKE
+    DASH --> UPDATE

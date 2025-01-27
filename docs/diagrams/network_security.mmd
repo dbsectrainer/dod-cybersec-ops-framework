@@ -1,0 +1,128 @@
+flowchart TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef perimeter fill:#ffe6e6,stroke:#333;
+    classDef internal fill:#e6f3ff,stroke:#333;
+    classDef monitoring fill:#f0fff0,stroke:#333;
+    classDef security fill:#fff0f0,stroke:#333;
+
+    %% Perimeter Security
+    subgraph PER[Perimeter Security]
+        NGFW[Next-Gen Firewall]
+        WAF[Web App Firewall]
+        IPS[IPS/IDS]
+        DDoS[DDoS Protection]
+        
+        NGFW --> WAF
+        WAF --> IPS
+        IPS --> DDoS
+    end
+    class PER perimeter
+
+    %% Network Segmentation
+    subgraph SEG[Network Segmentation]
+        DMZ[DMZ]
+        TRUST[Trusted Zone]
+        SECURE[Secure Zone]
+        MGMT[Management Zone]
+        
+        DMZ --> TRUST
+        TRUST --> SECURE
+        SECURE --> MGMT
+    end
+    class SEG internal
+
+    %% Security Monitoring
+    subgraph MON[Security Monitoring]
+        NTA[Network Traffic Analysis]
+        NBA[Network Behavior Analysis]
+        FLOW[NetFlow Analysis]
+        PACKET[Packet Inspection]
+        
+        NTA --> NBA
+        NBA --> FLOW
+        FLOW --> PACKET
+    end
+    class MON monitoring
+
+    %% Access Control
+    subgraph ACC[Access Control]
+        NAC[Network Access Control]
+        VPN[VPN Gateway]
+        PAM[Privileged Access]
+        MFA[Multi-Factor Auth]
+        
+        NAC --> VPN
+        VPN --> PAM
+        PAM --> MFA
+    end
+    class ACC security
+
+    %% Network Services
+    subgraph SVC[Network Services]
+        DNS[Secure DNS]
+        DHCP[Secure DHCP]
+        NTP[Secure NTP]
+        PROXY[Security Proxy]
+        
+        DNS --> DHCP
+        DHCP --> NTP
+        NTP --> PROXY
+    end
+
+    %% Security Tools
+    subgraph TOOLS[Security Tools]
+        SIEM[SIEM]
+        EDR[EDR/XDR]
+        SOAR[SOAR Platform]
+        TVM[Vulnerability Management]
+        
+        SIEM --> EDR
+        EDR --> SOAR
+        SOAR --> TVM
+    end
+
+    %% Data Flow
+    DDoS --> DMZ
+    MGMT --> NAC
+    PACKET --> SIEM
+    PROXY --> NTA
+
+    %% Cloud Connection
+    subgraph CLOUD[Cloud Security]
+        CSEG[Cloud Segmentation]
+        CWAN[Cloud WAN]
+        CGWY[Cloud Gateway]
+        
+        CSEG --> CWAN
+        CWAN --> CGWY
+    end
+
+    %% Zero Trust Integration
+    subgraph ZT[Zero Trust]
+        SDP[Software-Defined Perimeter]
+        ZTNA[Zero Trust Network Access]
+        MICRO[Micro-segmentation]
+        
+        SDP --> ZTNA
+        ZTNA --> MICRO
+    end
+
+    %% Cross-Component Relationships
+    MICRO --> TRUST
+    CGWY --> VPN
+    TVM --> NGFW
+    SOAR --> IPS
+
+    %% Monitoring Flow
+    subgraph MON_FLOW[Monitoring Flow]
+        LOG[Log Collection]
+        ALERT[Alert Generation]
+        RESPOND[Response Action]
+        
+        LOG --> ALERT
+        ALERT --> RESPOND
+    end
+
+    PACKET --> LOG
+    RESPOND --> SOAR

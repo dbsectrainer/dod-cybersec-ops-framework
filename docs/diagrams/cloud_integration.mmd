@@ -1,0 +1,120 @@
+flowchart TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef aws fill:#ffe6e6,stroke:#333;
+    classDef azure fill:#e6f3ff,stroke:#333;
+    classDef p1 fill:#f0fff0,stroke:#333;
+    classDef milcloud fill:#fff0f0,stroke:#333;
+    classDef security fill:#f0f0ff,stroke:#333;
+
+    %% AWS GovCloud
+    subgraph AWS[AWS GovCloud]
+        VPC[VPC Architecture]
+        SG[Security Groups]
+        IAM[IAM Policies]
+        CW[CloudWatch]
+        
+        VPC --> SG
+        SG --> IAM
+        IAM --> CW
+    end
+    class AWS aws
+
+    %% Azure Government
+    subgraph AZ[Azure Government]
+        VNET[VNET Setup]
+        NSG[NSG Rules]
+        AAD[Azure AD]
+        MON[Azure Monitor]
+        
+        VNET --> NSG
+        NSG --> AAD
+        AAD --> MON
+    end
+    class AZ azure
+
+    %% Platform One
+    subgraph P1[Platform One]
+        IB[Iron Bank]
+        BB[Big Bang]
+        CICD[CI/CD Pipeline]
+        SCAN[Security Scanning]
+        
+        IB --> BB
+        BB --> CICD
+        CICD --> SCAN
+    end
+    class P1 p1
+
+    %% milCloud 2.0
+    subgraph MC[milCloud 2.0]
+        LEG[Legacy Systems]
+        SPEC[Specialized Workloads]
+        COMP[Compliance Services]
+        
+        LEG --> SPEC
+        SPEC --> COMP
+    end
+    class MC milcloud
+
+    %% Security Integration
+    subgraph SEC[Security Integration]
+        SIEM[SIEM Platform]
+        EDR[EDR/XDR]
+        SOAR[SOAR Platform]
+        TI[Threat Intel]
+        
+        SIEM --> SOAR
+        EDR --> SOAR
+        TI --> SOAR
+    end
+    class SEC security
+
+    %% Cross-Cloud Integration
+    CW --> SIEM
+    MON --> SIEM
+    SCAN --> SIEM
+    COMP --> SIEM
+
+    %% Identity Federation
+    subgraph ID[Identity Federation]
+        PIV[PIV/CAC]
+        MFA[MFA]
+        SSO[SSO]
+        
+        PIV --> MFA
+        MFA --> SSO
+    end
+
+    %% Network Integration
+    subgraph NET[Network Integration]
+        VPN[VPN Connections]
+        PEER[Cloud Peering]
+        SEG[Segmentation]
+        
+        VPN --> PEER
+        PEER --> SEG
+    end
+
+    %% Data Flow
+    SSO --> IAM
+    SSO --> AAD
+    SSO --> BB
+    SSO --> LEG
+
+    SEG --> VPC
+    SEG --> VNET
+    SEG --> BB
+    SEG --> SPEC
+
+    %% Monitoring & Compliance
+    subgraph MON_COMP[Monitoring & Compliance]
+        AUDIT[Audit Logging]
+        METRIC[Metrics Collection]
+        REPORT[Compliance Reporting]
+        
+        AUDIT --> METRIC
+        METRIC --> REPORT
+    end
+
+    SOAR --> AUDIT

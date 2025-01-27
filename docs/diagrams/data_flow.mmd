@@ -1,0 +1,120 @@
+flowchart TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef input fill:#e6f3ff,stroke:#333;
+    classDef process fill:#f0fff0,stroke:#333;
+    classDef storage fill:#fff0f0,stroke:#333;
+    classDef security fill:#f0f0ff,stroke:#333;
+
+    %% Data Sources
+    subgraph SRC[Data Sources]
+        USER[User Input]
+        API[API Endpoints]
+        SENSOR[Security Sensors]
+        CLOUD[Cloud Services]
+        
+        USER & API & SENSOR & CLOUD --> VALID
+    end
+    class SRC input
+
+    %% Data Validation
+    subgraph VAL[Data Validation]
+        VALID[Input Validation]
+        SANIT[Sanitization]
+        FORMAT[Format Checking]
+        
+        VALID --> SANIT
+        SANIT --> FORMAT
+    end
+    class VAL process
+
+    %% Security Controls
+    subgraph SEC[Security Controls]
+        AUTH[Authentication]
+        AUTHZ[Authorization]
+        AUDIT[Audit Logging]
+        CRYPT[Encryption]
+        
+        AUTH --> AUTHZ
+        AUTHZ --> AUDIT
+        AUDIT --> CRYPT
+    end
+    class SEC security
+
+    %% Data Processing
+    subgraph PROC[Data Processing]
+        PARSE[Data Parsing]
+        TRANS[Transformation]
+        ENRICH[Enrichment]
+        NORM[Normalization]
+        
+        PARSE --> TRANS
+        TRANS --> ENRICH
+        ENRICH --> NORM
+    end
+    class PROC process
+
+    %% Data Storage
+    subgraph STORE[Data Storage]
+        TEMP[Temporary Storage]
+        PERM[Permanent Storage]
+        BACKUP[Backup Storage]
+        ARCHIVE[Archive Storage]
+        
+        TEMP --> PERM
+        PERM --> BACKUP
+        BACKUP --> ARCHIVE
+    end
+    class STORE storage
+
+    %% Data Classification
+    subgraph CLASS[Data Classification]
+        CUI[CUI Data]
+        FOUO[FOUO Data]
+        PUBLIC[Public Data]
+        
+        CUI --> FOUO
+        FOUO --> PUBLIC
+    end
+
+    %% Data Protection
+    subgraph PROT[Data Protection]
+        DLP[Data Loss Prevention]
+        MASK[Data Masking]
+        RIGHT[Rights Management]
+        
+        DLP --> MASK
+        MASK --> RIGHT
+    end
+
+    %% Data Access
+    subgraph ACC[Data Access]
+        READ[Read Access]
+        WRITE[Write Access]
+        ADMIN[Admin Access]
+        
+        READ --> WRITE
+        WRITE --> ADMIN
+    end
+
+    %% Flow Control
+    FORMAT --> AUTH
+    CRYPT --> PARSE
+    NORM --> CLASS
+    PUBLIC --> DLP
+    RIGHT --> READ
+
+    %% Monitoring
+    subgraph MON[Data Monitoring]
+        TRACK[Data Tracking]
+        ALERT[Alerting]
+        REPORT[Reporting]
+        
+        TRACK --> ALERT
+        ALERT --> REPORT
+    end
+
+    %% Cross-Component Flow
+    ADMIN --> TRACK
+    REPORT --> AUDIT
+    ARCHIVE --> TRACK

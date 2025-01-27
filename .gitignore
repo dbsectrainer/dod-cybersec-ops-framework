@@ -1,0 +1,157 @@
+# DoD Cybersecurity Operations and Incident Response Framework .gitignore
+
+# Security-sensitive files
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+.env
+.env.*
+credentials.json
+*_rsa
+*_dsa
+*_ed25519
+*_ecdsa
+*.gpg
+secrets/
+private/
+
+# Build artifacts
+build/
+dist/
+target/
+out/
+*.class
+*.jar
+*.war
+*.ear
+*.dll
+*.exe
+*.o
+*.so
+
+# Dependency directories
+node_modules/
+vendor/
+.gradle/
+.maven/
+.ivy2/
+.pip-cache/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+logs/
+log/
+tmp/
+temp/
+
+# Test coverage and reports
+coverage/
+reports/
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+junit/
+
+# Documentation build
+docs/_build/
+site/
+.docusaurus/
+
+# Container and deployment
+*.tfstate
+*.tfstate.backup
+.terraform/
+.vagrant/
+*.box
+*.iso
+*.img
+*.vdi
+*.vmdk
+*.ova
+
+# Cloud provider specific
+.aws/
+.azure/
+.gcloud/
+terraform.tfvars
+*.tfvars
+.terraformrc
+*.tfplan
+
+# Package files
+*.tgz
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Compliance and security scan results
+security-reports/
+compliance-reports/
+scan-results/
+*-results.sarif
+stig-results.xml
+stig-report.html
+
+# Temporary files
+*.bak
+*.tmp
+*.temp
+.cache/
+.history/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+config.local.yaml
+override.yaml
+custom.conf
+local-settings.json
+
+# Backup files
+*.backup
+*-backup
+*.old
+*.orig
+*.previous
+*.save
+
+# Debug files
+debug/
+*.debug
+*.pdb
+*.dSYM/
+
+# Test data
+test/data/
+fixtures/
+mock-data/

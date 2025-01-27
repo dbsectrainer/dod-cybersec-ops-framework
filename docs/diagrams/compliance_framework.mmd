@@ -1,0 +1,99 @@
+flowchart TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef framework fill:#e6f3ff,stroke:#333;
+    classDef controls fill:#f0fff0,stroke:#333;
+    classDef monitoring fill:#fff0f0,stroke:#333;
+    classDef certification fill:#ffe6e6,stroke:#333;
+
+    %% Regulatory Framework
+    subgraph REG[Regulatory Framework]
+        DOD[DoD 8570/8140]
+        NIST[NIST RMF]
+        DISA[DISA STIGs]
+        CLOUD[Cloud SRG]
+        
+        DOD & NIST & DISA --> CLOUD
+    end
+    class REG framework
+
+    %% Security Controls
+    subgraph CTRL[Security Controls]
+        AC[Access Control]
+        AU[Audit & Accountability]
+        CM[Configuration Management]
+        CP[Contingency Planning]
+        IA[Identification & Authentication]
+        IR[Incident Response]
+        
+        AC & AU & CM --> CP
+        IA & IR --> CP
+    end
+    class CTRL controls
+
+    %% Continuous Monitoring
+    subgraph MON[Continuous Monitoring]
+        SCAN[Vulnerability Scanning]
+        AUDIT[Security Audits]
+        LOG[Log Analysis]
+        METRICS[Security Metrics]
+        
+        SCAN & AUDIT & LOG --> METRICS
+    end
+    class MON monitoring
+
+    %% Certification & Accreditation
+    subgraph CERT[Certification & Accreditation]
+        SSP[System Security Plan]
+        SAR[Security Assessment]
+        POA[Plan of Action]
+        AUTH[Authorization]
+        
+        SSP --> SAR
+        SAR --> POA
+        POA --> AUTH
+    end
+    class CERT certification
+
+    %% Documentation
+    subgraph DOC[Documentation]
+        POLICY[Security Policies]
+        PROC[Procedures]
+        GUIDE[Guidelines]
+        TEMP[Templates]
+        
+        POLICY --> PROC
+        PROC --> GUIDE
+        GUIDE --> TEMP
+    end
+
+    %% Main Flow
+    CLOUD --> AC
+    CP --> SCAN
+    METRICS --> SSP
+    AUTH --> POLICY
+
+    %% Assessment & Authorization
+    subgraph AA[Assessment & Authorization]
+        ASSESS[Security Assessment]
+        RISK[Risk Assessment]
+        APPROVE[Authorization Approval]
+        
+        ASSESS --> RISK
+        RISK --> APPROVE
+    end
+
+    %% Training & Awareness
+    subgraph TRAIN[Training & Awareness]
+        BASIC[Basic Training]
+        ROLE[Role-Based Training]
+        SPEC[Specialized Training]
+        
+        BASIC --> ROLE
+        ROLE --> SPEC
+    end
+
+    %% Relationships
+    TEMP -->|Updates| BASIC
+    APPROVE -->|Findings| POA
+    METRICS -->|Input| ASSESS

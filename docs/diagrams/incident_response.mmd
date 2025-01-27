@@ -1,0 +1,72 @@
+flowchart TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef detection fill:#ffe6e6,stroke:#333;
+    classDef analysis fill:#e6f3ff,stroke:#333;
+    classDef containment fill:#f0fff0,stroke:#333;
+    classDef recovery fill:#fff0f0,stroke:#333;
+
+    %% Detection Phase
+    subgraph DET[Detection & Identification]
+        SIEM[SIEM Alerts]
+        EDR[EDR/XDR Detection]
+        TI[Threat Intelligence]
+        MON[Security Monitoring]
+        
+        SIEM & EDR & TI --> MON
+    end
+    class DET detection
+
+    %% Analysis Phase
+    subgraph ANA[Analysis & Investigation]
+        TRIAGE[Initial Triage]
+        FORENSIC[Forensic Analysis]
+        IMPACT[Impact Assessment]
+        
+        TRIAGE --> FORENSIC
+        FORENSIC --> IMPACT
+    end
+    class ANA analysis
+
+    %% Containment Phase
+    subgraph CON[Containment & Eradication]
+        ISO[System Isolation]
+        BLOCK[Threat Blocking]
+        REMOVE[Malware Removal]
+        PATCH[System Patching]
+        
+        ISO --> BLOCK
+        BLOCK --> REMOVE
+        REMOVE --> PATCH
+    end
+    class CON containment
+
+    %% Recovery Phase
+    subgraph REC[Recovery & Restoration]
+        RESTORE[System Restoration]
+        VERIFY[Security Verification]
+        MONITOR[Enhanced Monitoring]
+        
+        RESTORE --> VERIFY
+        VERIFY --> MONITOR
+    end
+    class REC recovery
+
+    %% Main Flow
+    MON --> TRIAGE
+    IMPACT --> ISO
+    PATCH --> RESTORE
+
+    %% Documentation & Reporting
+    subgraph DOC[Documentation & Reporting]
+        REPORT[Incident Report]
+        LESSONS[Lessons Learned]
+        UPDATE[Update Procedures]
+        
+        REPORT --> LESSONS
+        LESSONS --> UPDATE
+    end
+
+    %% Final Steps
+    MONITOR --> REPORT
+    UPDATE --> MON

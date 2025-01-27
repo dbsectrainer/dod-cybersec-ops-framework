@@ -1,0 +1,87 @@
+flowchart LR
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef planning fill:#e6f3ff,stroke:#333;
+    classDef development fill:#f0fff0,stroke:#333;
+    classDef security fill:#ffe6e6,stroke:#333;
+    classDef deployment fill:#fff0f0,stroke:#333;
+
+    %% Planning Phase
+    subgraph PLAN[Planning]
+        THREAT[Threat Modeling]
+        REQ[Security Requirements]
+        COMP[Compliance Mapping]
+        
+        THREAT --> REQ
+        REQ --> COMP
+    end
+    class PLAN planning
+
+    %% Development Phase
+    subgraph DEV[Development]
+        CODE[Secure Coding]
+        REVIEW[Code Review]
+        UNIT[Unit Testing]
+        
+        CODE --> REVIEW
+        REVIEW --> UNIT
+    end
+    class DEV development
+
+    %% Security Testing
+    subgraph SEC[Security Testing]
+        SAST[Static Analysis]
+        SCA[Dependency Scan]
+        DAST[Dynamic Analysis]
+        PEN[Penetration Testing]
+        
+        SAST & SCA --> DAST
+        DAST --> PEN
+    end
+    class SEC security
+
+    %% Container Security
+    subgraph CONT[Container Security]
+        BASE[Base Image Scan]
+        HARDEN[Container Hardening]
+        SIGN[Image Signing]
+        
+        BASE --> HARDEN
+        HARDEN --> SIGN
+    end
+
+    %% Deployment
+    subgraph DEPLOY[Deployment]
+        CONFIG[Config Validation]
+        SCAN[Runtime Scanning]
+        DEPLOY_SEC[Security Controls]
+        MONITOR[Continuous Monitoring]
+        
+        CONFIG --> SCAN
+        SCAN --> DEPLOY_SEC
+        DEPLOY_SEC --> MONITOR
+    end
+    class DEPLOY deployment
+
+    %% Main Flow
+    COMP --> CODE
+    UNIT --> SAST
+    PEN --> BASE
+    SIGN --> CONFIG
+
+    %% Feedback Loops
+    MONITOR -->|Security Findings| THREAT
+    DEPLOY_SEC -->|Vulnerabilities| SAST
+    REVIEW -->|Security Issues| THREAT
+
+    %% Compliance & Audit
+    subgraph COMP_AUDIT[Compliance & Audit]
+        AUDIT[Security Audit]
+        REPORT[Compliance Reports]
+        METRICS[Security Metrics]
+        
+        AUDIT --> REPORT
+        REPORT --> METRICS
+    end
+
+    MONITOR --> AUDIT

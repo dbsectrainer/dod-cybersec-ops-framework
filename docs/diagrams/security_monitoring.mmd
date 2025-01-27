@@ -1,0 +1,130 @@
+flowchart TB
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef collection fill:#e6f3ff,stroke:#333;
+    classDef analysis fill:#f0fff0,stroke:#333;
+    classDef response fill:#fff0f0,stroke:#333;
+    classDef intel fill:#f0f0ff,stroke:#333;
+
+    %% Data Collection
+    subgraph COL[Data Collection]
+        LOGS[Log Collection]
+        METRICS[Metrics Collection]
+        EVENTS[Event Collection]
+        TELEMETRY[Telemetry Data]
+        
+        LOGS & METRICS & EVENTS & TELEMETRY --> AGG
+    end
+    class COL collection
+
+    %% Data Aggregation
+    subgraph AGG[Data Aggregation]
+        PARSE[Log Parsing]
+        FILTER[Data Filtering]
+        ENRICH[Data Enrichment]
+        NORM[Normalization]
+        
+        PARSE --> FILTER
+        FILTER --> ENRICH
+        ENRICH --> NORM
+    end
+
+    %% Security Analysis
+    subgraph ANA[Security Analysis]
+        CORR[Correlation]
+        BEHAV[Behavior Analysis]
+        THREAT[Threat Detection]
+        ANOMALY[Anomaly Detection]
+        
+        CORR --> BEHAV
+        BEHAV --> THREAT
+        THREAT --> ANOMALY
+    end
+    class ANA analysis
+
+    %% Threat Intelligence
+    subgraph TI[Threat Intelligence]
+        FEED[Intel Feeds]
+        IOC[IOC Processing]
+        ENRICH_TI[Intel Enrichment]
+        SHARE[Intel Sharing]
+        
+        FEED --> IOC
+        IOC --> ENRICH_TI
+        ENRICH_TI --> SHARE
+    end
+    class TI intel
+
+    %% Response Automation
+    subgraph RESP[Response Automation]
+        TRIAGE[Alert Triage]
+        PLAYBOOK[Playbook Execution]
+        ACTION[Response Actions]
+        REVIEW[Incident Review]
+        
+        TRIAGE --> PLAYBOOK
+        PLAYBOOK --> ACTION
+        ACTION --> REVIEW
+    end
+    class RESP response
+
+    %% SIEM Integration
+    subgraph SIEM[SIEM Platform]
+        INDEX[Data Indexing]
+        SEARCH[Search & Query]
+        DASH[Dashboards]
+        REPORT[Reporting]
+        
+        INDEX --> SEARCH
+        SEARCH --> DASH
+        DASH --> REPORT
+    end
+
+    %% SOC Tools
+    subgraph SOC[SOC Tools]
+        EDR[EDR/XDR]
+        SOAR[SOAR Platform]
+        CASE[Case Management]
+        KNOW[Knowledge Base]
+        
+        EDR --> SOAR
+        SOAR --> CASE
+        CASE --> KNOW
+    end
+
+    %% Compliance Monitoring
+    subgraph COMP[Compliance Monitoring]
+        AUDIT[Audit Logs]
+        CONTROL[Control Monitoring]
+        ASSESS[Assessment]
+        REPORT_COMP[Compliance Reports]
+        
+        AUDIT --> CONTROL
+        CONTROL --> ASSESS
+        ASSESS --> REPORT_COMP
+    end
+
+    %% Flow Control
+    NORM --> INDEX
+    ANOMALY --> TRIAGE
+    SHARE --> THREAT
+    ACTION --> EDR
+    REPORT --> AUDIT
+
+    %% Cross-Component Relationships
+    SOAR --> PLAYBOOK
+    IOC --> CORR
+    KNOW --> ENRICH
+    REPORT_COMP --> DASH
+
+    %% Performance Monitoring
+    subgraph PERF[Performance Monitoring]
+        SLA[SLA Monitoring]
+        METRIC[Metrics Analysis]
+        TREND[Trend Analysis]
+        
+        SLA --> METRIC
+        METRIC --> TREND
+    end
+
+    TREND --> ANOMALY

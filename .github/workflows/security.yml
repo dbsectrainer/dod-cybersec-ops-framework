@@ -1,0 +1,127 @@
+name: Security Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+
+jobs:
+  security-checks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Security Scan
+      uses: anchore/scan-action@v3
+      with:
+        severity-cutoff: high
+        fail-build: true
+
+    - name: Upload Security Report
+      uses: github/codeql-action/upload-sarif@v2
+      if: success() || failure()
+      with:
+        sarif_file: results.sarif
+
+    - name: SAST Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        languages: javascript, python, java
+        queries: security-extended, security-and-quality
+
+    - name: Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'DoD Cybersecurity Framework'
+        path: '.'
+        format: 'HTML'
+        args: >
+          --suppression suppression.xml
+          --failOnCVSS 7
+          --enableExperimental
+
+    - name: Upload Dependency Report
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: Dependency Check Report
+        path: reports
+
+    - name: DISA STIG Compliance Check
+      run: |
+        # Install OpenSCAP
+        sudo apt-get update
+        sudo apt-get install -y openscap-scanner scap-security-guide
+        
+        # Run STIG scan
+        oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig \
+          --results stig-results.xml \
+          --report stig-report.html \
+          /usr/share/xml/scap/ssg/content/ssg-ubuntu2004-xccdf.xml
+
+    - name: Upload STIG Report
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: STIG Compliance Report
+        path: stig-report.html
+
+    - name: Check for Sensitive Data
+      uses: zricethezav/gitleaks-action@master
+
+    - name: Security Headers Check
+      uses: projectdiscovery/nuclei-action@main
+      with:
+        target: ${{ secrets.DEPLOYMENT_URL }}
+        templates: http/security-misconfiguration
+
+    - name: Container Security Scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        ignore-unfixed: true
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        severity: 'CRITICAL,HIGH'
+
+    - name: Upload Container Scan Results
+      uses: github/codeql-action/upload-sarif@v2
+      if: success() || failure()
+      with:
+        sarif_file: trivy-results.sarif
+
+    - name: Compliance Check
+      run: |
+        # Run custom compliance checks
+        echo "Running compliance checks..."
+        # Add specific compliance checking logic here
+
+    - name: Security Notification
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const issue = {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: '🚨 Security Check Failed',
+            body: `Security checks failed in workflow ${context.workflow}
+                   Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+          }
+          await github.rest.issues.create(issue)
+
+    - name: Update Security Status
+      if: always()
+      run: |
+        echo "Security Check Status: ${{ job.status }}"
+        # Add status update logic here
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+  issues: write

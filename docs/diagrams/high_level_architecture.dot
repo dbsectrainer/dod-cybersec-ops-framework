@@ -1,0 +1,74 @@
+digraph G {
+    rankdir=TB;
+    compound=true;
+    node [shape=box, style="rounded,filled", fontname="Arial", fontsize=10];
+    edge [fontname="Arial", fontsize=8];
+
+    // Zero Trust Security
+    subgraph cluster_0 {
+        label="Zero Trust Security";
+        style="rounded,filled";
+        bgcolor="#e6f3ff";
+        
+        identity [label="Identity & Access\nManagement", fillcolor=white];
+        security [label="Security Controls", fillcolor=white];
+    }
+
+    // Cloud Infrastructure
+    subgraph cluster_1 {
+        label="Multi-Cloud Infrastructure";
+        style="rounded,filled";
+        bgcolor="#fff0f0";
+        
+        aws [label="AWS GovCloud"];
+        azure [label="Azure Government"];
+        p1 [label="Platform One"];
+        milcloud [label="milCloud 2.0"];
+    }
+
+    // Security Operations
+    subgraph cluster_2 {
+        label="Security Operations";
+        style="rounded,filled";
+        bgcolor="#f0fff0";
+        
+        soc [label="Security Operations\nCenter"];
+        ir [label="Incident Response"];
+        monitoring [label="Security Monitoring"];
+    }
+
+    // DevSecOps
+    subgraph cluster_3 {
+        label="DevSecOps Pipeline";
+        style="rounded,filled";
+        bgcolor="#fff0ff";
+        
+        cicd [label="CI/CD Pipeline"];
+        scanning [label="Security Scanning"];
+        deployment [label="Secure Deployment"];
+    }
+
+    // Relationships
+    identity -> security;
+    security -> soc;
+    
+    aws -> security;
+    azure -> security;
+    p1 -> security;
+    milcloud -> security;
+    
+    soc -> ir;
+    soc -> monitoring;
+    
+    cicd -> scanning;
+    scanning -> deployment;
+    deployment -> aws;
+    deployment -> azure;
+    deployment -> p1;
+    deployment -> milcloud;
+
+    // Layout hints
+    {rank=same; aws azure p1 milcloud}
+    {rank=same; soc ir monitoring}
+    {rank=same; cicd scanning deployment}
+}

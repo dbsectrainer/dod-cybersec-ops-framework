@@ -1,0 +1,78 @@
+Department of Defense Open Source Agreement Version 1.0
+
+This Department of Defense Open Source Agreement Version 1.0 (Agreement) is between the United States Department of Defense (DoD) and the recipient or redistributor of the software (Recipient).
+
+1. DEFINITIONS
+
+A. "Contributor" means DoD and any individual or legal entity that creates or contributes to the creation of modifications to the Subject Software.
+
+B. "Covered Patents" mean patent claims licensable by a Contributor that are necessarily infringed by the use or sale of its Subject Software alone or when combined with the human readable source code version of the Subject Software.
+
+C. "Display" means displaying on a computer screen, television screen, or other output device.
+
+D. "Distribution" means conveyance or transfer of the Subject Software, regardless of means, to another.
+
+E. "Larger Work" means computer software that combines Subject Software, or portions thereof, with software separate from the Subject Software that is not governed by the terms of this Agreement.
+
+F. "Modification" means any alteration of, including addition to or deletion from, the substance or structure of either the original Subject Software or any previous Modifications created by Recipient.
+
+G. "Original Software" means the computer software first released under this Agreement by DoD with a designation indicating that the software is Original Software.
+
+H. "Recipient" means anyone who acquires, uses, or redistributes the Subject Software, including all Contributors.
+
+I. "Redistribution" means Distribution of the Subject Software after a Modification has been made.
+
+J. "Reproduction" means the making of a counterpart, image or copy of the Subject Software.
+
+K. "Sale" means selling, leasing, or otherwise transferring rights to the Subject Software.
+
+L. "Subject Software" means the Original Software or Modifications or the combination of the Original Software and Modifications, or portions of any of the foregoing.
+
+2. GRANT OF RIGHTS
+
+A. Under Non-Patent Rights: Subject to the terms and conditions of this Agreement, each Contributor, with respect to its own contribution to the Subject Software, hereby grants to each Recipient a non-exclusive, worldwide, royalty-free license to engage in the following activities pertaining to the Subject Software:
+
+1. Use
+2. Distribution
+3. Reproduction
+4. Modification
+5. Redistribution
+6. Display
+
+B. Under Patent Rights: Subject to the terms and conditions of this Agreement, each Contributor, with respect to its own contribution to the Subject Software, hereby grants to each Recipient under Covered Patents a non-exclusive, worldwide, royalty-free license to engage in the following activities pertaining to the Subject Software:
+
+1. Use
+2. Distribution
+3. Reproduction
+4. Sale
+5. Offer for Sale
+
+C. The rights granted under Paragraph B. also apply to the combination of a Contributor's Modification and the Subject Software if, at the time the Modification is added by the Contributor, the addition of such Modification causes such combination to be covered by the Covered Patents. It does not apply to any other combinations that include a Modification.
+
+3. REQUIREMENTS
+
+A. A Recipient may choose to distribute the Subject Software in any form under this Agreement, provided that:
+
+1. The Recipient must include a copy of this Agreement with every copy of the Subject Software and any Modification.
+
+2. The Recipient must cause any Modification to carry prominent notices stating that the Recipient has modified the Subject Software.
+
+3. The Recipient must retain all copyright, patent, trademark, and attribution notices that are present in the Subject Software.
+
+4. DISCLAIMER OF WARRANTY
+
+SUBJECT SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SUBJECT SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SUBJECT SOFTWARE.
+
+5. EXPORT CONTROL
+
+The Subject Software may be subject to U.S. export control laws and may be subject to export or import regulations in other countries. The Recipient agrees to comply strictly with all such laws and regulations and acknowledges that it has the responsibility to obtain such licenses to export, re-export, or import as may be required.
+
+6. ACCEPTANCE AND TERMINATION
+
+If the Recipient redistributes any Subject Software, the Recipient automatically accepts and agrees to the terms and conditions of this Agreement. The Agreement terminates automatically if the Recipient fails to comply with the terms and conditions of this Agreement.
+
+7. MISCELLANEOUS
+
+This Agreement is governed by the laws of the United States. For purposes of conflicts of law rules, the Subject Software is created within the United States.
+
+Last Updated: January 27, 2025
