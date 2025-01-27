@@ -1,0 +1,155 @@
+name: Issue Management
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+  pull_request:
+    types: [opened, edited, labeled, unlabeled]
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+  workflow_dispatch:
+
+jobs:
+  triage:
+    name: Issue Triage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check Classification Headers
+        if: github.event_name == 'issues' || github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.issue ? context.payload.issue.body : context.payload.pull_request.body;
+            if (!body.includes('Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)')) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue ? context.payload.issue.number : context.payload.pull_request.number,
+                body: 'Please add the required classification header to this issue/PR.'
+              });
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue ? context.payload.issue.number : context.payload.pull_request.number,
+                labels: ['needs-classification']
+              });
+            }
+
+      - name: Label Security Issues
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const securityKeywords = ['vulnerability', 'security', 'exploit', 'breach', 'CVE'];
+            const body = context.payload.issue.body.toLowerCase();
+            const title = context.payload.issue.title.toLowerCase();
+            if (securityKeywords.some(keyword => body.includes(keyword) || title.includes(keyword))) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                labels: ['security']
+              });
+            }
+
+  compliance:
+    name: Compliance Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Required Information
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const requiredFields = [
+              'Security Impact:',
+              'Compliance Impact:',
+              'Risk Assessment:'
+            ];
+            const body = context.payload.issue ? context.payload.issue.body : context.payload.pull_request.body;
+            const missingFields = requiredFields.filter(field => !body.includes(field));
+            if (missingFields.length > 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue ? context.payload.issue.number : context.payload.pull_request.number,
+                body: `Please add the following required fields:\n${missingFields.join('\n')}`
+              });
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue ? context.payload.issue.number : context.payload.pull_request.number,
+                labels: ['needs-info']
+              });
+            }
+
+  stale:
+    name: Stale Issue Management
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v8
+        with:
+          stale-issue-message: 'This issue has been automatically marked as stale due to inactivity. It will be closed if no further activity occurs.'
+          stale-pr-message: 'This PR has been automatically marked as stale due to inactivity. It will be closed if no further activity occurs.'
+          stale-issue-label: 'stale'
+          stale-pr-label: 'stale'
+          days-before-stale: 30
+          days-before-close: 7
+          exempt-issue-labels: 'security,critical'
+          exempt-pr-labels: 'security,critical'
+
+  project:
+    name: Project Board Management
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add to Project Board
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const projectId = 'YOUR_PROJECT_ID';  // Replace with actual project ID
+            if (context.payload.issue) {
+              await github.rest.projects.createCard({
+                column_id: 'YOUR_COLUMN_ID',  // Replace with actual column ID
+                content_id: context.payload.issue.id,
+                content_type: 'Issue'
+              });
+            }
+
+  security-review:
+    name: Security Review
+    if: contains(github.event.issue.labels.*.name, 'security') || contains(github.event.pull_request.labels.*.name, 'security')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Security Team
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue ? context.payload.issue.number : context.payload.pull_request.number,
+              body: '@security-team Please review this security-related issue/PR.'
+            });
+
+  metrics:
+    name: Issue Metrics
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Metrics
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const metrics = {
+              openIssues: 0,
+              securityIssues: 0,
+              criticalIssues: 0
+            };
+            // Add metrics collection logic here
+            console.log('Issue Metrics:', metrics);
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+  projects: write

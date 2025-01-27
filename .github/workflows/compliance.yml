@@ -1,0 +1,169 @@
+name: Compliance Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+  workflow_dispatch:
+
+jobs:
+  stig-compliance:
+    name: DISA STIG Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install OpenSCAP
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openscap-scanner scap-security-guide
+      
+      - name: Run STIG Scan
+        run: |
+          oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig \
+            --results stig-results.xml \
+            --report stig-report.html \
+            /usr/share/xml/scap/ssg/content/ssg-ubuntu2004-xccdf.xml
+
+      - name: Upload STIG Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: stig-results
+          path: |
+            stig-results.xml
+            stig-report.html
+
+  nist-compliance:
+    name: NIST 800-53 Controls
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install CompliancePy
+        run: pip install compliance-py
+      
+      - name: Check NIST Controls
+        run: |
+          compliance-check \
+            --framework nist-800-53 \
+            --controls AC-1,AC-2,AC-3,AC-4,AC-5,AC-6,AC-7 \
+            --output nist-report.json
+
+      - name: Upload NIST Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: nist-results
+          path: nist-report.json
+
+  cloud-compliance:
+    name: Cloud SRG Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Cloud Compliance Tools
+        run: |
+          curl -Lo ./cc-tool https://cloud-compliance-tool/latest
+          chmod +x ./cc-tool
+      
+      - name: Check Cloud SRG
+        run: |
+          ./cc-tool scan \
+            --framework dod-cloud-srg \
+            --provider aws,azure \
+            --output cloud-compliance.json
+
+      - name: Upload Cloud Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: cloud-results
+          path: cloud-compliance.json
+
+  container-compliance:
+    name: Container Security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Iron Bank Compliance Check
+        uses: platform-one/iron-bank-check@v1
+        with:
+          images: "*.dockerfile"
+          policy: "iron-bank-policy.yaml"
+
+      - name: Container Hardening Check
+        run: |
+          docker run --rm -v $(pwd):/workspace \
+            aquasec/trivy:latest \
+            image --compliance=k8s-cis \
+            --format json \
+            --output compliance-report.json \
+            your-image:tag
+
+      - name: Upload Container Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: container-results
+          path: compliance-report.json
+
+  compliance-report:
+    name: Generate Compliance Report
+    needs: [stig-compliance, nist-compliance, cloud-compliance, container-compliance]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download All Results
+        uses: actions/download-artifact@v3
+        with:
+          path: compliance-results
+
+      - name: Generate Combined Report
+        run: |
+          python .github/scripts/generate_compliance_report.py \
+            --input-dir compliance-results \
+            --output compliance-summary.pdf
+
+      - name: Upload Combined Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: compliance-summary
+          path: compliance-summary.pdf
+
+      - name: Check Compliance Status
+        run: |
+          python .github/scripts/check_compliance_status.py \
+            --input compliance-summary.pdf \
+            --threshold 90
+
+  notify-compliance:
+    name: Notify Compliance Status
+    needs: compliance-report
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Notification
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Compliance Check Failed',
+              body: `Compliance checks failed in workflow ${context.workflow}
+                     Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            }
+            await github.rest.issues.create(issue)
+
+permissions:
+  contents: read
+  security-events: write
+  issues: write

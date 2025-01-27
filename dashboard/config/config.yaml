@@ -1,0 +1,130 @@
+# DoD Cybersecurity Operations Dashboard Configuration
+# Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+
+# Application Settings
+app:
+  title: "DoD Cybersecurity Operations Dashboard"
+  theme: "light"
+  classification: "UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)"
+  refresh_interval: 300  # seconds
+
+# Security Settings
+security:
+  session_timeout: 1800  # 30 minutes
+  max_login_attempts: 3
+  password_policy:
+    min_length: 14
+    require_uppercase: true
+    require_lowercase: true
+    require_numbers: true
+    require_special: true
+  headers:
+    X-Frame-Options: "DENY"
+    X-Content-Type-Options: "nosniff"
+    X-XSS-Protection: "1; mode=block"
+    Content-Security-Policy: "default-src 'self'"
+
+# Data Sources
+datasources:
+  aws:
+    region: "us-gov-west-1"
+    services:
+      - "cloudwatch"
+      - "guardduty"
+      - "securityhub"
+      - "config"
+  azure:
+    environment: "AzureUSGovernment"
+    services:
+      - "monitor"
+      - "sentinel"
+      - "security-center"
+      - "log-analytics"
+  platform_one:
+    api_endpoint: "https://api.platform-one.mil"
+    services:
+      - "iron-bank"
+      - "big-bang"
+      - "devsecops"
+
+# Monitoring Configuration
+monitoring:
+  metrics:
+    collection_interval: 60  # seconds
+    retention_period: 90  # days
+  alerts:
+    severity_levels:
+      - CRITICAL
+      - HIGH
+      - MEDIUM
+      - LOW
+    notification_channels:
+      - email
+      - teams
+      - jira
+
+# Compliance Settings
+compliance:
+  frameworks:
+    - name: "NIST RMF"
+      version: "2.0"
+      controls_file: "controls/rmf_controls.yaml"
+    - name: "DISA STIG"
+      version: "latest"
+      controls_file: "controls/stig_controls.yaml"
+    - name: "Zero Trust"
+      version: "1.0"
+      controls_file: "controls/zero_trust_controls.yaml"
+  scanning:
+    frequency: "daily"
+    tools:
+      - name: "OpenSCAP"
+        config_file: "scanners/openscap_config.yaml"
+      - name: "Tenable"
+        config_file: "scanners/tenable_config.yaml"
+
+# Reporting Configuration
+reporting:
+  formats:
+    - pdf
+    - html
+    - csv
+  templates:
+    directory: "templates/"
+    default: "standard_report.html"
+  classification_marking:
+    header: true
+    footer: true
+    watermark: true
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  handlers:
+    file:
+      filename: "logs/dashboard.log"
+      max_size: 10485760  # 10MB
+      backup_count: 5
+    syslog:
+      enabled: true
+      facility: "local0"
+
+# Performance Settings
+performance:
+  cache:
+    enabled: true
+    ttl: 300  # seconds
+  database:
+    pool_size: 10
+    timeout: 30
+  api:
+    rate_limit: 100  # requests per minute
+    timeout: 30  # seconds
+
+# Feature Flags
+features:
+  enable_threat_intel: true
+  enable_ai_analytics: true
+  enable_automated_response: false
+  enable_custom_reports: true

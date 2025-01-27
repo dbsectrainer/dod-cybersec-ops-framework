@@ -1,0 +1,189 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Static Code Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+
+      - name: Run Prettier
+        run: npx prettier --check .
+
+      - name: TypeScript Check
+        run: npx tsc --noEmit
+
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=dod-cybersec-ops-framework
+            -Dsonar.organization=dod-org
+            -Dsonar.sources=.
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**
+            -Dsonar.tests=**/tests/**
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
+  code-coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests with Coverage
+        run: npm run test:coverage
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/
+
+  complexity-check:
+    name: Code Complexity Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: |
+          npm install -g complexity-report
+          npm install -g plato
+
+      - name: Generate Complexity Report
+        run: |
+          cr src/ --format markdown > complexity-report.md
+          plato -r -d plato-report src/
+
+      - name: Upload Complexity Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-analysis
+          path: |
+            complexity-report.md
+            plato-report/
+
+  best-practices:
+    name: Best Practices Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check File Structure
+        run: |
+          bash .github/scripts/check-file-structure.sh
+
+      - name: Check Naming Conventions
+        run: |
+          bash .github/scripts/check-naming-conventions.sh
+
+      - name: Check Documentation Coverage
+        run: |
+          bash .github/scripts/check-documentation.sh
+
+      - name: Check for Sensitive Data
+        uses: zricethezav/gitleaks-action@master
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+
+      - name: Check Dependencies
+        uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: moderate
+          deny-licenses: GPL-1.0-or-later, LGPL-2.0-or-later
+
+      - name: Check for Outdated Packages
+        run: |
+          npm outdated || true
+          echo "::warning::Found outdated packages"
+
+  quality-gate:
+    name: Quality Gate
+    needs: [lint, sonarcloud, code-coverage, complexity-check, best-practices, dependency-review]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Quality Gate Status
+        run: |
+          if [ "${{ needs.sonarcloud.result }}" != "success" ]; then
+            echo "Quality gate failed: SonarCloud analysis failed"
+            exit 1
+          fi
+          if [ "${{ needs.code-coverage.result }}" != "success" ]; then
+            echo "Quality gate failed: Insufficient code coverage"
+            exit 1
+          fi
+
+  notify-quality:
+    name: Notify Quality Status
+    needs: quality-gate
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Notification
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Code Quality Check Failed',
+              body: `Code quality checks failed in workflow ${context.workflow}
+                     Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            }
+            await github.rest.issues.create(issue)
+
+permissions:
+  contents: read
+  security-events: write
+  issues: write

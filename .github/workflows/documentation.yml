@@ -1,0 +1,147 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - '**.md'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - '**.md'
+  workflow_dispatch:
+
+jobs:
+  markdown-lint:
+    name: Lint Markdown Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install markdownlint
+        run: npm install -g markdownlint-cli
+
+      - name: Run markdownlint
+        run: markdownlint '**/*.md' --ignore node_modules
+        
+  broken-links:
+    name: Check Broken Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install markdown-link-check
+        run: npm install -g markdown-link-check
+        
+      - name: Check Links
+        run: |
+          find . -name \*.md -exec markdown-link-check {} \;
+
+  classification-check:
+    name: Check Classification Markings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Check Classification Headers
+        run: |
+          #!/bin/bash
+          for file in $(find . -name "*.md"); do
+            if ! grep -q "Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)" "$file"; then
+              echo "Error: Missing classification header in $file"
+              exit 1
+            fi
+          done
+
+  diagrams:
+    name: Generate Diagrams
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install Mermaid CLI
+        run: npm install -g @mermaid-js/mermaid-cli
+        
+      - name: Generate SVG Diagrams
+        run: |
+          for file in docs/diagrams/*.mmd; do
+            mmdc -i "$file" -o "${file%.mmd}.svg"
+          done
+          
+      - name: Install Graphviz
+        run: sudo apt-get install -y graphviz
+        
+      - name: Generate DOT Diagrams
+        run: |
+          for file in docs/diagrams/*.dot; do
+            dot -Tsvg "$file" -o "${file%.dot}.svg"
+          done
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: diagrams
+          path: docs/diagrams/*.svg
+
+  pdf-generation:
+    name: Generate PDF Documentation
+    runs-on: ubuntu-latest
+    needs: [markdown-lint, broken-links, classification-check]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install md-to-pdf
+        run: npm install -g md-to-pdf
+        
+      - name: Generate PDFs
+        run: |
+          find docs -name "*.md" -exec sh -c 'md-to-pdf "$1" --config-file .github/workflows/pdf-config.json' _ {} \;
+          
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-pdfs
+          path: docs/**/*.pdf
+
+  update-wiki:
+    name: Update GitHub Wiki
+    runs-on: ubuntu-latest
+    needs: [markdown-lint, broken-links, classification-check]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Upload Documentation to Wiki
+        uses: SwiftDocOrg/github-wiki-publish-action@v1
+        with:
+          path: "docs"
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
+permissions:
+  contents: read
+  pages: write
