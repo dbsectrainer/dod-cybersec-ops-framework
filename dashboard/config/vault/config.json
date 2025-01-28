@@ -1,0 +1,59 @@
+{
+  "backend": {
+    "file": {
+      "path": "/vault/file"
+    }
+  },
+  "listener": {
+    "tcp": {
+      "address": "0.0.0.0:8200",
+      "tls_disable": 1
+    }
+  },
+  "ui": true,
+  "disable_mlock": true,
+  "api_addr": "http://0.0.0.0:8200",
+  "storage": {
+    "file": {
+      "path": "/vault/file"
+    }
+  },
+  "default_lease_ttl": "168h",
+  "max_lease_ttl": "720h",
+  "plugin_directory": "/vault/plugins",
+  "log_level": "INFO",
+  "secrets": {
+    "kv": {
+      "path": "secret/",
+      "description": "Key-Value store for application secrets",
+      "default_lease_ttl": "168h",
+      "max_lease_ttl": "720h",
+      "sample_data": {
+        "application/database": {
+          "username": "app_user",
+          "password": "sample_password_123",
+          "host": "db.example.com",
+          "port": "5432",
+          "database": "appdb"
+        },
+        "application/api": {
+          "key": "sample_api_key_xyz",
+          "endpoint": "https://api.example.com",
+          "timeout": "30s"
+        },
+        "application/smtp": {
+          "host": "smtp.example.com",
+          "port": "587",
+          "username": "notifications@example.com",
+          "password": "sample_smtp_pass"
+        }
+      }
+    },
+    "pki": {
+      "path": "pki/",
+      "description": "PKI secrets engine for certificate management",
+      "default_lease_ttl": "8760h",
+      "max_lease_ttl": "87600h"
+    }
+  }
+}
