@@ -6,10 +6,33 @@ Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
 
 import streamlit as st
 import plotly.express as px
-import plotly.graph_objects as go
 from datetime import datetime, timedelta
-import pandas as pd
-import numpy as np
+
+from auth import (
+    show_dod_banner,
+    check_password,
+    check_session_timeout,
+    show_system_status,
+    log_security_event
+)
+
+from utils import (
+    generate_incident_data,
+    generate_compliance_data,
+    generate_system_health,
+    get_mock_incidents,
+    get_cloud_resources,
+    get_control_status,
+    get_resource_metrics,
+    get_team_metrics,
+    get_security_metrics,
+    generate_mock_report,
+    format_classification_banner,
+    format_footer,
+    format_metric_container,
+    format_alert,
+    format_table
+)
 
 # Security Headers
 st.set_page_config(
@@ -19,75 +42,32 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# DoD Warning Banner
-def show_dod_banner():
-    st.markdown("""
-    <div style='background-color: #002D62; color: white; padding: 15px; margin-bottom: 20px; text-align: left; font-family: monospace;'>
-    You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
-
-    By using this IS (which includes any device attached to this IS), you consent to the following conditions:
-    - The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
-    - At any time, the USG may inspect and seize data stored on this IS.
-    - Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
-    - This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
-    - Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
-    </div>
-    """, unsafe_allow_html=True)
-
-# Authentication
-def check_password():
-    """Returns `True` if the user had a correct password."""
-    def password_entered():
-        if (
-            st.session_state["username"] in st.secrets["passwords"]
-            and st.session_state["password"]
-            == st.secrets["passwords"][st.session_state["username"]]
-        ):
-            st.session_state["password_correct"] = True
-            del st.session_state["password"]  # Don't store password
-            del st.session_state["username"]
-        else:
-            st.session_state["password_correct"] = False
-
-    if "password_correct" not in st.session_state:
-        # First run, show inputs for username + password
-        st.text_input("Username", key="username")
-        st.text_input("Password", type="password", key="password")
-        st.button("Login", on_click=password_entered)
-        return False
-    elif not st.session_state["password_correct"]:
-        # Password not correct, show input + error
-        st.text_input("Username", key="username")
-        st.text_input("Password", type="password", key="password")
-        st.error("😕 User not known or password incorrect")
-        st.button("Login", on_click=password_entered)
-        return False
-    else:
-        # Password correct
-        return True
-
 # Show DoD banner before login
 show_dod_banner()
 
+# Check authentication
 if not check_password():
     st.stop()
 
+# Check session timeout
+check_session_timeout()
+
 # Classification Banner
-st.markdown("""
-    <div style='background-color: #f0f2f6; padding: 10px; text-align: center; font-weight: bold;'>
-        UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown(format_classification_banner(), unsafe_allow_html=True)
 
 # Title
 st.title("DoD Cybersecurity Operations Dashboard")
 st.markdown(f"*Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} EST*")
 
-# Sidebar
+# Show system status in sidebar
+show_system_status()
+
+# Sidebar Navigation
 st.sidebar.title("Navigation")
 
 # Add logout button
 if st.sidebar.button("Logout"):
+    log_security_event('logout', 'User logged out')
     st.session_state["password_correct"] = False
     st.rerun()
 
@@ -97,24 +77,9 @@ page = st.sidebar.radio(
      "Incident Response", "Asset Management", "Compliance Reports"]
 )
 
-# Mock Data Generation Functions
-def generate_incident_data():
-    dates = pd.date_range(start='2025-01-01', end='2025-01-27', freq='D')
-    incidents = np.random.randint(1, 20, size=len(dates))
-    return pd.DataFrame({'Date': dates, 'Incidents': incidents})
-
-def generate_compliance_data():
-    categories = ['STIG', 'RMF', 'Zero Trust', 'Cloud Security']
-    compliance = np.random.uniform(70, 100, size=len(categories))
-    return pd.DataFrame({'Category': categories, 'Compliance': compliance})
-
-def generate_system_health():
-    services = ['AWS', 'Azure', 'Platform One', 'milCloud 2.0']
-    availability = np.random.uniform(98, 100, size=len(services))
-    return pd.DataFrame({'Service': services, 'Availability': availability})
-
 # Page Content
 if page == "Security Operations":
+    log_security_event('page_view', 'Accessed Security Operations page')
     # Security Operations Metrics
     col1, col2 = st.columns(2)
     
@@ -128,12 +93,13 @@ if page == "Security Operations":
     with col2:
         st.subheader("Alert Distribution")
         alert_types = ['Critical', 'High', 'Medium', 'Low']
-        alert_counts = np.random.randint(10, 100, size=len(alert_types))
+        alert_counts = [25, 45, 70, 30]  # More realistic distribution
         fig = px.pie(values=alert_counts, names=alert_types,
                     title='Alert Severity Distribution')
         st.plotly_chart(fig, use_container_width=True)
 
 elif page == "Compliance Status":
+    log_security_event('page_view', 'Accessed Compliance Status page')
     # Compliance Metrics
     st.subheader("Compliance Status Overview")
     compliance_data = generate_compliance_data()
@@ -143,15 +109,23 @@ elif page == "Compliance Status":
     
     # Control Implementation Status
     st.subheader("Control Implementation Status")
+    control_status = get_control_status()
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Implemented Controls", "342/400", "85.5%")
+        st.metric("Implemented Controls", 
+                 control_status['implemented']['value'],
+                 control_status['implemented']['percentage'])
     with col2:
-        st.metric("In Progress", "48/400", "12%")
+        st.metric("In Progress", 
+                 control_status['in_progress']['value'],
+                 control_status['in_progress']['percentage'])
     with col3:
-        st.metric("Not Started", "10/400", "2.5%")
+        st.metric("Not Started", 
+                 control_status['not_started']['value'],
+                 control_status['not_started']['percentage'])
 
 elif page == "System Health":
+    log_security_event('page_view', 'Accessed System Health page')
     # System Health Metrics
     st.subheader("System Availability")
     health_data = generate_system_health()
@@ -161,50 +135,64 @@ elif page == "System Health":
     
     # Resource Utilization
     st.subheader("Resource Utilization")
+    resource_metrics = get_resource_metrics()
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("CPU Usage", "45%", "-5%")
+        st.metric("CPU Usage", 
+                 resource_metrics['cpu']['value'],
+                 resource_metrics['cpu']['delta'])
     with col2:
-        st.metric("Memory Usage", "62%", "3%")
+        st.metric("Memory Usage", 
+                 resource_metrics['memory']['value'],
+                 resource_metrics['memory']['delta'])
     with col3:
-        st.metric("Storage Usage", "78%", "2%")
+        st.metric("Storage Usage", 
+                 resource_metrics['storage']['value'],
+                 resource_metrics['storage']['delta'])
 
 elif page == "Incident Response":
+    log_security_event('page_view', 'Accessed Incident Response page')
     # Active Incidents
     st.subheader("Active Incidents")
+    incidents = get_mock_incidents()
     
-    # Mock incident data
-    incidents = pd.DataFrame({
-        'ID': ['INC-001', 'INC-002', 'INC-003'],
-        'Severity': ['High', 'Medium', 'Critical'],
-        'Status': ['In Progress', 'Under Investigation', 'Containment'],
-        'Time': ['2h 15m', '45m', '4h 30m']
-    })
+    # Apply styling based on severity
+    def highlight_severity(row):
+        color_map = {
+            'Critical': 'background-color: rgba(220, 53, 69, 0.3)',    # Red with opacity
+            'High': 'background-color: rgba(255, 193, 7, 0.3)',        # Yellow with opacity
+            'Medium': 'background-color: rgba(13, 110, 253, 0.3)'      # Blue with opacity
+        }
+        return [color_map.get(row['Severity'], '')] * len(row)
     
-    st.table(incidents)
+    # Apply the styling to the dataframe
+    styled_incidents = incidents.style.apply(highlight_severity, axis=1)
+    
+    # Display using native Streamlit component
+    st.dataframe(styled_incidents, use_container_width=True)
     
     # Response Team Status
     st.subheader("Response Team Status")
+    team_metrics = get_team_metrics()
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Available Teams", "3/4", "-1")
+        st.metric("Available Teams", 
+                 team_metrics['available_teams']['value'],
+                 team_metrics['available_teams']['delta'])
     with col2:
-        st.metric("Average Response Time", "15 min", "-2 min")
+        st.metric("Average Response Time", 
+                 team_metrics['response_time']['value'],
+                 team_metrics['response_time']['delta'])
     with col3:
-        st.metric("Open Tickets", "5", "+2")
+        st.metric("Open Tickets", 
+                 team_metrics['open_tickets']['value'],
+                 team_metrics['open_tickets']['delta'])
 
 elif page == "Asset Management":
+    log_security_event('page_view', 'Accessed Asset Management page')
     # Asset Overview
     st.subheader("Cloud Resource Distribution")
-    
-    # Mock asset data
-    cloud_resources = {
-        'AWS GovCloud': 150,
-        'Azure Government': 120,
-        'Platform One': 80,
-        'milCloud 2.0': 50
-    }
-    
+    cloud_resources = get_cloud_resources()
     fig = px.pie(values=list(cloud_resources.values()),
                  names=list(cloud_resources.keys()),
                  title='Cloud Resource Distribution')
@@ -212,15 +200,23 @@ elif page == "Asset Management":
     
     # Security Status
     st.subheader("Security Status")
+    security_metrics = get_security_metrics()
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Compliant Systems", "385/400", "96.25%")
+        st.metric("Compliant Systems", 
+                 security_metrics['compliant_systems']['value'],
+                 security_metrics['compliant_systems']['percentage'])
     with col2:
-        st.metric("Patch Status", "398/400", "99.5%")
+        st.metric("Patch Status", 
+                 security_metrics['patch_status']['value'],
+                 security_metrics['patch_status']['percentage'])
     with col3:
-        st.metric("Security Findings", "12", "-3")
+        st.metric("Security Findings", 
+                 security_metrics['security_findings']['value'],
+                 security_metrics['security_findings']['delta'])
 
 else:  # Compliance Reports
+    log_security_event('page_view', 'Accessed Compliance Reports page')
     # Compliance Reports
     st.subheader("Compliance Report Generation")
     
@@ -235,20 +231,25 @@ else:  # Compliance Reports
     )
     
     if st.button("Generate Report"):
-        st.info("Generating report... Please wait.")
+        st.markdown(format_alert("Generating report... Please wait.", "info"), 
+                   unsafe_allow_html=True)
         # Mock report generation delay
         import time
         time.sleep(2)
-        st.success("Report generated successfully!")
+        
+        report_data = generate_mock_report(
+            report_type, 
+            date_range[0].strftime('%Y-%m-%d'),
+            date_range[1].strftime('%Y-%m-%d')
+        )
+        
+        st.markdown(format_alert("Report generated successfully!", "success"), 
+                   unsafe_allow_html=True)
         st.download_button(
             label="Download Report",
-            data="Mock report data",
+            data=report_data,
             file_name=f"{report_type.lower().replace(' ', '_')}_{date_range[0]}.pdf"
         )
 
 # Footer
-st.markdown("""
-    <div style='background-color: #f0f2f6; padding: 10px; text-align: center;'>
-        <small>DoD Cybersecurity Operations Framework - For Official Use Only</small>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown(format_footer(), unsafe_allow_html=True)
