@@ -1,0 +1,131 @@
+# DISA STIG Controls Definition
+# Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+
+V-1:
+  title: "System Access Control"
+  severity: "CAT I"
+  description: "The system must enforce access restrictions."
+  checks:
+    - type: "file_permissions"
+      path: "/etc/shadow"
+      mode: "0400"
+      owner: "root"
+      group: "root"
+    - type: "selinux_status"
+      parameters:
+        - "enforcing: true"
+        - "policy: targeted"
+
+V-2:
+  title: "Password Requirements"
+  severity: "CAT II"
+  description: "The system must enforce password complexity."
+  checks:
+    - type: "password_policy"
+      file: "/etc/security/pwquality.conf"
+      parameters:
+        - "minlen: 14"
+        - "minclass: 4"
+        - "maxrepeat: 3"
+    - type: "pam_config"
+      file: "/etc/pam.d/system-auth"
+      parameters:
+        - "remember: 5"
+        - "retry: 3"
+
+V-3:
+  title: "Audit Configuration"
+  severity: "CAT II"
+  description: "The system must generate audit records."
+  checks:
+    - type: "auditd_config"
+      file: "/etc/audit/auditd.conf"
+      parameters:
+        - "space_left_action: email"
+        - "max_log_file_action: rotate"
+    - type: "audit_rules"
+      file: "/etc/audit/rules.d/audit.rules"
+      rules:
+        - "-w /etc/passwd -p wa -k identity"
+        - "-w /etc/group -p wa -k identity"
+
+V-4:
+  title: "Network Security"
+  severity: "CAT I"
+  description: "The system must implement network security controls."
+  checks:
+    - type: "firewall_rules"
+      parameters:
+        - "default_policy: DROP"
+        - "ssh_allowed: true"
+        - "http_allowed: false"
+    - type: "network_config"
+      file: "/etc/sysctl.conf"
+      parameters:
+        - "net.ipv4.ip_forward: 0"
+        - "net.ipv4.conf.all.send_redirects: 0"
+
+V-5:
+  title: "System Integrity"
+  severity: "CAT II"
+  description: "The system must maintain system integrity."
+  checks:
+    - type: "package_check"
+      packages:
+        - "aide"
+        - "fips-mode-setup"
+    - type: "service_status"
+      services:
+        - name: "aide"
+          status: "enabled"
+        - name: "fips-mode-setup"
+          status: "enabled"
+
+V-6:
+  title: "File System Security"
+  severity: "CAT II"
+  description: "The system must implement file system security."
+  checks:
+    - type: "mount_options"
+      filesystem: "/tmp"
+      options:
+        - "noexec"
+        - "nosuid"
+        - "nodev"
+    - type: "mount_options"
+      filesystem: "/var"
+      options:
+        - "nodev"
+
+V-7:
+  title: "System Services"
+  severity: "CAT II"
+  description: "The system must disable unnecessary services."
+  checks:
+    - type: "service_disabled"
+      services:
+        - "telnet"
+        - "rsh"
+        - "ypserv"
+        - "tftp"
+    - type: "package_removed"
+      packages:
+        - "telnet-server"
+        - "rsh-server"
+        - "ypserv"
+        - "tftp-server"
+
+V-8:
+  title: "System Logging"
+  severity: "CAT II"
+  description: "The system must implement DoD-approved encryption."
+  checks:
+    - type: "rsyslog_config"
+      file: "/etc/rsyslog.conf"
+      parameters:
+        - "remote_logging: true"
+        - "encryption: true"
+    - type: "tls_config"
+      parameters:
+        - "min_version: TLSv1.2"
+        - "ciphers: HIGH:!aNULL:!MD5"

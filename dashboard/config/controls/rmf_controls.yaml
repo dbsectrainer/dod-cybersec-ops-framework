@@ -1,0 +1,96 @@
+# NIST RMF Controls Definition
+# Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+
+AC-1:
+  title: "Access Control Policy and Procedures"
+  family: "Access Control"
+  priority: P1
+  baseline: [LOW, MODERATE, HIGH]
+  checks:
+    - type: "policy_exists"
+      path: "/etc/security/access.conf"
+    - type: "process_running"
+      name: "access_control_daemon"
+    - type: "config_value"
+      file: "/etc/security/access.conf"
+      key: "enforce_policy"
+      value: "true"
+
+AC-2:
+  title: "Account Management"
+  family: "Access Control"
+  priority: P1
+  baseline: [LOW, MODERATE, HIGH]
+  checks:
+    - type: "user_audit"
+      parameters:
+        - "inactive_threshold: 90"
+        - "password_expiry: 60"
+    - type: "group_audit"
+      parameters:
+        - "privileged_groups: ['admin', 'wheel']"
+
+AU-1:
+  title: "Audit and Accountability Policy and Procedures"
+  family: "Audit and Accountability"
+  priority: P1
+  baseline: [LOW, MODERATE, HIGH]
+  checks:
+    - type: "syslog_config"
+      parameters:
+        - "retention: 90"
+        - "encryption: true"
+    - type: "audit_rules"
+      file: "/etc/audit/audit.rules"
+
+CM-1:
+  title: "Configuration Management Policy and Procedures"
+  family: "Configuration Management"
+  priority: P1
+  baseline: [LOW, MODERATE, HIGH]
+  checks:
+    - type: "file_exists"
+      path: "/etc/cm/policy.conf"
+    - type: "service_status"
+      name: "configuration_management"
+      status: "active"
+
+IA-1:
+  title: "Identification and Authentication Policy and Procedures"
+  family: "Identification and Authentication"
+  priority: P1
+  baseline: [LOW, MODERATE, HIGH]
+  checks:
+    - type: "pam_config"
+      file: "/etc/pam.d/system-auth"
+    - type: "mfa_enabled"
+      parameters:
+        - "required: true"
+
+SC-1:
+  title: "System and Communications Protection Policy and Procedures"
+  family: "System and Communications Protection"
+  priority: P1
+  baseline: [LOW, MODERATE, HIGH]
+  checks:
+    - type: "firewall_status"
+      parameters:
+        - "enabled: true"
+    - type: "encryption_check"
+      parameters:
+        - "algorithm: AES-256"
+        - "tls_version: '1.2'"
+
+SI-1:
+  title: "System and Information Integrity Policy and Procedures"
+  family: "System and Information Integrity"
+  priority: P1
+  baseline: [LOW, MODERATE, HIGH]
+  checks:
+    - type: "antivirus_status"
+      parameters:
+        - "updated: true"
+        - "real_time: true"
+    - type: "integrity_check"
+      parameters:
+        - "baseline_exists: true"

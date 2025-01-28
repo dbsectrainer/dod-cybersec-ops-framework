@@ -175,8 +175,11 @@ def show_login_page():
         # DoD Seal/Logo
         col1, col2, col3 = st.columns([1,2,1])
         with col2:
-            st.image("https://upload.wikimedia.org/wikipedia/commons/e/e0/United_States_Department_of_Defense_Seal.svg", 
-                     width=150)
+            try:
+                st.image("assets/dod_seal.jpeg", width=150)
+            except Exception as e:
+                st.error("Unable to load DoD seal image")
+                st.markdown("🏛️ **Department of Defense**")
         
         st.markdown("<h2 style='text-align: center;'>DoD Cybersecurity Operations Dashboard</h2>", 
                    unsafe_allow_html=True)

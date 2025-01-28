@@ -72,9 +72,6 @@ compliance:
     - name: "DISA STIG"
       version: "latest"
       controls_file: "controls/stig_controls.yaml"
-    - name: "Zero Trust"
-      version: "1.0"
-      controls_file: "controls/zero_trust_controls.yaml"
   scanning:
     frequency: "daily"
     tools:

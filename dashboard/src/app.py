@@ -31,7 +31,12 @@ from utils import (
     format_footer,
     format_metric_container,
     format_alert,
-    format_table
+    format_table,
+    LogHandler,
+    ComplianceChecker,
+    ReportGenerator,
+    load_config,
+    ComplianceStatus
 )
 
 # Security Headers
@@ -71,10 +76,16 @@ if st.sidebar.button("Logout"):
     st.session_state["password_correct"] = False
     st.rerun()
 
+# Initialize handlers
+config = load_config()
+log_handler = LogHandler(config)
+compliance_checker = ComplianceChecker(config)
+report_generator = ReportGenerator(config)
+
 page = st.sidebar.radio(
     "Select Page",
     ["Security Operations", "Compliance Status", "System Health", 
-     "Incident Response", "Asset Management", "Compliance Reports"]
+     "Incident Response", "Asset Management", "Compliance Reports", "System Logs"]
 )
 
 # Page Content
@@ -215,41 +226,131 @@ elif page == "Asset Management":
                  security_metrics['security_findings']['value'],
                  security_metrics['security_findings']['delta'])
 
+elif page == "System Logs":
+    log_security_event('page_view', 'Accessed System Logs page')
+    st.subheader("System Logs")
+    
+    # Log level filter
+    log_level = st.selectbox(
+        "Log Level",
+        ["ALL", "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+    )
+    
+    # Date range filter
+    log_date_range = st.date_input(
+        "Date Range",
+        value=(datetime.now() - timedelta(days=7), datetime.now())
+    )
+    
+    # Add log backup button
+    if st.button("Backup Logs"):
+        try:
+            log_handler.backup_logs()
+            st.markdown(format_alert("Logs backed up successfully!", "success"), 
+                       unsafe_allow_html=True)
+        except Exception as e:
+            st.markdown(format_alert(f"Error backing up logs: {str(e)}", "error"), 
+                       unsafe_allow_html=True)
+    
+    # Display logs
+    try:
+        with open(config['logging']['handlers']['file']['filename'], 'r') as f:
+            logs = f.readlines()
+        
+        # Filter logs based on selected level and date range
+        filtered_logs = []
+        for log in logs:
+            if log_level != "ALL" and log_level not in log:
+                continue
+            
+            try:
+                log_date = datetime.strptime(log.split(' - ')[0], '%Y-%m-%d %H:%M:%S,%f')
+                if (log_date.date() >= log_date_range[0] and 
+                    log_date.date() <= log_date_range[1]):
+                    filtered_logs.append(log)
+            except:
+                continue
+        
+        st.text_area("Log Output", "\n".join(filtered_logs), height=400)
+    except Exception as e:
+        st.markdown(format_alert(f"Error reading logs: {str(e)}", "error"), 
+                   unsafe_allow_html=True)
+
 else:  # Compliance Reports
     log_security_event('page_view', 'Accessed Compliance Reports page')
-    # Compliance Reports
     st.subheader("Compliance Report Generation")
     
+    # Framework selection
+    framework = st.selectbox(
+        "Select Framework",
+        ["NIST RMF", "DISA STIG"]
+    )
+    
     report_type = st.selectbox(
-        "Select Report Type",
-        ["STIG Compliance", "RMF Status", "Audit Logs", "Control Validation"]
+        "Report Type",
+        ["Full Assessment", "Control Status", "Non-Compliant Items", "Executive Summary"]
+    )
+    
+    report_format = st.selectbox(
+        "Report Format",
+        ["PDF", "HTML", "CSV"]
     )
     
     date_range = st.date_input(
-        "Select Date Range",
+        "Date Range",
         value=(datetime.now() - timedelta(days=30), datetime.now())
     )
     
     if st.button("Generate Report"):
-        st.markdown(format_alert("Generating report... Please wait.", "info"), 
-                   unsafe_allow_html=True)
-        # Mock report generation delay
-        import time
-        time.sleep(2)
-        
-        report_data = generate_mock_report(
-            report_type, 
-            date_range[0].strftime('%Y-%m-%d'),
-            date_range[1].strftime('%Y-%m-%d')
-        )
-        
-        st.markdown(format_alert("Report generated successfully!", "success"), 
-                   unsafe_allow_html=True)
-        st.download_button(
-            label="Download Report",
-            data=report_data,
-            file_name=f"{report_type.lower().replace(' ', '_')}_{date_range[0]}.pdf"
-        )
+        try:
+            st.markdown(format_alert("Running compliance checks... Please wait.", "info"), 
+                       unsafe_allow_html=True)
+            
+            # Run compliance checks
+            compliance_results = compliance_checker.check_compliance(framework)
+            
+            # Generate statistics
+            total = len(compliance_results)
+            compliant = sum(1 for r in compliance_results if r.status == ComplianceStatus.COMPLIANT)
+            non_compliant = sum(1 for r in compliance_results if r.status == ComplianceStatus.NON_COMPLIANT)
+            partial = sum(1 for r in compliance_results if r.status == ComplianceStatus.PARTIAL)
+            
+            # Display summary
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("Total Controls", total)
+            col2.metric("Compliant", compliant)
+            col3.metric("Non-Compliant", non_compliant)
+            col4.metric("Partial", partial)
+            
+            # Generate report
+            report_data = report_generator.generate_report(
+                report_type,
+                {
+                    'framework': framework,
+                    'results': compliance_results,
+                    'statistics': {
+                        'total': total,
+                        'compliant': compliant,
+                        'non_compliant': non_compliant,
+                        'partial': partial
+                    },
+                    'date_range': date_range
+                },
+                format=report_format.lower()
+            )
+            
+            st.markdown(format_alert("Report generated successfully!", "success"), 
+                       unsafe_allow_html=True)
+            
+            st.download_button(
+                label="Download Report",
+                data=report_data,
+                file_name=f"{framework.lower().replace(' ', '_')}_{report_type.lower().replace(' ', '_')}_{date_range[0]}.{report_format.lower()}"
+            )
+            
+        except Exception as e:
+            st.markdown(format_alert(f"Error generating report: {str(e)}", "error"), 
+                       unsafe_allow_html=True)
 
 # Footer
 st.markdown(format_footer(), unsafe_allow_html=True)
