@@ -152,4 +152,4 @@ permissions:
   issues: write
   pull-requests: write
   contents: read
-  projects: write
+  repository-projects: write
