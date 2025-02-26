@@ -73,7 +73,7 @@ jobs:
         run: npm run test:coverage
 
       - name: Upload Coverage Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/
@@ -100,7 +100,7 @@ jobs:
           plato -r -d plato-report src/
 
       - name: Upload Complexity Reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-analysis
           path: |

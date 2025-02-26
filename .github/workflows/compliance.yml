@@ -29,7 +29,7 @@ jobs:
             /usr/share/xml/scap/ssg/content/ssg-ubuntu2004-xccdf.xml
 
       - name: Upload STIG Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: stig-results
           path: |
@@ -58,7 +58,7 @@ jobs:
             --output nist-report.json
 
       - name: Upload NIST Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: nist-results
           path: nist-report.json
@@ -82,7 +82,7 @@ jobs:
             --output cloud-compliance.json
 
       - name: Upload Cloud Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cloud-results
           path: cloud-compliance.json
@@ -109,7 +109,7 @@ jobs:
             your-image:tag
 
       - name: Upload Container Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: container-results
           path: compliance-report.json
@@ -122,7 +122,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Download All Results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: compliance-results
 
@@ -133,7 +133,7 @@ jobs:
             --output compliance-summary.pdf
 
       - name: Upload Combined Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: compliance-summary
           path: compliance-summary.pdf

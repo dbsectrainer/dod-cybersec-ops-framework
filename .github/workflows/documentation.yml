@@ -95,7 +95,7 @@ jobs:
           done
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: diagrams
           path: docs/diagrams/*.svg
@@ -120,7 +120,7 @@ jobs:
           find docs -name "*.md" -exec sh -c 'md-to-pdf "$1" --config-file .github/workflows/pdf-config.json' _ {} \;
           
       - name: Upload PDFs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: documentation-pdfs
           path: docs/**/*.pdf

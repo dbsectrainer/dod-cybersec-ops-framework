@@ -45,7 +45,7 @@ jobs:
           --enableExperimental
 
     - name: Upload Dependency Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
         name: Dependency Check Report
@@ -64,7 +64,7 @@ jobs:
           /usr/share/xml/scap/ssg/content/ssg-ubuntu2004-xccdf.xml
 
     - name: Upload STIG Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
         name: STIG Compliance Report
