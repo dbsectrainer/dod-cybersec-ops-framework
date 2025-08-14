@@ -23,11 +23,10 @@ The framework consists of four main components:
 cd dashboard
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 
-# Configure application
-cp config/config.yaml.example config/config.yaml
-# Edit config.yaml with your settings
+# Configure application (copy and edit from existing config)
+# Edit config/config.yaml with your settings
 
 # Run the dashboard
 cd src
@@ -37,14 +36,13 @@ streamlit run app.py
 
 ### Testing
 ```bash
-# Unit tests
-pytest dashboard/tests/unit
+# Basic syntax check
+python -m py_compile dashboard/src/app.py
 
-# Integration tests  
-pytest dashboard/tests/integration
-
-# Run with coverage
-pytest --cov=src dashboard/tests/
+# Code quality checks (if tests are implemented)
+# pytest dashboard/tests/unit
+# pytest dashboard/tests/integration
+# pytest --cov=src dashboard/tests/
 ```
 
 ### Code Quality
@@ -84,15 +82,15 @@ dashboard/
 ├── src/
 │   ├── app.py              # Main Streamlit application entry point
 │   ├── auth/               # Authentication modules (PIV/CAC, session management)
-│   └── utils/              # Utilities (compliance, data processing, logging)
+│   ├── utils/              # Utilities (compliance, data processing, logging)
+│   └── utils.py            # Legacy utility functions (being modularized)
 ├── config/
 │   ├── controls/           # Compliance controls (RMF, STIG YAML definitions)
 │   ├── grafana/            # Grafana dashboards and datasource configs
 │   ├── prometheus/         # Prometheus configuration and alerting rules
-│   └── vault/              # HashiCorp Vault policies and configuration
-├── tests/
-│   ├── unit/               # Unit tests
-│   └── integration/        # Integration tests
+│   ├── alertmanager/       # AlertManager configuration
+│   └── config.yaml         # Main dashboard configuration
+├── .streamlit/             # Streamlit configuration
 └── docker-compose.yml      # Multi-service development environment
 ```
 
