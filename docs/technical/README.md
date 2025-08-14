@@ -9,22 +9,22 @@ This documentation provides detailed technical specifications, implementation gu
 ## Implementation Guidelines
 
 ### Infrastructure Setup
-- [Cloud Environment Setup](implementation/cloud-setup.md)
-- [Network Configuration](implementation/network-config.md)
-- [Security Controls](implementation/security-controls.md)
-- [Monitoring Implementation](implementation/monitoring-setup.md)
+- Cloud Environment Setup (TBD)
+- Network Configuration (TBD)
+- Security Controls (TBD)
+- Monitoring Implementation (TBD)
 
 ### Tool Integration
-- [SIEM Deployment](implementation/siem-deployment.md)
-- [EDR/XDR Setup](implementation/edr-setup.md)
-- [SOAR Integration](implementation/soar-integration.md)
-- [Vulnerability Management](implementation/vuln-management.md)
+- SIEM Deployment (TBD)
+- EDR/XDR Setup (TBD)
+- SOAR Integration (TBD)
+- Vulnerability Management (TBD)
 
 ### DevSecOps Pipeline
-- [CI/CD Implementation](implementation/cicd-setup.md)
-- [Security Scanning](implementation/security-scanning.md)
-- [Container Security](implementation/container-security.md)
-- [Artifact Management](implementation/artifact-management.md)
+- CI/CD Implementation (TBD)
+- Security Scanning (TBD)
+- Container Security (TBD)
+- Artifact Management (TBD)
 
 ## Configuration Standards
 
