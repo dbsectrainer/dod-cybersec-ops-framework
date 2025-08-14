@@ -183,7 +183,7 @@ This security policy is reviewed and updated:
 - When requirements change
 - As needed for clarity
 
-Last Updated: January 27, 2025
+Last Updated: August 14, 2025
 
 ## Additional Resources
 
