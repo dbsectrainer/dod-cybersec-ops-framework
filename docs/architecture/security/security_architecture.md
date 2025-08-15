@@ -260,4 +260,4 @@ This document details the security architecture for the DoD Cybersecurity Operat
 - Monitoring Setup
 - Incident Response
 
-Last Updated: January 27, 2025
+Last Updated: August 14, 2025

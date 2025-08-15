@@ -73,6 +73,10 @@ reports/
 htmlcov/
 .tox/
 junit/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Documentation build
 docs/_build/

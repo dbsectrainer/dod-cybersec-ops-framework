@@ -4,6 +4,9 @@
 # Use Iron Bank's hardened Python image
 FROM registry1.dso.mil/ironbank/opensource/python/python39:latest
 
+# For development/testing in standard environments, use:
+# FROM python:3.9-slim
+
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \

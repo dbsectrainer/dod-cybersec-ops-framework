@@ -3,7 +3,7 @@
 **Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)**
 
 **Version: 1.0.0**
-**Last Updated: January 27, 2025**
+**Last Updated: August 14, 2025**
 
 ## Overview
 
@@ -25,20 +25,20 @@ A comprehensive cybersecurity framework designed for Department of Defense (DoD)
 Our architecture is documented through a series of comprehensive diagrams:
 
 1. **Core Architecture**
-   - [High-Level Architecture](docs/diagrams/architecture.svg)
-   - [Zero Trust Implementation](docs/diagrams/zero_trust.svg)
-   - [Network Security](docs/diagrams/network_security.svg)
-   - [Cloud Integration](docs/diagrams/cloud_integration.svg)
+   - [High-Level Architecture](docs/diagrams/high_level_architecture.dot)
+   - [Zero Trust Implementation](docs/diagrams/zero_trust.mmd)
+   - [Network Security](docs/diagrams/network_security.mmd)
+   - [Cloud Integration](docs/diagrams/cloud_integration.mmd)
 
 2. **Process Flows**
-   - [Incident Response Workflow](docs/diagrams/incident_response.svg)
-   - [DevSecOps Pipeline](docs/diagrams/devsecops_pipeline.svg)
-   - [Data Flow](docs/diagrams/data_flow.svg)
-   - [Risk Assessment](docs/diagrams/risk_assessment.svg)
+   - [Incident Response Workflow](docs/diagrams/incident_response.mmd)
+   - [DevSecOps Pipeline](docs/diagrams/devsecops_pipeline.mmd)
+   - [Data Flow](docs/diagrams/data_flow.mmd)
+   - [Risk Assessment](docs/diagrams/risk_assessment.mmd)
 
 3. **Monitoring & Compliance**
-   - [Security Monitoring](docs/diagrams/security_monitoring.svg)
-   - [Compliance Framework](docs/diagrams/compliance_framework.svg)
+   - [Security Monitoring](docs/diagrams/security_monitoring.mmd)
+   - [Compliance Framework](docs/diagrams/compliance_framework.mmd)
 
 ### Key Components
 
@@ -91,9 +91,9 @@ Our architecture is documented through a series of comprehensive diagrams:
 ### Getting Started
 
 1. Review the [Architecture Overview](docs/architecture/README.md)
-2. Follow the [Technical Implementation Guide](docs/technical/implementation/README.md)
-3. Configure [Security Controls](docs/compliance/controls/README.md)
-4. Establish [Monitoring](docs/operations/runbooks/monitoring.md)
+2. Follow the [Technical Documentation](docs/technical/README.md)
+3. Configure [Compliance Controls](docs/compliance/README.md)
+4. Establish [Operations Procedures](docs/operations/README.md)
 
 ## Security & Compliance
 

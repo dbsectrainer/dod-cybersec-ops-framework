@@ -13,14 +13,13 @@
   ```
 - **Environment Setup:**
   - Use Python 3.9+ and create a virtual environment in `dashboard/`.
-  - Install dependencies from `requirements.txt`.
+  - Install dependencies from root `requirements.txt`.
 - **Configuration:**
-  - Copy and edit `dashboard/config/config.yaml.example` to `dashboard/config/config.yaml`.
+  - Configuration is in `dashboard/config/config.yaml`.
   - Cloud credentials and authentication must be configured before running in production.
 - **Testing:**
-  - Unit tests: `pytest dashboard/tests/unit`
-  - Integration tests: `pytest dashboard/tests/integration`
-  - Coverage: `pytest --cov=src dashboard/tests/`
+  - Basic syntax check: `python -m py_compile dashboard/src/app.py`
+  - Code quality: `flake8 dashboard/src/` and `black dashboard/src/`
 - **Containerization:**
   - Build with `docker build -t dod-cybersec-dashboard .` from `dashboard/`.
 

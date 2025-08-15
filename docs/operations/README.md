@@ -15,36 +15,36 @@ This documentation provides comprehensive operational procedures, playbooks, and
 - Threat Hunting Team
 
 ### Monitoring & Detection
-- [SIEM Implementation](runbooks/siem-setup.md)
-- [EDR/XDR Configuration](runbooks/edr-setup.md)
-- [Log Management](runbooks/log-management.md)
-- [Alert Triage](runbooks/alert-triage.md)
+- SIEM Implementation (TBD)
+- EDR/XDR Configuration (TBD)
+- Log Management (TBD)
+- Alert Triage (TBD)
 
 ### Response Procedures
-- [Incident Response](playbooks/incident-response.md)
-- [Threat Hunting](playbooks/threat-hunting.md)
-- [Malware Analysis](playbooks/malware-analysis.md)
-- [Forensics](playbooks/forensics.md)
+- Incident Response (TBD)
+- Threat Hunting (TBD)
+- Malware Analysis (TBD)
+- Forensics (TBD)
 
 ## Standard Operating Procedures (SOPs)
 
 ### Daily Operations
-- [Security Monitoring](sop/security-monitoring.md)
-- [Alert Management](sop/alert-management.md)
-- [Access Control](sop/access-control.md)
-- [Change Management](sop/change-management.md)
+- Security Monitoring (TBD)
+- Alert Management (TBD)
+- Access Control (TBD)
+- Change Management (TBD)
 
 ### Incident Management
-- [Classification Guide](sop/incident-classification.md)
-- [Escalation Procedures](sop/escalation-procedures.md)
-- [Communication Plan](sop/communication-plan.md)
-- [Recovery Procedures](sop/recovery-procedures.md)
+- Classification Guide (TBD)
+- Escalation Procedures (TBD)
+- Communication Plan (TBD)
+- Recovery Procedures (TBD)
 
 ### Maintenance
-- [System Updates](sop/system-updates.md)
-- [Backup Procedures](sop/backup-procedures.md)
-- [Configuration Management](sop/config-management.md)
-- [Performance Monitoring](sop/performance-monitoring.md)
+- System Updates (TBD)
+- Backup Procedures (TBD)
+- Configuration Management (TBD)
+- Performance Monitoring (TBD)
 
 ## Cloud Operations
 
@@ -180,4 +180,4 @@ This documentation provides comprehensive operational procedures, playbooks, and
 - Industry Standards
 - Regulatory Requirements
 
-Last Updated: January 27, 2025
+Last Updated: August 14, 2025
