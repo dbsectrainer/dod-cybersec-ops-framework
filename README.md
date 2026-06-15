@@ -1,166 +1,282 @@
-# Department of Defense Cybersecurity Operations and Incident Response Framework
+# DoD Cybersecurity Operations Framework
 
-**Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)**
+> Comprehensive DoD cybersecurity operations and incident response framework for multi-cloud DevSecOps environments, aligned to DoD 8570 and NIST RMF.
 
-**Version: 1.0.0**
-**Last Updated: August 14, 2025**
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/) [![DoD 8570](https://img.shields.io/badge/DoD-8570-darkgreen.svg)](https://public.cyber.mil/workforce/dod8570/) [![NIST RMF](https://img.shields.io/badge/NIST-RMF-darkblue.svg)](https://csrc.nist.gov/projects/risk-management) [![FedRAMP Moderate](https://img.shields.io/badge/FedRAMP-Moderate-orange.svg)](https://www.fedramp.gov/) [![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+
+---
 
 ## Overview
 
-A comprehensive cybersecurity framework designed for Department of Defense (DoD) agencies implementing DevSecOps in multi-cloud environments. This framework provides a structured approach to cybersecurity operations and incident response, adhering to DoD 8570 directives and integrating with key security frameworks including NIST RMF, CNSS, and DoD Enterprise DevSecOps Reference Design.
+1. Implements a Zero Trust security layer with PIV/CAC authentication, role-based access control, continuous verification, and micro-segmentation across multi-cloud government environments.
+2. Provides a Streamlit-based Security Operations dashboard for 24/7 SOC monitoring, automated incident response, threat hunting, and compliance status visualization.
+3. Integrates with AWS GovCloud, Azure Government, Platform One, and milCloud 2.0 for a unified multi-cloud security posture.
+4. Enforces compliance with DoD 8570/8140, NIST SP 800-53 Rev 5, DISA STIGs, and the DoD Enterprise DevSecOps Reference Design through automated control validation.
+5. Embeds a secure CI/CD pipeline with container security scanning, automated testing, and compliance validation gates at every stage of the software delivery lifecycle.
+6. Delivers structured operational documentation covering architecture, compliance controls, incident response playbooks, and standard operating procedures for DoD agency adoption.
 
-## Quick Links
+---
 
-- [Enterprise Architecture](docs/ENTERPRISE.md)
-- [Technical Documentation](docs/technical/README.md)
-- [Compliance Documentation](docs/compliance/README.md)
-- [Operations Guide](docs/operations/README.md)
-- [Development Roadmap](docs/ROADMAP.md)
-- [Security Policy](SECURITY.md)
-- [Contributing Guidelines](CONTRIBUTING.md)
+## Architecture
 
-## Architecture Overview
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     Zero Trust Security Layer                   │
+│         PIV/CAC Auth │ RBAC │ Continuous Verification           │
+│                     Micro-segmentation                          │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│               Multi-Cloud Government Infrastructure             │
+│    ┌──────────────┐  ┌───────────────┐  ┌──────────────────┐   │
+│    │  AWS GovCloud│  │ Azure Gov     │  │  milCloud 2.0    │   │
+│    │  (East/West) │  │ (DoD IL5)     │  │  Platform One    │   │
+│    └──────────────┘  └───────────────┘  └──────────────────┘   │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                  Security Operations Center                     │
+│     24/7 SOC │ SIEM/Splunk │ EDR/XDR │ SOAR │ Threat Hunting   │
+│              Prometheus + Grafana + ELK Stack                   │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    DevSecOps Pipeline                           │
+│    Source → SAST/DAST → Container Scan → Compliance Gate       │
+│                  → Deploy → Runtime Monitoring                  │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                  Audit & Compliance Logger                      │
+│     NIST RMF │ DoD 8570 │ DISA STIGs │ CNSS │ Control Tracking │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-### Visual Documentation
-Our architecture is documented through a series of comprehensive diagrams:
+---
 
-1. **Core Architecture**
-   - [High-Level Architecture](docs/diagrams/high_level_architecture.dot)
-   - [Zero Trust Implementation](docs/diagrams/zero_trust.mmd)
-   - [Network Security](docs/diagrams/network_security.mmd)
-   - [Cloud Integration](docs/diagrams/cloud_integration.mmd)
+## Key Features
 
-2. **Process Flows**
-   - [Incident Response Workflow](docs/diagrams/incident_response.mmd)
-   - [DevSecOps Pipeline](docs/diagrams/devsecops_pipeline.mmd)
-   - [Data Flow](docs/diagrams/data_flow.mmd)
-   - [Risk Assessment](docs/diagrams/risk_assessment.mmd)
+### Zero Trust Security
 
-3. **Monitoring & Compliance**
-   - [Security Monitoring](docs/diagrams/security_monitoring.mmd)
-   - [Compliance Framework](docs/diagrams/compliance_framework.mmd)
+The framework implements a full Zero Trust architecture aligned to NIST SP 800-207 and the DoD Zero Trust Reference Architecture, enforcing continuous verification at every layer.
 
-### Key Components
+- PIV/CAC integration for strong identity assurance at all access points
+- Role-based access control (RBAC) with least-privilege enforcement
+- Micro-segmentation of workloads across multi-cloud environments
+- Continuous session verification with configurable timeout policies
+- DoD system-use notification banners and audit logging on every login event
 
-1. **Zero Trust Security Layer**
-   - PIV/CAC Integration
-   - Role-Based Access Control
-   - Continuous Verification
-   - Micro-segmentation
+### Multi-Cloud Infrastructure
 
-2. **Multi-Cloud Infrastructure**
-   - AWS GovCloud
-   - Azure Government
-   - Platform One
-   - milCloud 2.0
+| Cloud Platform | Classification Level | Key Services |
+| --- | --- | --- |
+| AWS GovCloud | IL2–IL5 | S3, EC2, Lambda, GuardDuty |
+| Azure Government | IL4–IL5 | AKS, Key Vault, Sentinel |
+| Platform One | IL2–IL6 | Big Bang, Ironbank |
+| milCloud 2.0 | IL6 | On-prem workloads |
 
-3. **Security Operations**
-   - 24/7 SOC Operations
-   - Automated Response
-   - Threat Hunting
-   - Incident Management
+Integration libraries for AWS (boto3) and Azure (azure-identity, azure-mgmt-resource) are included in requirements, enabling unified cloud resource visibility from a single dashboard.
 
-4. **DevSecOps Integration**
-   - Secure CI/CD Pipeline
-   - Container Security
-   - Automated Testing
-   - Compliance Validation
+### Security Operations Center
 
-## Implementation Guide
+The included Streamlit dashboard (`dashboard/src/app.py`) delivers a real-time SOC interface covering:
+
+- Live incident tracking with priority classification and assignment workflows
+- Automated response runbooks triggered by SIEM alert thresholds
+- Threat hunting dashboards powered by Elasticsearch and OpenSearch
+- System health monitoring via Prometheus and Grafana with pre-configured alert rules
+- Exportable compliance and incident reports for leadership review
+
+### DevSecOps Integration
+
+The pipeline architecture enforces security gates at every stage of software delivery:
+
+- Static (SAST) and dynamic (DAST) analysis before any artifact promotion
+- Container image scanning with policy enforcement via Ironbank-compatible registries
+- Automated compliance validation against NIST controls and DISA STIGs in CI
+- Secrets management via HashiCorp Vault with policy-as-code (HCL)
+- Docker Compose and Kubernetes-ready deployment manifests under `dashboard/`
+
+### Security & Compliance
+
+- DoD 8570 / DoD 8140 workforce certification alignment (IAT/IAM/CSSP roles)
+- NIST SP 800-53 Rev 5 control families with automated tracking
+- DISA Security Technical Implementation Guides (STIGs)
+- CNSS directives integration
+- DoD Enterprise DevSecOps Reference Design
+- DoD Cloud Computing Security Requirements Guide (SRG)
+- Risk Management Framework (RMF) lifecycle support (Categorize → Select → Implement → Assess → Authorize → Monitor)
+
+---
+
+## Quick Start
 
 ### Prerequisites
 
-1. **Infrastructure Requirements**
-   - Kubernetes 1.24+
-   - HashiCorp Vault 1.12+
-   - Istio Service Mesh 1.18+
-   - Elastic Stack 8.0+
+- Python 3.12+
+- Docker and Docker Compose (for containerized deployment)
+- Kubernetes 1.24+ (for production cluster deployment)
+- HashiCorp Vault 1.12+ (for secrets management)
+- Access to a DoD-authorized cloud environment (AWS GovCloud, Azure Government, or milCloud 2.0)
 
-2. **Security Tools**
-   - SIEM Platform
-   - EDR/XDR Solution
-   - SOAR Platform
-   - Vulnerability Management
+### Local Development
 
-3. **Monitoring Tools**
-   - Prometheus
-   - Grafana Enterprise
-   - Splunk Enterprise
-   - ELK Stack
+```bash
+# Clone the repository
+git clone https://github.com/dbsectrainer/dod-cybersec-ops-framework.git
+cd dod-cybersec-ops-framework
 
-### Getting Started
+# Install Python dependencies
+pip install -r requirements.txt
 
-1. Review the [Architecture Overview](docs/architecture/README.md)
-2. Follow the [Technical Documentation](docs/technical/README.md)
-3. Configure [Compliance Controls](docs/compliance/README.md)
-4. Establish [Operations Procedures](docs/operations/README.md)
+# Configure dashboard secrets (copy and edit the template)
+cp dashboard/.streamlit/secrets.toml dashboard/src/.streamlit/secrets.toml
+# Edit secrets.toml with your environment-specific values
 
-## Security & Compliance
-
-### Security Features
-
-- Zero Trust Architecture
-- Multi-factor Authentication
-- Encryption (Data at Rest/Transit)
-- Continuous Monitoring
-- Automated Response
-
-### Compliance Standards
-
-- NIST SP 800-53 Rev 5
-- DoD Cloud Computing SRG
-- DISA STIGs
-- Zero Trust Architecture
-
-### Certification Requirements
-
-- DoD 8570/8140 Compliance
-- IAT/IAM Level Requirements
-- CSSP Role Requirements
-- Additional Certifications
-
-## Documentation Structure
-
-```
-docs/
-├── architecture/          # Architecture documentation
-│   ├── network/          # Network architecture
-│   ├── application/      # Application architecture
-│   └── security/         # Security architecture
-├── compliance/           # Compliance documentation
-│   ├── policies/         # Security policies
-│   ├── procedures/       # Security procedures
-│   └── controls/         # Security controls
-├── operations/           # Operations documentation
-│   ├── runbooks/         # Operational runbooks
-│   ├── playbooks/        # Incident response playbooks
-│   └── sop/             # Standard operating procedures
-├── technical/            # Technical documentation
-│   ├── implementation/   # Implementation guides
-│   ├── configuration/    # Configuration guides
-│   └── maintenance/      # Maintenance procedures
-└── diagrams/            # Architecture diagrams
+# Launch the Streamlit dashboard
+cd dashboard/src
+streamlit run app.py
 ```
 
-## Contributing
+The dashboard will be available at `http://localhost:8501`. A DoD system-use banner and authentication prompt will appear on first load.
 
-Please read our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting contributions. All contributions must follow the DoD Enterprise DevSecOps Contribution Guide and undergo security review.
+### Docker Deployment
 
-## Security
+```bash
+# Build and start all services (dashboard + Prometheus + Grafana + Vault)
+cd dashboard
+docker-compose up --build
 
-For security-related issues, please review our [Security Policy](SECURITY.md) and follow the vulnerability reporting procedures. Do not disclose security vulnerabilities through public GitHub issues.
+# Verify all containers are running
+docker-compose ps
+```
 
-## License
+Prometheus is available at `http://localhost:9090`, Grafana at `http://localhost:3000`.
 
-This project is licensed under [DoD Open Source Agreement Version 1.0](LICENSE).
+### Configuration
 
-## Support
+- Dashboard config: `dashboard/config/config.yaml`
+- RMF controls: `dashboard/config/controls/rmf_controls.yaml`
+- STIG controls: `dashboard/config/controls/stig_controls.yaml`
+- Alertmanager rules: `dashboard/config/alertmanager/alertmanager.yml`
+- Prometheus rules: `dashboard/config/prometheus/rules/sample_rules.yml`
+- Vault policy: `dashboard/config/vault/policies/sample_policy.hcl`
 
-### Contact Information
-- Security Team: [CONTACT INFO]
-- Development Team: [CONTACT INFO]
-- Compliance Team: [CONTACT INFO]
+---
 
-## Distribution Statement
+## Production Ready Status
 
-DISTRIBUTION STATEMENT D. Distribution authorized to the Department of Defense and U.S. DoD contractors only; Administrative/Operational Use; DATE. Other requests shall be referred to [APPROPRIATE AUTHORITY].
+**Framework and Dashboard Verified for DoD Development Environments**
+
+- Zero Trust authentication module implemented with PIV/CAC support and session management
+- Streamlit SOC dashboard with incident tracking, compliance views, and system health monitoring
+- Docker Compose stack with Prometheus, Grafana, Alertmanager, and HashiCorp Vault integration
+- RMF and STIG control configuration files present and structured for environment-specific population
+- Python dependency stack pinned with security-relevant packages (python-jose, bcrypt, passlib)
+- Compliance utilities (`dashboard/src/utils/compliance.py`) for automated control status evaluation
+- Structured logging module (`dashboard/src/utils/logging.py`) for audit-trail generation
+- Comprehensive documentation under `docs/` covering architecture, compliance, operations, and technical implementation
+
+### Verification
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run linter
+flake8 dashboard/src/
+
+# Run type checker
+mypy dashboard/src/
+
+# Run tests
+pytest
+
+# Start dashboard (expected: Streamlit server on port 8501)
+cd dashboard/src && streamlit run app.py
+```
+
+Expected output on successful startup:
+
+```
+You can now view your Streamlit app in your browser.
+Local URL: http://localhost:8501
+```
+
+---
+
+## Project Structure
+
+```
+dod-cybersec-ops-framework/
+├── dashboard/
+│   ├── .streamlit/
+│   │   └── secrets.toml
+│   ├── config/
+│   │   ├── alertmanager/
+│   │   ├── controls/
+│   │   │   ├── rmf_controls.yaml
+│   │   │   └── stig_controls.yaml
+│   │   ├── grafana/
+│   │   ├── prometheus/
+│   │   └── vault/
+│   ├── src/
+│   │   ├── app.py
+│   │   ├── auth/
+│   │   │   ├── banner.py
+│   │   │   ├── login.py
+│   │   │   └── session.py
+│   │   └── utils/
+│   │       ├── compliance.py
+│   │       ├── data.py
+│   │       ├── formatting.py
+│   │       └── logging.py
+│   ├── Dockerfile
+│   └── docker-compose.yml
+├── docs/
+│   ├── architecture/
+│   │   ├── application/
+│   │   ├── network/
+│   │   └── security/
+│   ├── compliance/
+│   ├── diagrams/
+│   ├── operations/
+│   ├── technical/
+│   ├── ENTERPRISE.md
+│   └── ROADMAP.md
+├── requirements.txt
+├── SECURITY.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── README.md
+```
+
+---
+
+## BE EASY ENTERPRISES Federal Portfolio
+
+| Showcase Project | Repository | Description |
+| --- | --- | --- |
+| **Secure RAG Pipeline** | [Secure-Generative-AI-Platform-on-AWS](https://github.com/dbsectrainer/Secure-Generative-AI-Platform-on-AWS) | AWS Bedrock + RAG with FedRAMP High alignment |
+| **DevSecOps CI/CD** | **[dod-cybersec-ops-framework](https://github.com/dbsectrainer/dod-cybersec-ops-framework)** | **This repo** |
+| **Zero Trust Architecture** | [AEGIS](https://github.com/dbsectrainer/AEGIS) | FedRAMP High + NIST 800-207 Zero Trust |
+| **FedRAMP Control Automation** | [nist_800_53_scanner](https://github.com/dbsectrainer/nist_800_53_scanner) | NIST 800-53 Rev 5 compliance scanner |
+| **Federal AI Governance** | [ai-safety-governance](https://github.com/dbsectrainer/ai-safety-governance) | EO 14110 / OMB M-24-10 aligned |
+| **CMMC 2.0 Dashboard** | [integrated-cyber-risk-compliance](https://github.com/dbsectrainer/integrated-cyber-risk-compliance) | CMMC 2.0 readiness assessment |
+| **FedRAMP 30-Day Guide** | [cloud-security-best-practices](https://github.com/dbsectrainer/cloud-security-best-practices) | Day-by-day FedRAMP implementation roadmap |
+| **Agentic AI Workflow** | [federal-doc-triage-agent](https://github.com/dbsectrainer/federal-doc-triage-agent) | Production-ready LangGraph + Bedrock triage agent |
+
+---
+
+## Author
+
+**Donnivis Baker** — [github.com/dbsectrainer](https://github.com/dbsectrainer)
+**BE EASY ENTERPRISES** — Federal IT Modernization & Cybersecurity
+
+For questions, partnerships, or federal engagement inquiries, open an issue or reach out directly.
+
+**Document Version:** 1.0 | **Last Updated:** 2026-06-15 | **DoD 8570:** IAT/IAM Level II+
