@@ -1,4 +1,8 @@
-"""Pytest configuration: make the dashboard/src packages importable."""
+"""
+Pytest configuration: make the dashboard/src packages importable.
+
+Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+"""
 
 import sys
 from pathlib import Path

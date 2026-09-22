@@ -47,12 +47,17 @@ pytest dashboard/tests/
 
 ### Code Quality
 ```bash
+# Run from dashboard/ (matching CI) so dashboard/pyproject.toml's ruff/mypy
+# config is actually picked up — running these from the repo root against
+# dashboard/src/ silently skips it.
+cd dashboard
+
 # Linting and formatting (ruff replaces black + flake8)
-ruff check dashboard/src/
-ruff format dashboard/src/
+ruff check src/
+ruff format src/
 
 # Type checking
-mypy dashboard/src/
+mypy src/
 ```
 
 ### Containerization

@@ -76,7 +76,7 @@ CMD ["streamlit", "run", "src/app.py", \
 LABEL org.opencontainers.image.title="DoD Cybersecurity Operations Dashboard" \
       org.opencontainers.image.description="Dashboard for DoD Cybersecurity Operations Framework" \
       org.opencontainers.image.vendor="Department of Defense" \
-      org.opencontainers.image.version="1.0.0" \
+      org.opencontainers.image.version="1.1.0" \
       org.opencontainers.image.created="$BUILD_DATE" \
       org.opencontainers.image.documentation="https://github.com/your-repo/dashboard/README.md" \
       org.opencontainers.image.source="https://github.com/your-repo/dashboard" \

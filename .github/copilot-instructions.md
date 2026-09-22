@@ -19,7 +19,9 @@
   - Cloud credentials and authentication must be configured before running in production.
 - **Testing:**
   - Basic syntax check: `python -m py_compile dashboard/src/app.py`
-  - Code quality: `ruff check dashboard/src/`, `ruff format --check dashboard/src/`, and `mypy dashboard/src/`
+  - Code quality (run from `dashboard/`, matching CI — `dashboard/pyproject.toml`
+    only applies when ruff/mypy are invoked from that directory):
+    `cd dashboard && ruff check src/ && ruff format --check src/ && mypy src/`
   - Tests: `pytest dashboard/tests/`
 - **Containerization:**
   - Build from the repo root (context must include both the root
