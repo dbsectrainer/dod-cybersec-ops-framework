@@ -13,13 +13,19 @@ from utils import load_config
 # values the rest of the app (and the UI copy in login.py) advertise.
 try:
     _config = load_config()
-    SESSION_TIMEOUT = _config["security"]["session_timeout"] // 60  # minutes
+    SESSION_TIMEOUT_SECONDS = _config["security"]["session_timeout"]
     MAX_LOGIN_ATTEMPTS = _config["security"]["max_login_attempts"]
 except Exception:
     # Fall back to config.yaml's documented defaults if it can't be loaded
     # (e.g. running outside the normal src/ working directory).
-    SESSION_TIMEOUT = 30  # minutes
+    SESSION_TIMEOUT_SECONDS = 1800
     MAX_LOGIN_ATTEMPTS = 3
+
+# Whole-minutes value for display only (e.g. the sidebar status panel).
+# Timeout enforcement below always uses SESSION_TIMEOUT_SECONDS directly, so a
+# sub-minute configured value can't get truncated to 0 and expire sessions
+# immediately.
+SESSION_TIMEOUT = SESSION_TIMEOUT_SECONDS // 60  # minutes
 LOCKOUT_DURATION = 30  # minutes
 
 
@@ -54,7 +60,7 @@ def check_session_timeout():
     """Check if the current session has timed out."""
     if "password_correct" in st.session_state and st.session_state.password_correct:
         time_inactive = datetime.now() - st.session_state.last_activity
-        if time_inactive.total_seconds() > SESSION_TIMEOUT * 60:
+        if time_inactive.total_seconds() > SESSION_TIMEOUT_SECONDS:
             st.session_state.password_correct = False
             st.session_state.last_activity = datetime.now()
             log_security_event("session_timeout", "Session expired due to inactivity")
@@ -130,12 +136,13 @@ def show_system_status():
 
 def get_session_info():
     """Return current session information."""
+    remaining_seconds = SESSION_TIMEOUT_SECONDS
+    if "last_activity" in st.session_state:
+        elapsed = (datetime.now() - st.session_state.last_activity).total_seconds()
+        remaining_seconds = SESSION_TIMEOUT_SECONDS - elapsed
     return {
         "session_id": id(st.session_state),
         "login_time": st.session_state.last_login_time,
         "last_activity": st.session_state.last_activity,
-        "remaining_time": SESSION_TIMEOUT
-        - ((datetime.now() - st.session_state.last_activity).seconds // 60)
-        if "last_activity" in st.session_state
-        else SESSION_TIMEOUT,
+        "remaining_time": int(remaining_seconds // 60),
     }
