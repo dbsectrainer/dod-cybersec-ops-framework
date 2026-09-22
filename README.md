@@ -196,17 +196,17 @@ Prometheus is available at `http://localhost:9090`, Grafana at `http://localhost
 ### Verification
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Install runtime + dev/lint/test dependencies
+pip install -r requirements.txt -r dashboard/requirements-dev.txt
 
-# Run linter
-flake8 dashboard/src/
-
-# Run type checker
-mypy dashboard/src/
-
-# Run tests
-pytest
+# Run from dashboard/ so dashboard/pyproject.toml's config is picked up,
+# matching how .github/workflows/ci.yml invokes these
+cd dashboard
+ruff check src/          # linter (replaces flake8)
+ruff format --check src/ # formatter check
+mypy src/                # type checker
+pytest tests/             # tests
+cd ..
 
 # Start dashboard (expected: Streamlit server on port 8501)
 cd dashboard/src && streamlit run app.py

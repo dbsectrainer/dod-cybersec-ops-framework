@@ -14,10 +14,9 @@ from .session import (
 )
 from utils import load_config
 
-try:
-    _PASSWORD_MIN_LENGTH = load_config()["security"]["password_policy"]["min_length"]
-except Exception:
-    _PASSWORD_MIN_LENGTH = 14
+# See session.py for why a missing/malformed config.yaml is allowed to
+# raise here rather than silently falling back to a default.
+_PASSWORD_MIN_LENGTH = load_config()["security"]["password_policy"]["min_length"]
 
 
 def get_system_metrics():
@@ -197,8 +196,8 @@ def show_login_page():
             unsafe_allow_html=True,
         )
 
-        # DoD Seal/Logo
-        col1, col2, col3 = st.columns([1, 2, 1])
+        # DoD Seal/Logo (outer columns are spacers, only the middle is used)
+        _, col2, _ = st.columns([1, 2, 1])
         with col2:
             try:
                 st.image("assets/dod_seal.jpeg", width=150)

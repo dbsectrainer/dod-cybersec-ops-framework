@@ -58,18 +58,19 @@ services:
     environment:
       - VAULT_ADDR=http://0.0.0.0:8200
       - VAULT_API_ADDR=http://0.0.0.0:8200
-      - VAULT_DEV_ROOT_TOKEN_ID=${VAULT_DEV_ROOT_TOKEN_ID:-dev-only-token}
-      - VAULT_TEST_USER_PASSWORD=${VAULT_TEST_USER_PASSWORD:-testpass123}
+      - VAULT_DEV_ROOT_TOKEN_ID=${VAULT_DEV_ROOT_TOKEN_ID:?Set VAULT_DEV_ROOT_TOKEN_ID in .env}
+      - VAULT_TEST_USER_PASSWORD=${VAULT_TEST_USER_PASSWORD:?Set VAULT_TEST_USER_PASSWORD in .env}
     cap_add:
       - IPC_LOCK
     # $$ (escaped) keeps Compose from splicing the token's literal value into
     # this command string at parse time — that would let a token value
     # containing shell metacharacters (e.g. `$(...)`) execute as part of the
     # command. Passing $VAULT_DEV_ROOT_TOKEN_ID through lets sh -c expand it
-    # from its own environment (set via `environment:` above) instead. The
-    # double quotes around the expansion keep a token containing whitespace
-    # as one argument instead of being word-split.
-    command: sh -c 'server -dev -dev-root-token-id="$${VAULT_DEV_ROOT_TOKEN_ID:-dev-only-token}" & sleep 10 && /vault/config/init.sh'
+    # from its own environment (set via `environment:` above, where it's
+    # required — no fallback here since none is needed). The double quotes
+    # around the expansion keep a token containing whitespace as one
+    # argument instead of being word-split.
+    command: sh -c 'server -dev -dev-root-token-id="$$VAULT_DEV_ROOT_TOKEN_ID" & sleep 10 && /vault/config/init.sh'
     restart: unless-stopped
 
   # Sample metrics generator for testing

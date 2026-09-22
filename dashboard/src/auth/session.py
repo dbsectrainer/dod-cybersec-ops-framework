@@ -11,15 +11,16 @@ from utils import load_config
 
 # Security configuration, sourced from config.yaml so it can't drift from the
 # values the rest of the app (and the UI copy in login.py) advertise.
-try:
-    _config = load_config()
-    SESSION_TIMEOUT_SECONDS = _config["security"]["session_timeout"]
-    MAX_LOGIN_ATTEMPTS = _config["security"]["max_login_attempts"]
-except Exception:
-    # Fall back to config.yaml's documented defaults if it can't be loaded
-    # (e.g. running outside the normal src/ working directory).
-    SESSION_TIMEOUT_SECONDS = 1800
-    MAX_LOGIN_ATTEMPTS = 3
+# load_config()'s default path is resolved relative to its own module
+# location (not the process CWD), so — unlike before — a missing or
+# malformed config.yaml here means a genuine misconfiguration, not just an
+# unusual launch directory. Let it raise and fail startup loudly instead of
+# silently falling back to defaults that may not match the intended
+# security posture (e.g. a deliberately shorter timeout or stricter
+# lockout threshold).
+_config = load_config()
+SESSION_TIMEOUT_SECONDS = _config["security"]["session_timeout"]
+MAX_LOGIN_ATTEMPTS = _config["security"]["max_login_attempts"]
 
 # Whole-minutes value for display only (e.g. the sidebar status panel).
 # Timeout enforcement below always uses SESSION_TIMEOUT_SECONDS directly, so a
