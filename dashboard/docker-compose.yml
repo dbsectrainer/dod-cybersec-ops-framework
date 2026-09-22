@@ -83,7 +83,13 @@ services:
     # Without it, sh exits as soon as init.sh finishes — since sh is PID 1,
     # that tears down the whole container (and the still-running Vault
     # process with it) moments after startup.
-    command: sh -c 'vault server -dev -dev-root-token-id="$$VAULT_DEV_ROOT_TOKEN_ID" & VAULT_PID=$$! && sleep 10 && /vault/config/init.sh && wait "$$VAULT_PID"'
+    #
+    # -dev-listen-address=0.0.0.0:8200 is required because -dev mode's
+    # default listener only binds 127.0.0.1 inside the container — the
+    # published "8200:8200" port and other containers reaching this one via
+    # the compose network (e.g. as `vault:8200`) would otherwise never be
+    # able to connect, even though the port mapping itself looks correct.
+    command: sh -c 'vault server -dev -dev-listen-address=0.0.0.0:8200 -dev-root-token-id="$$VAULT_DEV_ROOT_TOKEN_ID" & VAULT_PID=$$! && sleep 10 && /vault/config/init.sh && wait "$$VAULT_PID"'
     restart: unless-stopped
 
   # Sample metrics generator for testing
