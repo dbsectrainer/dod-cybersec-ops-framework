@@ -43,7 +43,7 @@ This roadmap outlines the development phases and milestones for implementing the
 ### Platform One
 - [ ] Integrate Iron Bank containers
 - [ ] Configure Big Bang deployment
-- [ ] Set up CI/CD pipeline
+- [x] Set up CI/CD pipeline (`.github/workflows/ci.yml`: lint, type-check, test, Docker build)
 - [ ] Implement security scanning
 
 ## Phase 3: Security Operations (Q3 2025)

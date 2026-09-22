@@ -115,11 +115,8 @@ pip install -r requirements-dev.txt
 ### Running Tests
 
 ```bash
-# Run unit tests
-pytest tests/unit
-
-# Run integration tests
-pytest tests/integration
+# Run the test suite
+pytest tests/
 
 # Run with coverage
 pytest --cov=src tests/

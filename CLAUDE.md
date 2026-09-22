@@ -23,10 +23,12 @@ The framework consists of four main components:
 cd dashboard
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
-pip install -r ../requirements.txt
+pip install -r ../requirements.txt -r requirements-dev.txt
 
 # Configure application (copy and edit from existing config)
-# Edit config/config.yaml with your settings
+cp config/config.yaml.example config/config.yaml
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+# Edit both with your settings
 
 # Run the dashboard
 cd src
@@ -39,19 +41,15 @@ streamlit run app.py
 # Basic syntax check
 python -m py_compile dashboard/src/app.py
 
-# Code quality checks (if tests are implemented)
-# pytest dashboard/tests/unit
-# pytest dashboard/tests/integration
-# pytest --cov=src dashboard/tests/
+# Test suite
+pytest dashboard/tests/
 ```
 
 ### Code Quality
 ```bash
-# Code formatting
-black dashboard/src/
-
-# Linting
-flake8 dashboard/src/
+# Linting and formatting (ruff replaces black + flake8)
+ruff check dashboard/src/
+ruff format dashboard/src/
 
 # Type checking
 mypy dashboard/src/
