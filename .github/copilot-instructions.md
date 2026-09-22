@@ -22,7 +22,11 @@
   - Code quality: `ruff check dashboard/src/`, `ruff format --check dashboard/src/`, and `mypy dashboard/src/`
   - Tests: `pytest dashboard/tests/`
 - **Containerization:**
-  - Build with `docker build -t dod-cybersec-dashboard .` from `dashboard/`.
+  - Build from the repo root (context must include both the root
+    `requirements.txt` and the `dashboard/` subtree):
+    `docker build -f dashboard/Dockerfile -t dod-cybersec-dashboard .`
+  - Without Iron Bank registry access, add
+    `--build-arg BASE_IMAGE=python:3.12-slim`.
 
 ## Project-Specific Patterns & Conventions
 - **Classification Markings:** All files must include DoD classification headers.

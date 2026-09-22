@@ -1,13 +1,16 @@
 # DoD Cybersecurity Operations Dashboard Dockerfile
 # Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
 
-# Use Iron Bank's hardened Python image
-# NOTE: verify this is still the current Iron Bank Python 3.12 tag at build time
-# (https://repo1.dso.mil/dsop/opensource/python/python312) rather than trusting this pin indefinitely.
-FROM registry1.dso.mil/ironbank/opensource/python/python312:latest
-
-# For development/testing in standard environments, use:
-# FROM python:3.12-slim
+# Base image, overridable via --build-arg BASE_IMAGE=...:
+#   - Default: Iron Bank's hardened Python image. registry1.dso.mil requires
+#     authenticated DoD PKI-gated registry access — it is NOT reachable from
+#     a standard CI runner without credentials, and this tag should be
+#     verified against https://repo1.dso.mil/dsop/opensource/python/python312
+#     rather than trusted indefinitely.
+#   - CI / standard development environments without Iron Bank access:
+#     --build-arg BASE_IMAGE=python:3.12-slim
+ARG BASE_IMAGE=registry1.dso.mil/ironbank/opensource/python/python312:3.12
+FROM ${BASE_IMAGE}
 
 # Build-time metadata (pass with --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ))
 ARG BUILD_DATE=unknown
@@ -22,6 +25,10 @@ ENV PYTHONUNBUFFERED=1 \
 # Set working directory
 WORKDIR /app
 
+# Build context is the repository root (see docker build -f dashboard/Dockerfile
+# invocation in CI/README), so requirements.txt resolves to the repo-root file
+# and only the dashboard/ subtree is copied into the image.
+
 # Copy requirements first for better caching
 COPY requirements.txt .
 
@@ -29,7 +36,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY . .
+COPY dashboard/ .
 
 # Create non-root user
 RUN adduser --system --group appuser && \

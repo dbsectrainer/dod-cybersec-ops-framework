@@ -57,12 +57,16 @@ mypy dashboard/src/
 
 ### Containerization
 ```bash
-# Build Docker image
-cd dashboard
-docker build -t dod-cybersec-dashboard .
+# Build Docker image (context is the repo root: the Dockerfile COPYs the
+# root requirements.txt, then the dashboard/ subtree)
+docker build -f dashboard/Dockerfile -t dod-cybersec-dashboard .
+# Without Iron Bank registry access, build against the public fallback base:
+# docker build -f dashboard/Dockerfile --build-arg BASE_IMAGE=python:3.12-slim -t dod-cybersec-dashboard .
 
 # Run with docker-compose (includes Prometheus, Grafana, etc.)
-docker-compose up -d
+cd dashboard
+cp .env.example .env  # then edit with real values
+docker compose up -d
 ```
 
 ## Security & Compliance Requirements

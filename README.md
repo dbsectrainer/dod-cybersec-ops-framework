@@ -133,9 +133,10 @@ cd dod-cybersec-ops-framework
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Configure dashboard secrets (copy and edit the template)
-cp dashboard/.streamlit/secrets.toml dashboard/src/.streamlit/secrets.toml
-# Edit secrets.toml with your environment-specific values
+# Configure dashboard secrets from the template
+# (dashboard/src/.streamlit/secrets.toml is a symlink to this file)
+cp dashboard/.streamlit/secrets.toml.example dashboard/.streamlit/secrets.toml
+# Edit dashboard/.streamlit/secrets.toml with your environment-specific values
 
 # Launch the Streamlit dashboard
 cd dashboard/src
@@ -147,12 +148,19 @@ The dashboard will be available at `http://localhost:8501`. A DoD system-use ban
 ### Docker Deployment
 
 ```bash
-# Build and start all services (dashboard + Prometheus + Grafana + Vault)
+# Start the supporting services (Prometheus + Grafana + Vault + exporters)
 cd dashboard
-docker-compose up --build
+cp .env.example .env  # then edit with real values
+docker compose up -d
 
 # Verify all containers are running
-docker-compose ps
+docker compose ps
+
+# The dashboard app itself is a separate image (docker-compose.yml doesn't
+# build/run it yet — see docs/ROADMAP.md). Build and run it directly:
+cd ..
+docker build -f dashboard/Dockerfile -t dod-cybersec-dashboard .
+docker run -p 8501:8501 --env-file dashboard/.env dod-cybersec-dashboard
 ```
 
 Prometheus is available at `http://localhost:9090`, Grafana at `http://localhost:3000`.

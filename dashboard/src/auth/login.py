@@ -289,10 +289,20 @@ def show_login_page():
                     if check_account_lockout():
                         return
 
-                    if (
-                        username in st.secrets["passwords"]
-                        and password == st.secrets["passwords"][username]
-                    ):
+                    try:
+                        passwords = st.secrets.get("passwords")
+                    except Exception:
+                        passwords = None
+
+                    if not passwords:
+                        st.error(
+                            "Authentication is not configured: secrets.toml is missing or has "
+                            "no [passwords] section. Copy .streamlit/secrets.toml.example to "
+                            "secrets.toml and set real values before logging in."
+                        )
+                        return
+
+                    if username in passwords and password == passwords[username]:
                         handle_successful_login(username)
                         st.rerun()
                     else:

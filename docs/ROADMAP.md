@@ -44,6 +44,9 @@ This roadmap outlines the development phases and milestones for implementing the
 - [ ] Integrate Iron Bank containers
 - [ ] Configure Big Bang deployment
 - [x] Set up CI/CD pipeline (`.github/workflows/ci.yml`: lint, type-check, test, Docker build)
+- [ ] Add the dashboard app itself as a service in `dashboard/docker-compose.yml`
+      (it currently only runs Prometheus/Grafana/Vault/exporters; the
+      dashboard image is built and run separately — see `README.md`)
 - [ ] Implement security scanning
 
 ## Phase 3: Security Operations (Q3 2025)

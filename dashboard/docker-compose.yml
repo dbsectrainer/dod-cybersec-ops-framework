@@ -62,7 +62,13 @@ services:
       - VAULT_TEST_USER_PASSWORD=${VAULT_TEST_USER_PASSWORD:-testpass123}
     cap_add:
       - IPC_LOCK
-    command: sh -c "server -dev -dev-root-token-id=${VAULT_DEV_ROOT_TOKEN_ID:-dev-only-token} & sleep 10 && /vault/config/init.sh"
+    # $$ (escaped) keeps Compose from splicing the token's literal value into
+    # this command string at parse time — that would let a token value
+    # containing shell metacharacters (e.g. `$(...)`) execute as part of the
+    # command. Passing $VAULT_DEV_ROOT_TOKEN_ID through lets sh -c expand it
+    # from its own environment (set via `environment:` above) instead, which
+    # substitutes the value as a single word rather than re-parsing it.
+    command: sh -c "server -dev -dev-root-token-id=$${VAULT_DEV_ROOT_TOKEN_ID:-dev-only-token} & sleep 10 && /vault/config/init.sh"
     restart: unless-stopped
 
   # Sample metrics generator for testing

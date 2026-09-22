@@ -133,9 +133,12 @@ pytest --cov=src tests/
 
 ### Production Deployment
 
-1. Build container:
+1. Build container (from the repository root, not this `dashboard/` directory
+   — the build context needs both the root `requirements.txt` and the
+   `dashboard/` subtree):
 ```bash
-docker build -t dod-cybersec-dashboard .
+cd ..
+docker build -f dashboard/Dockerfile -t dod-cybersec-dashboard .
 ```
 
 2. Deploy to Platform One:
