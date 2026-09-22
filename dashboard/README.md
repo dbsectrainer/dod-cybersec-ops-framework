@@ -47,7 +47,8 @@ pip install -r ../requirements.txt
 4. Configure environment:
 ```bash
 cp config/config.yaml.example config/config.yaml
-# Edit config.yaml with your settings
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+# Edit both files with your settings
 ```
 
 ## Running the Dashboard
