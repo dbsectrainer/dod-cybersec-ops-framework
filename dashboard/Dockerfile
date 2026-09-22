@@ -56,9 +56,12 @@ RUN mkdir -p /app/data/metrics /app/data/reports /app/logs && \
 ENV STREAMLIT_SERVER_HEADERS='{"X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff", "X-XSS-Protection": "1; mode=block", "Content-Security-Policy": "default-src '\''self'\''"}'
 
 # Health check (stdlib urllib instead of curl, since the python:3.12-slim
-# CI fallback image doesn't have curl installed and Iron Bank's may not either)
+# CI fallback image doesn't have curl installed and Iron Bank's may not
+# either). Path is prefixed with /dashboard to match CMD's
+# --server.baseUrlPath=/dashboard below — Streamlit's health endpoint moves
+# under that prefix too, not just the app's own pages.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=5)" || exit 1
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/dashboard/_stcore/health', timeout=5)" || exit 1
 
 # Expose port
 EXPOSE 8501
