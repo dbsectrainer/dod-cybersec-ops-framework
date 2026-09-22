@@ -77,7 +77,13 @@ services:
     # applies that rewrite. "server" then gets exec'd literally inside the
     # shell, where it doesn't exist as a binary — Vault never starts. Invoke
     # `vault server` explicitly instead of relying on the image's shorthand.
-    command: sh -c 'vault server -dev -dev-root-token-id="$$VAULT_DEV_ROOT_TOKEN_ID" & sleep 10 && /vault/config/init.sh'
+    #
+    # `wait "$$VAULT_PID"` at the end keeps this shell (the container's PID 1)
+    # alive for as long as the backgrounded vault server process runs.
+    # Without it, sh exits as soon as init.sh finishes — since sh is PID 1,
+    # that tears down the whole container (and the still-running Vault
+    # process with it) moments after startup.
+    command: sh -c 'vault server -dev -dev-root-token-id="$$VAULT_DEV_ROOT_TOKEN_ID" & VAULT_PID=$$! && sleep 10 && /vault/config/init.sh && wait "$$VAULT_PID"'
     restart: unless-stopped
 
   # Sample metrics generator for testing

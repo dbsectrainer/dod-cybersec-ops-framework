@@ -296,8 +296,10 @@ def show_login_page():
                     if not passwords:
                         st.error(
                             "Authentication is not configured: secrets.toml is missing or has "
-                            "no [passwords] section. Copy .streamlit/secrets.toml.example to "
-                            "secrets.toml and set real values before logging in."
+                            "no [passwords] section. Copy dashboard/.streamlit/secrets.toml.example "
+                            "to dashboard/.streamlit/secrets.toml (repo-root-relative — the app "
+                            "reads it via the dashboard/src/.streamlit/secrets.toml symlink) and "
+                            "set real values before logging in."
                         )
                         return
 
