@@ -10,7 +10,7 @@ Thank you for considering contributing to the DoD Cybersecurity Operations and I
 
 ### Clearance Requirements
 - Contributors must have appropriate security clearance levels
-- Compliance with DoD 8570/8140 certification requirements
+- Compliance with DoD 8140 certification requirements (successor to the legacy DoD 8570.01-M manual)
 - Adherence to need-to-know principles
 
 ### Code Security

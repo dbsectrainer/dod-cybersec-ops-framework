@@ -20,8 +20,11 @@ azure-identity>=1.13.0,<2.0  # Azure
 azure-mgmt-resource>=23.0.0,<24.0
 
 # Monitoring & Metrics
+# elasticsearch/opensearch-py are unused by dashboard/src today (no code
+# imports them) but track the Elastic Stack 9.x / OpenSearch 2.x floors
+# documented in README.md for when that integration is built.
 prometheus-client>=0.17.0,<1.0
-elasticsearch>=8.15.0,<9.0
+elasticsearch>=9.0.0,<10.0
 opensearch-py>=2.3.0,<3.0
 
 # Development, testing, linting, and documentation tooling lives in

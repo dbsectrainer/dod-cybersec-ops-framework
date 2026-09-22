@@ -86,7 +86,14 @@ This roadmap outlines the development phases and milestones for implementing the
 - [ ] Configure automated response
 - [ ] Set up predictive analytics
 
-## Phase 5: Optimization (Q1 2026)
+## Phase 5: Optimization (retargeted to Q2 2027)
+
+> **Status as of September 2026:** the original Q1 2026 target for this
+> phase has passed. Phase 2's CI/CD pipeline item is now complete (see
+> above); most other items across all five phases remain unimplemented —
+> this repository is still primarily a reference architecture and demo
+> dashboard, not a deployed production system. Dates above reflect original
+> planning intent, not actual completion.
 
 ### Performance Tuning
 - [ ] Optimize SIEM performance
@@ -109,10 +116,14 @@ This roadmap outlines the development phases and milestones for implementing the
 ## Technical Requirements
 
 ### Infrastructure
-- Kubernetes 1.24+
-- HashiCorp Vault 1.12+
-- Istio Service Mesh 1.18+
-- Elastic Stack 8.0+
+(Verify these are still current, supported releases at implementation time —
+these floors are reviewed periodically, not continuously.)
+- Kubernetes 1.31+
+- HashiCorp Vault 1.18+ (relicensed to BUSL in 2023; OpenBao at
+  https://openbao.org is an Apache-2.0 fork some open-source-preferring
+  shops adopt instead)
+- Istio Service Mesh 1.23+
+- Elastic Stack 9.0+
 
 ### Security Tools
 - SIEM Platform
@@ -135,7 +146,7 @@ This roadmap outlines the development phases and milestones for implementing the
 - Zero Trust Architecture
 
 ### Certifications
-- DoD 8570/8140
+- DoD 8140 (successor to the legacy DoD 8570.01-M manual)
 - CISSP
 - Security+ CE
 - CCSP
@@ -216,4 +227,4 @@ This roadmap will be reviewed and updated:
 - When requirements change
 - As needed for improvements
 
-Last Updated: August 14, 2025
+Last Updated: September 22, 2026

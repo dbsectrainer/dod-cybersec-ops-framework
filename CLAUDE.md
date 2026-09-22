@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Department of Defense Cybersecurity Operations and Incident Response Framework - a comprehensive cybersecurity framework for DoD agencies implementing DevSecOps in multi-cloud environments. The project adheres to DoD 8570 directives and integrates with NIST RMF, CNSS, and DoD Enterprise DevSecOps Reference Design.
+This is the Department of Defense Cybersecurity Operations and Incident Response Framework - a comprehensive cybersecurity framework for DoD agencies implementing DevSecOps in multi-cloud environments. The project adheres to DoD 8140 directives (which superseded the legacy DoD 8570.01-M manual) and integrates with NIST RMF, CNSS, and DoD Enterprise DevSecOps Reference Design.
 
 ## Core Architecture
 
@@ -104,8 +104,8 @@ dashboard/
 - **Multi-Cloud**: Configured for AWS GovCloud, Azure Government, Platform One
 - **Security Tools**: SIEM, EDR/XDR, SOAR platform integrations
 - **Monitoring Stack**: Prometheus, Grafana, ELK Stack, Splunk Enterprise
-- **Container Platform**: Kubernetes 1.24+, Istio Service Mesh 1.18+
-- **Secret Management**: HashiCorp Vault 1.12+
+- **Container Platform**: Kubernetes 1.31+, Istio Service Mesh 1.23+
+- **Secret Management**: HashiCorp Vault 1.18+ (or OpenBao, its Apache-2.0 fork)
 
 ## Documentation References
 

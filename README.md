@@ -1,8 +1,8 @@
 # DoD Cybersecurity Operations Framework
 
-> Comprehensive DoD cybersecurity operations and incident response framework for multi-cloud DevSecOps environments, aligned to DoD 8570 and NIST RMF.
+> Comprehensive DoD cybersecurity operations and incident response framework for multi-cloud DevSecOps environments, aligned to DoD 8140 and NIST RMF.
 
-[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/) [![DoD 8570](https://img.shields.io/badge/DoD-8570-darkgreen.svg)](https://public.cyber.mil/workforce/dod8570/) [![NIST RMF](https://img.shields.io/badge/NIST-RMF-darkblue.svg)](https://csrc.nist.gov/projects/risk-management) [![FedRAMP Moderate](https://img.shields.io/badge/FedRAMP-Moderate-orange.svg)](https://www.fedramp.gov/) [![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/) [![DoD 8140](https://img.shields.io/badge/DoD-8140-darkgreen.svg)](https://public.cyber.mil/workforce/) [![NIST RMF](https://img.shields.io/badge/NIST-RMF-darkblue.svg)](https://csrc.nist.gov/projects/risk-management) [![FedRAMP Moderate](https://img.shields.io/badge/FedRAMP-Moderate-orange.svg)](https://www.fedramp.gov/) [![License: DoD-OSA-1.0](https://img.shields.io/badge/license-DoD--OSA--1.0-lightgrey.svg)](LICENSE)
 
 ---
 
@@ -11,7 +11,7 @@
 1. Implements a Zero Trust security layer with PIV/CAC authentication, role-based access control, continuous verification, and micro-segmentation across multi-cloud government environments.
 2. Provides a Streamlit-based Security Operations dashboard for 24/7 SOC monitoring, automated incident response, threat hunting, and compliance status visualization.
 3. Integrates with AWS GovCloud, Azure Government, Platform One, and milCloud 2.0 for a unified multi-cloud security posture.
-4. Enforces compliance with DoD 8570/8140, NIST SP 800-53 Rev 5, DISA STIGs, and the DoD Enterprise DevSecOps Reference Design through automated control validation.
+4. Enforces compliance with DoD 8140, NIST SP 800-53 Rev 5, DISA STIGs, and the DoD Enterprise DevSecOps Reference Design through automated control validation.
 5. Embeds a secure CI/CD pipeline with container security scanning, automated testing, and compliance validation gates at every stage of the software delivery lifecycle.
 6. Delivers structured operational documentation covering architecture, compliance controls, incident response playbooks, and standard operating procedures for DoD agency adoption.
 
@@ -52,7 +52,7 @@
                             ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                  Audit & Compliance Logger                      │
-│     NIST RMF │ DoD 8570 │ DISA STIGs │ CNSS │ Control Tracking │
+│     NIST RMF │ DoD 8140 │ DISA STIGs │ CNSS │ Control Tracking │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -87,7 +87,7 @@ The included Streamlit dashboard (`dashboard/src/app.py`) delivers a real-time S
 
 - Live incident tracking with priority classification and assignment workflows
 - Automated response runbooks triggered by SIEM alert thresholds
-- Threat hunting dashboards powered by Elasticsearch and OpenSearch
+- Threat hunting dashboards designed for Elasticsearch/OpenSearch-backed data (the client libraries are bundled; standing up an Elasticsearch/OpenSearch service is not currently included in `docker-compose.yml`)
 - System health monitoring via Prometheus and Grafana with pre-configured alert rules
 - Exportable compliance and incident reports for leadership review
 
@@ -103,7 +103,7 @@ The pipeline architecture enforces security gates at every stage of software del
 
 ### Security & Compliance
 
-- DoD 8570 / DoD 8140 workforce certification alignment (IAT/IAM/CSSP roles)
+- DoD 8140 workforce certification alignment (IAT/IAM/CSSP roles; DoD 8140 supersedes the legacy DoD 8570.01-M manual)
 - NIST SP 800-53 Rev 5 control families with automated tracking
 - DISA Security Technical Implementation Guides (STIGs)
 - CNSS directives integration
@@ -119,8 +119,8 @@ The pipeline architecture enforces security gates at every stage of software del
 
 - Python 3.12+
 - Docker and Docker Compose (for containerized deployment)
-- Kubernetes 1.24+ (for production cluster deployment)
-- HashiCorp Vault 1.12+ (for secrets management)
+- Kubernetes 1.31+ (for production cluster deployment)
+- HashiCorp Vault 1.18+ (for secrets management; OpenBao is an Apache-2.0 alternative)
 - Access to a DoD-authorized cloud environment (AWS GovCloud, Azure Government, or milCloud 2.0)
 
 ### Local Development
@@ -279,4 +279,4 @@ dod-cybersec-ops-framework/
 
 For questions, partnerships, or federal engagement inquiries, open an issue or reach out directly.
 
-**Document Version:** 1.0 | **Last Updated:** 2026-06-15 | **DoD 8570:** IAT/IAM Level II+
+**Document Version:** 1.1 | **Last Updated:** 2026-09-22 | **DoD 8140:** IAT/IAM Level II+
