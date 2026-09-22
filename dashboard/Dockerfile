@@ -2,10 +2,15 @@
 # Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
 
 # Use Iron Bank's hardened Python image
-FROM registry1.dso.mil/ironbank/opensource/python/python39:latest
+# NOTE: verify this is still the current Iron Bank Python 3.12 tag at build time
+# (https://repo1.dso.mil/dsop/opensource/python/python312) rather than trusting this pin indefinitely.
+FROM registry1.dso.mil/ironbank/opensource/python/python312:latest
 
 # For development/testing in standard environments, use:
-# FROM python:3.9-slim
+# FROM python:3.12-slim
+
+# Build-time metadata (pass with --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ))
+ARG BUILD_DATE=unknown
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
@@ -64,7 +69,7 @@ LABEL org.opencontainers.image.title="DoD Cybersecurity Operations Dashboard" \
       org.opencontainers.image.description="Dashboard for DoD Cybersecurity Operations Framework" \
       org.opencontainers.image.vendor="Department of Defense" \
       org.opencontainers.image.version="1.0.0" \
-      org.opencontainers.image.created="2025-01-27" \
+      org.opencontainers.image.created="$BUILD_DATE" \
       org.opencontainers.image.documentation="https://github.com/your-repo/dashboard/README.md" \
       org.opencontainers.image.source="https://github.com/your-repo/dashboard" \
       org.opencontainers.image.licenses="DoD-OSA-1.0" \

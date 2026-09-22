@@ -1,0 +1,14 @@
+# Tenable scanner configuration — PLACEHOLDER
+# Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+#
+# Referenced by dashboard/config/config.yaml (compliance.scanning.tools) but
+# not yet consumed by any code in dashboard/src — no scanner integration is
+# implemented. This stub exists so the referenced path resolves; see
+# docs/ROADMAP.md for the tracked implementation item.
+# Real deployments must supply the Tenable access/secret keys via environment
+# variables or Vault, never hardcoded here.
+
+base_url: "https://tenable.example.mil"
+access_key_env: "TENABLE_ACCESS_KEY"
+secret_key_env: "TENABLE_SECRET_KEY"
+scan_policy: "DISA STIG"

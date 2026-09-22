@@ -12,14 +12,15 @@
   streamlit run app.py
   ```
 - **Environment Setup:**
-  - Use Python 3.9+ and create a virtual environment in `dashboard/`.
-  - Install dependencies from root `requirements.txt`.
+  - Use Python 3.12+ and create a virtual environment in `dashboard/`.
+  - Install dependencies from root `requirements.txt` (runtime) and `dashboard/requirements-dev.txt` (lint/type-check/test tooling).
 - **Configuration:**
   - Configuration is in `dashboard/config/config.yaml`.
   - Cloud credentials and authentication must be configured before running in production.
 - **Testing:**
   - Basic syntax check: `python -m py_compile dashboard/src/app.py`
-  - Code quality: `flake8 dashboard/src/` and `black dashboard/src/`
+  - Code quality: `ruff check dashboard/src/`, `ruff format --check dashboard/src/`, and `mypy dashboard/src/`
+  - Tests: `pytest dashboard/tests/`
 - **Containerization:**
   - Build with `docker build -t dod-cybersec-dashboard .` from `dashboard/`.
 
@@ -49,6 +50,6 @@
 
 ---
 
-**Last updated:** August 14, 2025
+**Last updated:** September 22, 2026
 
 > If any section is unclear or missing, please provide feedback for iterative improvement.

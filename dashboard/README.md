@@ -17,7 +17,7 @@ This dashboard provides real-time monitoring and visualization of the DoD Cybers
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.12+
 - Streamlit
 - AWS GovCloud Access
 - Azure Government Access
@@ -41,7 +41,7 @@ source venv/bin/activate  # Linux/macOS
 
 3. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 ```
 
 4. Configure environment:
@@ -89,8 +89,8 @@ http://localhost:8501
 dashboard/
 ├── src/
 │   ├── app.py              # Main Streamlit application
-│   ├── utils.py            # Utility functions
-│   └── components/         # Dashboard components
+│   ├── auth/               # Authentication modules (PIV/CAC, session management)
+│   └── utils/              # Utility functions (compliance, data processing, logging)
 ├── config/
 │   ├── config.yaml         # Configuration settings
 │   └── config.yaml.example # Example configuration
@@ -107,14 +107,9 @@ dashboard/
 
 ### Setting Up Development Environment
 
-1. Install development dependencies:
+1. Install development dependencies (includes runtime deps via `-r ../requirements.txt`):
 ```bash
 pip install -r requirements-dev.txt
-```
-
-2. Set up pre-commit hooks:
-```bash
-pre-commit install
 ```
 
 ### Running Tests

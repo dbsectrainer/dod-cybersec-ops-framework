@@ -82,8 +82,7 @@ dashboard/
 ├── src/
 │   ├── app.py              # Main Streamlit application entry point
 │   ├── auth/               # Authentication modules (PIV/CAC, session management)
-│   ├── utils/              # Utilities (compliance, data processing, logging)
-│   └── utils.py            # Legacy utility functions (being modularized)
+│   └── utils/              # Utilities (compliance, data processing, logging)
 ├── config/
 │   ├── controls/           # Compliance controls (RMF, STIG YAML definitions)
 │   ├── grafana/            # Grafana dashboards and datasource configs

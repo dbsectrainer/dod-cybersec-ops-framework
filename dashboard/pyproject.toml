@@ -1,0 +1,19 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+# Mirrors the previous flake8 (pycodestyle + pyflakes) baseline rather than
+# ruff's full rule catalog, so adopting ruff doesn't force an unrelated
+# repo-wide modernization pass (datetime tz-awareness, typing.Dict->dict,
+# broad-exception-catching, etc.) as a side effect of a lint-tool swap.
+# Tighten this selection in a follow-up if the team wants stricter checks.
+select = ["E", "F", "W"]
+# E501 (line too long) is left to the formatter for code; the handful of
+# remaining long lines are inline CSS/HTML inside markdown strings, which
+# ruff format won't (and shouldn't) rewrap.
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true

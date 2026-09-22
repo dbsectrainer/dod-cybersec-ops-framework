@@ -3,9 +3,10 @@
 # Wait for Vault to start
 sleep 5
 
-# Export Vault address and token
+# Export Vault address and token (sourced from the container environment,
+# which docker-compose populates from .env — see docker-compose.yml)
 export VAULT_ADDR='http://127.0.0.1:8200'
-export VAULT_TOKEN='dev-only-token'
+export VAULT_TOKEN="${VAULT_DEV_ROOT_TOKEN_ID:-dev-only-token}"
 
 # Enable audit logging
 vault audit enable file file_path=/vault/logs/audit.log
@@ -60,7 +61,7 @@ vault auth enable userpass
 
 # Create a test user
 vault write auth/userpass/users/testuser \
-    password="testpass123" \
+    password="${VAULT_TEST_USER_PASSWORD:-testpass123}" \
     policies="sample-policy"
 
 echo "Vault initialization completed successfully"
