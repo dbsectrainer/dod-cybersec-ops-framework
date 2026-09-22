@@ -157,10 +157,14 @@ docker compose up -d
 docker compose ps
 
 # The dashboard app itself is a separate image (docker-compose.yml doesn't
-# build/run it yet — see docs/ROADMAP.md). Build and run it directly:
+# build/run it yet — see docs/ROADMAP.md). Build and run it directly.
+# secrets.toml is deliberately excluded from the image (see .dockerignore),
+# so it must be mounted at runtime:
 cd ..
 docker build -f dashboard/Dockerfile -t dod-cybersec-dashboard .
-docker run -p 8501:8501 --env-file dashboard/.env dod-cybersec-dashboard
+docker run -p 8501:8501 --env-file dashboard/.env \
+  -v "$(pwd)/dashboard/.streamlit/secrets.toml:/app/.streamlit/secrets.toml:ro" \
+  dod-cybersec-dashboard
 ```
 
 Prometheus is available at `http://localhost:9090`, Grafana at `http://localhost:3000`.

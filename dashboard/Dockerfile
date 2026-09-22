@@ -55,9 +55,10 @@ RUN mkdir -p /app/data/metrics /app/data/reports /app/logs && \
 # Security headers and classification banner
 ENV STREAMLIT_SERVER_HEADERS='{"X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff", "X-XSS-Protection": "1; mode=block", "Content-Security-Policy": "default-src '\''self'\''"}'
 
-# Health check
+# Health check (stdlib urllib instead of curl, since the python:3.12-slim
+# CI fallback image doesn't have curl installed and Iron Bank's may not either)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=5)" || exit 1
 
 # Expose port
 EXPOSE 8501
