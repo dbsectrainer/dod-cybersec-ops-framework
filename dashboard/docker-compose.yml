@@ -70,7 +70,14 @@ services:
     # required — no fallback here since none is needed). The double quotes
     # around the expansion keep a token containing whitespace as one
     # argument instead of being word-split.
-    command: sh -c 'server -dev -dev-root-token-id="$$VAULT_DEV_ROOT_TOKEN_ID" & sleep 10 && /vault/config/init.sh'
+    # The Vault image's entrypoint only rewrites a bare "server" first
+    # argument into "vault server" when that entrypoint receives it
+    # directly; overriding `command:` with `sh -c '...'` replaces the
+    # container's argv entirely, so the entrypoint sees "sh" as $1 and never
+    # applies that rewrite. "server" then gets exec'd literally inside the
+    # shell, where it doesn't exist as a binary — Vault never starts. Invoke
+    # `vault server` explicitly instead of relying on the image's shorthand.
+    command: sh -c 'vault server -dev -dev-root-token-id="$$VAULT_DEV_ROOT_TOKEN_ID" & sleep 10 && /vault/config/init.sh'
     restart: unless-stopped
 
   # Sample metrics generator for testing
