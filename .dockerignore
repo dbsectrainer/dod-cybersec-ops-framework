@@ -1,0 +1,30 @@
+# Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+.git
+.github
+docs
+*.md
+
+# Never bake real secrets/env files into the image
+**/secrets.toml
+!**/secrets.toml.example
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Dev-only tooling not needed at runtime
+dashboard/tests
+dashboard/requirements-dev.txt
+dashboard/pyproject.toml
+dashboard/docker-compose.yml
+dashboard/.ruff_cache
+dashboard/.mypy_cache
+dashboard/.pytest_cache
+
+# Build artifacts / VCS noise
+__pycache__
+*.pyc
+*.pyo
+.venv
+venv
+node_modules

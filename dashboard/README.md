@@ -17,7 +17,7 @@ This dashboard provides real-time monitoring and visualization of the DoD Cybers
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.12+
 - Streamlit
 - AWS GovCloud Access
 - Azure Government Access
@@ -41,13 +41,14 @@ source venv/bin/activate  # Linux/macOS
 
 3. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 ```
 
 4. Configure environment:
 ```bash
 cp config/config.yaml.example config/config.yaml
-# Edit config.yaml with your settings
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+# Edit both files with your settings
 ```
 
 ## Running the Dashboard
@@ -89,8 +90,8 @@ http://localhost:8501
 dashboard/
 ├── src/
 │   ├── app.py              # Main Streamlit application
-│   ├── utils.py            # Utility functions
-│   └── components/         # Dashboard components
+│   ├── auth/               # Authentication modules (PIV/CAC, session management)
+│   └── utils/              # Utility functions (compliance, data processing, logging)
 ├── config/
 │   ├── config.yaml         # Configuration settings
 │   └── config.yaml.example # Example configuration
@@ -107,24 +108,16 @@ dashboard/
 
 ### Setting Up Development Environment
 
-1. Install development dependencies:
+1. Install development dependencies (includes runtime deps via `-r ../requirements.txt`):
 ```bash
 pip install -r requirements-dev.txt
-```
-
-2. Set up pre-commit hooks:
-```bash
-pre-commit install
 ```
 
 ### Running Tests
 
 ```bash
-# Run unit tests
-pytest tests/unit
-
-# Run integration tests
-pytest tests/integration
+# Run the test suite
+pytest tests/
 
 # Run with coverage
 pytest --cov=src tests/
@@ -141,9 +134,12 @@ pytest --cov=src tests/
 
 ### Production Deployment
 
-1. Build container:
+1. Build container (from the repository root, not this `dashboard/` directory
+   — the build context needs both the root `requirements.txt` and the
+   `dashboard/` subtree):
 ```bash
-docker build -t dod-cybersec-dashboard .
+cd ..
+docker build -f dashboard/Dockerfile -t dod-cybersec-dashboard .
 ```
 
 2. Deploy to Platform One:
@@ -200,4 +196,4 @@ This project is licensed under DoD Open Source Agreement Version 1.0.
 
 DISTRIBUTION STATEMENT D. Distribution authorized to the Department of Defense and U.S. DoD contractors only; Administrative/Operational Use; DATE. Other requests shall be referred to [APPROPRIATE AUTHORITY].
 
-Last Updated: January 27, 2025
+Last Updated: September 22, 2026

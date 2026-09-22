@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Department of Defense Cybersecurity Operations and Incident Response Framework - a comprehensive cybersecurity framework for DoD agencies implementing DevSecOps in multi-cloud environments. The project adheres to DoD 8570 directives and integrates with NIST RMF, CNSS, and DoD Enterprise DevSecOps Reference Design.
+This is the Department of Defense Cybersecurity Operations and Incident Response Framework - a comprehensive cybersecurity framework for DoD agencies implementing DevSecOps in multi-cloud environments. The project adheres to DoD 8140 directives (which superseded the legacy DoD 8570.01-M manual) and integrates with NIST RMF, CNSS, and DoD Enterprise DevSecOps Reference Design.
 
 ## Core Architecture
 
@@ -23,10 +23,12 @@ The framework consists of four main components:
 cd dashboard
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
-pip install -r ../requirements.txt
+pip install -r ../requirements.txt -r requirements-dev.txt
 
 # Configure application (copy and edit from existing config)
-# Edit config/config.yaml with your settings
+cp config/config.yaml.example config/config.yaml
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+# Edit both with your settings
 
 # Run the dashboard
 cd src
@@ -39,32 +41,37 @@ streamlit run app.py
 # Basic syntax check
 python -m py_compile dashboard/src/app.py
 
-# Code quality checks (if tests are implemented)
-# pytest dashboard/tests/unit
-# pytest dashboard/tests/integration
-# pytest --cov=src dashboard/tests/
+# Test suite
+pytest dashboard/tests/
 ```
 
 ### Code Quality
 ```bash
-# Code formatting
-black dashboard/src/
+# Run from dashboard/ (matching CI) so dashboard/pyproject.toml's ruff/mypy
+# config is actually picked up — running these from the repo root against
+# dashboard/src/ silently skips it.
+cd dashboard
 
-# Linting
-flake8 dashboard/src/
+# Linting and formatting (ruff replaces black + flake8)
+ruff check src/
+ruff format src/
 
 # Type checking
-mypy dashboard/src/
+mypy src/
 ```
 
 ### Containerization
 ```bash
-# Build Docker image
-cd dashboard
-docker build -t dod-cybersec-dashboard .
+# Build Docker image (context is the repo root: the Dockerfile COPYs the
+# root requirements.txt, then the dashboard/ subtree)
+docker build -f dashboard/Dockerfile -t dod-cybersec-dashboard .
+# Without Iron Bank registry access, build against the public fallback base:
+# docker build -f dashboard/Dockerfile --build-arg BASE_IMAGE=python:3.12-slim -t dod-cybersec-dashboard .
 
 # Run with docker-compose (includes Prometheus, Grafana, etc.)
-docker-compose up -d
+cd dashboard
+cp .env.example .env  # then edit with real values
+docker compose up -d
 ```
 
 ## Security & Compliance Requirements
@@ -82,8 +89,7 @@ dashboard/
 ├── src/
 │   ├── app.py              # Main Streamlit application entry point
 │   ├── auth/               # Authentication modules (PIV/CAC, session management)
-│   ├── utils/              # Utilities (compliance, data processing, logging)
-│   └── utils.py            # Legacy utility functions (being modularized)
+│   └── utils/              # Utilities (compliance, data processing, logging)
 ├── config/
 │   ├── controls/           # Compliance controls (RMF, STIG YAML definitions)
 │   ├── grafana/            # Grafana dashboards and datasource configs
@@ -107,8 +113,8 @@ dashboard/
 - **Multi-Cloud**: Configured for AWS GovCloud, Azure Government, Platform One
 - **Security Tools**: SIEM, EDR/XDR, SOAR platform integrations
 - **Monitoring Stack**: Prometheus, Grafana, ELK Stack, Splunk Enterprise
-- **Container Platform**: Kubernetes 1.24+, Istio Service Mesh 1.18+
-- **Secret Management**: HashiCorp Vault 1.12+
+- **Container Platform**: Kubernetes 1.31+, Istio Service Mesh 1.23+
+- **Secret Management**: HashiCorp Vault 1.18+ (or OpenBao, its Apache-2.0 fork)
 
 ## Documentation References
 
