@@ -36,6 +36,13 @@ from .compliance import (
     ComplianceChecker,
     ReportGenerator
 )
+from .encryption import (
+    generate_key,
+    get_key_from_env,
+    derive_key_from_password,
+    encrypt_data,
+    decrypt_data,
+)
 
 def load_config(config_path: str = "../config/config.yaml") -> Dict:
     """Load configuration from YAML file."""
@@ -78,5 +85,12 @@ __all__ = [
     'ComplianceStatus',
     'ComplianceResult',
     'ComplianceChecker',
-    'ReportGenerator'
+    'ReportGenerator',
+
+    # Encryption
+    'generate_key',
+    'get_key_from_env',
+    'derive_key_from_password',
+    'encrypt_data',
+    'decrypt_data',
 ]

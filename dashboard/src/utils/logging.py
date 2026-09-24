@@ -21,6 +21,9 @@ class LogHandler:
 
     def _setup_logging(self):
         """Setup logging handlers based on configuration."""
+        level = getattr(logging, self.config['logging'].get('level', 'INFO'))
+        self.logger.setLevel(level)
+
         # File handler with rotation
         log_dir = Path(self.config['logging']['handlers']['file']['filename']).parent
         log_dir.mkdir(parents=True, exist_ok=True)

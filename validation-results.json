@@ -1,0 +1,1455 @@
+{
+  "passed": [
+    {
+      "status": "passed",
+      "domain": "devops",
+      "title": "CI/CD Pipeline",
+      "description": "CI/CD configuration found (GitHub Actions, GitLab CI, Jenkins, or CircleCI)",
+      "standards": [
+        "NIST CSF"
+      ],
+      "timestamp": "2026-09-24T02:08:10.235Z"
+    },
+    {
+      "status": "passed",
+      "domain": "security",
+      "title": "Git Ignore Configuration",
+      "description": ".gitignore file present to prevent committing secrets",
+      "standards": [
+        "OWASP Top 10"
+      ],
+      "timestamp": "2026-09-24T02:08:10.737Z"
+    },
+    {
+      "status": "passed",
+      "domain": "security",
+      "title": "Security Policy",
+      "description": "SECURITY.md file present with vulnerability reporting instructions",
+      "standards": [
+        "ISO 27001"
+      ],
+      "timestamp": "2026-09-24T02:08:10.737Z"
+    }
+  ],
+  "failed": [
+    {
+      "status": "failed",
+      "domain": "frontend",
+      "title": "Package Management",
+      "description": "package.json file present for dependency management",
+      "standards": [
+        "OWASP Top 10"
+      ],
+      "timestamp": "2026-09-24T02:08:08.227Z"
+    },
+    {
+      "status": "failed",
+      "domain": "frontend",
+      "title": "Accessibility Testing",
+      "description": "Accessibility testing tools configured (axe, jest-axe, or eslint-plugin-jsx-a11y)",
+      "standards": [
+        "WCAG 2.2"
+      ],
+      "timestamp": "2026-09-24T02:08:08.227Z"
+    },
+    {
+      "status": "failed",
+      "domain": "frontend",
+      "title": "Testing Framework",
+      "description": "Testing framework configured (jest, vitest, or test files present)",
+      "standards": [],
+      "timestamp": "2026-09-24T02:08:08.228Z"
+    },
+    {
+      "status": "failed",
+      "domain": "backend",
+      "title": "Environment Configuration",
+      "description": ".env.example or .env.template file present",
+      "standards": [
+        "OWASP Top 10",
+        "ISO 27001"
+      ],
+      "timestamp": "2026-09-24T02:08:08.730Z"
+    },
+    {
+      "status": "failed",
+      "domain": "backend",
+      "title": "Rate Limiting",
+      "description": "Rate limiting configured to prevent abuse",
+      "standards": [
+        "OWASP Top 10"
+      ],
+      "timestamp": "2026-09-24T02:08:08.730Z"
+    },
+    {
+      "status": "failed",
+      "domain": "data",
+      "title": "Data Encryption",
+      "description": "Encryption libraries configured",
+      "standards": [
+        "GDPR",
+        "HIPAA",
+        "PCI DSS"
+      ],
+      "timestamp": "2026-09-24T02:08:09.733Z"
+    }
+  ],
+  "warnings": [
+    {
+      "status": "warning",
+      "domain": "frontend",
+      "title": "Build Configuration",
+      "description": "Build tool configuration found (webpack, vite, rollup, or TypeScript)",
+      "standards": [
+        "OWASP Top 10"
+      ],
+      "timestamp": "2026-09-24T02:08:08.227Z"
+    },
+    {
+      "status": "warning",
+      "domain": "frontend",
+      "title": "Security Headers",
+      "description": "Security headers configuration (CSP, helmet)",
+      "standards": [
+        "OWASP Top 10"
+      ],
+      "timestamp": "2026-09-24T02:08:08.227Z"
+    },
+    {
+      "status": "warning",
+      "domain": "frontend",
+      "title": "Code Quality - Linting",
+      "description": "ESLint configuration found",
+      "standards": [],
+      "timestamp": "2026-09-24T02:08:08.227Z"
+    },
+    {
+      "status": "warning",
+      "domain": "backend",
+      "title": "API Documentation",
+      "description": "API documentation found (Swagger/OpenAPI)",
+      "standards": [
+        "OWASP Top 10"
+      ],
+      "timestamp": "2026-09-24T02:08:08.730Z"
+    },
+    {
+      "status": "warning",
+      "domain": "backend",
+      "title": "Database Migrations",
+      "description": "Database migration system present",
+      "standards": [],
+      "timestamp": "2026-09-24T02:08:08.730Z"
+    },
+    {
+      "status": "warning",
+      "domain": "backend",
+      "title": "Input Validation",
+      "description": "Validation library configured",
+      "standards": [
+        "OWASP Top 10"
+      ],
+      "timestamp": "2026-09-24T02:08:08.730Z"
+    },
+    {
+      "status": "warning",
+      "domain": "backend",
+      "title": "Logging Framework",
+      "description": "Structured logging library configured",
+      "standards": [
+        "ISO 27001"
+      ],
+      "timestamp": "2026-09-24T02:08:08.730Z"
+    },
+    {
+      "status": "warning",
+      "domain": "cloud",
+      "title": "Infrastructure as Code",
+      "description": "IaC configuration found (Terraform, CloudFormation, or Pulumi)",
+      "standards": [
+        "CIS Benchmarks"
+      ],
+      "timestamp": "2026-09-24T02:08:09.232Z"
+    },
+    {
+      "status": "warning",
+      "domain": "cloud",
+      "title": "Containerization",
+      "description": "Docker configuration found",
+      "standards": [],
+      "timestamp": "2026-09-24T02:08:09.232Z"
+    },
+    {
+      "status": "warning",
+      "domain": "cloud",
+      "title": "Kubernetes Configuration",
+      "description": "Kubernetes manifests found",
+      "standards": [
+        "CIS Benchmarks"
+      ],
+      "timestamp": "2026-09-24T02:08:09.232Z"
+    },
+    {
+      "status": "warning",
+      "domain": "cloud",
+      "title": "Cost Optimization",
+      "description": "Cost monitoring configuration",
+      "standards": [],
+      "timestamp": "2026-09-24T02:08:09.232Z"
+    },
+    {
+      "status": "warning",
+      "domain": "data",
+      "title": "Data Governance",
+      "description": "Data governance documentation found",
+      "standards": [
+        "GDPR",
+        "SOC 2"
+      ],
+      "timestamp": "2026-09-24T02:08:09.733Z"
+    },
+    {
+      "status": "warning",
+      "domain": "data",
+      "title": "Backup Strategy",
+      "description": "Backup configuration found",
+      "standards": [
+        "ISO 27001"
+      ],
+      "timestamp": "2026-09-24T02:08:09.733Z"
+    },
+    {
+      "status": "warning",
+      "domain": "data",
+      "title": "Data Validation",
+      "description": "Data validation schema library found",
+      "standards": [
+        "GDPR"
+      ],
+      "timestamp": "2026-09-24T02:08:09.733Z"
+    },
+    {
+      "status": "warning",
+      "domain": "devops",
+      "title": "Monitoring Configuration",
+      "description": "Monitoring tools configured (Prometheus, Grafana)",
+      "standards": [
+        "ISO 27001"
+      ],
+      "timestamp": "2026-09-24T02:08:10.235Z"
+    },
+    {
+      "status": "warning",
+      "domain": "devops",
+      "title": "Secret Management",
+      "description": "Secret management configuration found",
+      "standards": [
+        "OWASP Top 10",
+        "ISO 27001"
+      ],
+      "timestamp": "2026-09-24T02:08:10.235Z"
+    },
+    {
+      "status": "warning",
+      "domain": "devops",
+      "title": "Deployment Strategy",
+      "description": "Deployment configuration found",
+      "standards": [],
+      "timestamp": "2026-09-24T02:08:10.235Z"
+    },
+    {
+      "status": "warning",
+      "domain": "security",
+      "title": "Security Scanning",
+      "description": "Security scanning tools configured (Snyk, Dependabot)",
+      "standards": [
+        "OWASP Top 10",
+        "NIST CSF"
+      ],
+      "timestamp": "2026-09-24T02:08:10.737Z"
+    },
+    {
+      "status": "warning",
+      "domain": "security",
+      "title": "Authentication Library",
+      "description": "Authentication library configured",
+      "standards": [
+        "OWASP Top 10",
+        "ISO 27001"
+      ],
+      "timestamp": "2026-09-24T02:08:10.737Z"
+    },
+    {
+      "status": "warning",
+      "domain": "security",
+      "title": "HTTPS/TLS Configuration",
+      "description": "SSL/TLS configuration found",
+      "standards": [
+        "OWASP Top 10",
+        "PCI DSS"
+      ],
+      "timestamp": "2026-09-24T02:08:10.737Z"
+    }
+  ],
+  "repository": {
+    "owner": "dbsectrainer",
+    "repo": "dod-cybersec-ops-framework",
+    "url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework"
+  },
+  "timestamp": "2026-09-24T02:08:07.945Z",
+  "domains": [
+    "frontend",
+    "backend",
+    "cloud",
+    "data",
+    "devops",
+    "security"
+  ],
+  "includeStandards": true,
+  "repositoryData": {
+    "repository": {
+      "id": 923189713,
+      "node_id": "R_kgDONwbB0Q",
+      "name": "dod-cybersec-ops-framework",
+      "full_name": "dbsectrainer/dod-cybersec-ops-framework",
+      "private": false,
+      "owner": {
+        "login": "dbsectrainer",
+        "id": 18485041,
+        "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+        "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/dbsectrainer",
+        "html_url": "https://github.com/dbsectrainer",
+        "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+        "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+        "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+        "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+        "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+        "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework",
+      "forks_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/forks",
+      "keys_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/teams",
+      "hooks_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/hooks",
+      "issue_events_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/events",
+      "assignees_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/tags",
+      "blobs_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/languages",
+      "stargazers_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/stargazers",
+      "contributors_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contributors",
+      "subscribers_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/subscribers",
+      "subscription_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/subscription",
+      "commits_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/merges",
+      "archive_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/downloads",
+      "issues_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/labels{/name}",
+      "releases_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/deployments",
+      "created_at": "2025-01-27T19:40:49Z",
+      "updated_at": "2026-07-25T17:44:40Z",
+      "pushed_at": "2026-09-22T23:09:11Z",
+      "git_url": "git://github.com/dbsectrainer/dod-cybersec-ops-framework.git",
+      "ssh_url": "git@github.com:dbsectrainer/dod-cybersec-ops-framework.git",
+      "clone_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework.git",
+      "svn_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework",
+      "homepage": null,
+      "size": 306,
+      "stargazers_count": 0,
+      "watchers_count": 0,
+      "language": "Python",
+      "has_issues": true,
+      "has_projects": true,
+      "has_downloads": false,
+      "has_wiki": false,
+      "has_pages": false,
+      "has_discussions": false,
+      "forks_count": 0,
+      "mirror_url": null,
+      "archived": false,
+      "disabled": false,
+      "open_issues_count": 15,
+      "license": {
+        "key": "other",
+        "name": "Other",
+        "spdx_id": "NOASSERTION",
+        "url": null,
+        "node_id": "MDc6TGljZW5zZTA="
+      },
+      "allow_forking": true,
+      "is_template": false,
+      "web_commit_signoff_required": false,
+      "has_pull_requests": true,
+      "pull_request_creation_policy": "all",
+      "topics": [
+        "domain-security",
+        "lifecycle-maintenance",
+        "tech-python",
+        "type-exp"
+      ],
+      "visibility": "public",
+      "forks": 0,
+      "open_issues": 15,
+      "watchers": 0,
+      "default_branch": "main",
+      "temp_clone_token": null,
+      "network_count": 0,
+      "subscribers_count": 1
+    },
+    "contents": [
+      {
+        "name": ".github",
+        "path": ".github",
+        "sha": "7ca846a0893f3bc15c995f0fd2ef55ead0dacd8f",
+        "size": 0,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/.github?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/tree/main/.github",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/7ca846a0893f3bc15c995f0fd2ef55ead0dacd8f",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/.github?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/7ca846a0893f3bc15c995f0fd2ef55ead0dacd8f",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/tree/main/.github"
+        }
+      },
+      {
+        "name": ".gitignore",
+        "path": ".gitignore",
+        "sha": "166c0128853da958c982ad9f2ece6442b03e2ae1",
+        "size": 1601,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/.gitignore?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/.gitignore",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/166c0128853da958c982ad9f2ece6442b03e2ae1",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/.gitignore",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/.gitignore?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/166c0128853da958c982ad9f2ece6442b03e2ae1",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/.gitignore"
+        }
+      },
+      {
+        "name": "CHANGELOG.md",
+        "path": "CHANGELOG.md",
+        "sha": "f5886723009e1cdc0242528bca56a1351b5df818",
+        "size": 3154,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CHANGELOG.md?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CHANGELOG.md",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/f5886723009e1cdc0242528bca56a1351b5df818",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/CHANGELOG.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CHANGELOG.md?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/f5886723009e1cdc0242528bca56a1351b5df818",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CHANGELOG.md"
+        }
+      },
+      {
+        "name": "CLAUDE.md",
+        "path": "CLAUDE.md",
+        "sha": "a209eb79dcefff94ffee26eca787e6f413514930",
+        "size": 4428,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CLAUDE.md?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CLAUDE.md",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/a209eb79dcefff94ffee26eca787e6f413514930",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/CLAUDE.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CLAUDE.md?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/a209eb79dcefff94ffee26eca787e6f413514930",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CLAUDE.md"
+        }
+      },
+      {
+        "name": "CODE_OF_CONDUCT.md",
+        "path": "CODE_OF_CONDUCT.md",
+        "sha": "97320e91c3d5319368c05711426c8105e8ac398b",
+        "size": 3830,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CODE_OF_CONDUCT.md?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CODE_OF_CONDUCT.md",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/97320e91c3d5319368c05711426c8105e8ac398b",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/CODE_OF_CONDUCT.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CODE_OF_CONDUCT.md?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/97320e91c3d5319368c05711426c8105e8ac398b",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CODE_OF_CONDUCT.md"
+        }
+      },
+      {
+        "name": "CONTRIBUTING.md",
+        "path": "CONTRIBUTING.md",
+        "sha": "4db6f89934725d9b6b6656d2735ec7918af2e48a",
+        "size": 2852,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CONTRIBUTING.md?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CONTRIBUTING.md",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/4db6f89934725d9b6b6656d2735ec7918af2e48a",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/CONTRIBUTING.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/CONTRIBUTING.md?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/4db6f89934725d9b6b6656d2735ec7918af2e48a",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/CONTRIBUTING.md"
+        }
+      },
+      {
+        "name": "LICENSE",
+        "path": "LICENSE",
+        "sha": "886317494948c3796bd699bc63689d5eb3b138ad",
+        "size": 5064,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/LICENSE?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/LICENSE",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/886317494948c3796bd699bc63689d5eb3b138ad",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/LICENSE",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/LICENSE?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/886317494948c3796bd699bc63689d5eb3b138ad",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/LICENSE"
+        }
+      },
+      {
+        "name": "README.md",
+        "path": "README.md",
+        "sha": "e2121ace73350cfdbc95cc620822685d8326df71",
+        "size": 13973,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/README.md?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/README.md",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/e2121ace73350cfdbc95cc620822685d8326df71",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/README.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/README.md?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/e2121ace73350cfdbc95cc620822685d8326df71",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/README.md"
+        }
+      },
+      {
+        "name": "SECURITY.md",
+        "path": "SECURITY.md",
+        "sha": "20927124c75f1ae1084b9bf635d99acb1bb1a251",
+        "size": 4301,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/SECURITY.md?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/SECURITY.md",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/20927124c75f1ae1084b9bf635d99acb1bb1a251",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/SECURITY.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/SECURITY.md?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/20927124c75f1ae1084b9bf635d99acb1bb1a251",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/SECURITY.md"
+        }
+      },
+      {
+        "name": "dashboard",
+        "path": "dashboard",
+        "sha": "57550277190952706745dc62657d95416b9a13e9",
+        "size": 0,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/dashboard?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/tree/main/dashboard",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/57550277190952706745dc62657d95416b9a13e9",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/dashboard?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/57550277190952706745dc62657d95416b9a13e9",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/tree/main/dashboard"
+        }
+      },
+      {
+        "name": "docs",
+        "path": "docs",
+        "sha": "17e2c6dc96282f11b2dadfc64d49029e8cc1dd7b",
+        "size": 0,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/docs?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/tree/main/docs",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/17e2c6dc96282f11b2dadfc64d49029e8cc1dd7b",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/docs?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/17e2c6dc96282f11b2dadfc64d49029e8cc1dd7b",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/tree/main/docs"
+        }
+      },
+      {
+        "name": "requirements.txt",
+        "path": "requirements.txt",
+        "sha": "56604e02b5f018b5d4e3ed44a9e59506f538befe",
+        "size": 559,
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/requirements.txt?ref=main",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/requirements.txt",
+        "git_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/56604e02b5f018b5d4e3ed44a9e59506f538befe",
+        "download_url": "https://raw.githubusercontent.com/dbsectrainer/dod-cybersec-ops-framework/main/requirements.txt",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/contents/requirements.txt?ref=main",
+          "git": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/blobs/56604e02b5f018b5d4e3ed44a9e59506f538befe",
+          "html": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/blob/main/requirements.txt"
+        }
+      }
+    ],
+    "languages": {
+      "Python": 66890,
+      "Shell": 2884,
+      "Dockerfile": 2459,
+      "HCL": 769
+    },
+    "recentCommits": [
+      {
+        "sha": "ddbcb450d866d3414ea942f2040ebd056490ef50",
+        "node_id": "C_kwDONwbB0doAKGRkYmNiNDUwZDg2NmQzNDE0ZWE5NDJmMjA0MGViZDA1NjQ5MGVmNTA",
+        "commit": {
+          "author": {
+            "name": "Donnivis Baker",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2026-06-15T20:05:01Z"
+          },
+          "committer": {
+            "name": "Donnivis Baker",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2026-06-15T20:05:01Z"
+          },
+          "message": "docs: standardize README to BE EASY ENTERPRISES format",
+          "tree": {
+            "sha": "c74de64dc8bfeec4a8d255f13b3dfa3302982e3c",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/c74de64dc8bfeec4a8d255f13b3dfa3302982e3c"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/ddbcb450d866d3414ea942f2040ebd056490ef50",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ddbcb450d866d3414ea942f2040ebd056490ef50",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/ddbcb450d866d3414ea942f2040ebd056490ef50",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ddbcb450d866d3414ea942f2040ebd056490ef50/comments",
+        "author": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "4409ef214cb6d1fc6a743ef5261cfab60a5b7e14",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/4409ef214cb6d1fc6a743ef5261cfab60a5b7e14",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/4409ef214cb6d1fc6a743ef5261cfab60a5b7e14"
+          }
+        ]
+      },
+      {
+        "sha": "4409ef214cb6d1fc6a743ef5261cfab60a5b7e14",
+        "node_id": "C_kwDONwbB0doAKDQ0MDllZjIxNGNiNmQxZmM2YTc0M2VmNTI2MWNmYWI2MGE1YjdlMTQ",
+        "commit": {
+          "author": {
+            "name": "Donnivis Baker",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2025-08-15T01:35:25Z"
+          },
+          "committer": {
+            "name": "GitHub",
+            "email": "noreply@github.com",
+            "date": "2025-08-15T01:35:25Z"
+          },
+          "message": "Merge pull request #163 from dbsectrainer/copilot/fix-162\n\nComprehensive documentation review and configuration update for DoD Cybersecurity Framework",
+          "tree": {
+            "sha": "40fa0e910d85b3cac62a6e851d658aaf4e4cd012",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/40fa0e910d85b3cac62a6e851d658aaf4e4cd012"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/4409ef214cb6d1fc6a743ef5261cfab60a5b7e14",
+          "comment_count": 0,
+          "verification": {
+            "verified": true,
+            "reason": "valid",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJono7dCRC1aQ7uu5UhlAAA7cAQAG/TBfko0KqhUXNntXa01L/F\nrwRRRHF51aWQrxgCEpD9aSWmbAsSyQyEozs3a+upDLhbYSNBOFXyNxBGiXey4mXq\nyAUE8Z2v5cccOgxrUh7iCiYQaj/cvdVT03r+MuMK3ZP7PkXrm17yHq10lQp7Jbnv\nx8rFtYVJ7LQN9u8ycolmud1PDNfz9Hrh1r/ow2NqPO3aAY5/Hh7UOzctvR1QUz6Y\nTjBv+o54kf3tH8dxCDhECuCkzBCti2q3R3ptK+fhY07j1xAdU24EW63yING25rJE\nqN+JSYuvoOZxPTV6TzE8nPu6wmOXhd+UpM0tnyn+71xDRiZDsUV5nOImkL6jRDGQ\nl7A217j1UEjL9xxLC5gHWTDzxq1OkyORnyh2zsG7pVPdOfD1Yf6INC85cBdNiMV9\n7/OS+fL2B9oyYjh1RjngArZB9Hh3DOPnVFoGSfum/RoPA2jVobJ7lNgmiqjsXNcT\nch9ZpVoSvYFBOBbOzwIbvN8/9SsdpbTD+mmKwXdq5kMZBcQcYLqUlizwwVzI0om1\nAK6YB85cfnmEpExE9M1nVU9kOGCX4FNtMISHOBF6DuW1iIA5Ny1V1XHKL37L8YMF\nmBBN0gCtFmviURDEvzkEtswxLvnkDToJWHCImfoAUkYdtZ3ZKaCI2hRPdT42Q5Gq\n2jaMxgx75zK/TsoVuK54\n=e5Y3\n-----END PGP SIGNATURE-----\n",
+            "payload": "tree 40fa0e910d85b3cac62a6e851d658aaf4e4cd012\nparent 81c833676439f39ff6f5435beac0d995a900561a\nparent ae873155c4d68b7b253aeda7b60372eb93cc2f26\nauthor Donnivis Baker <dbsectrainer@users.noreply.github.com> 1755221725 -0400\ncommitter GitHub <noreply@github.com> 1755221725 -0400\n\nMerge pull request #163 from dbsectrainer/copilot/fix-162\n\nComprehensive documentation review and configuration update for DoD Cybersecurity Framework",
+            "verified_at": "2025-08-15T01:35:26Z"
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/4409ef214cb6d1fc6a743ef5261cfab60a5b7e14",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/4409ef214cb6d1fc6a743ef5261cfab60a5b7e14",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/4409ef214cb6d1fc6a743ef5261cfab60a5b7e14/comments",
+        "author": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "web-flow",
+          "id": 19864447,
+          "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+          "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/web-flow",
+          "html_url": "https://github.com/web-flow",
+          "followers_url": "https://api.github.com/users/web-flow/followers",
+          "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+          "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+          "organizations_url": "https://api.github.com/users/web-flow/orgs",
+          "repos_url": "https://api.github.com/users/web-flow/repos",
+          "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/web-flow/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "81c833676439f39ff6f5435beac0d995a900561a",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/81c833676439f39ff6f5435beac0d995a900561a",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/81c833676439f39ff6f5435beac0d995a900561a"
+          },
+          {
+            "sha": "ae873155c4d68b7b253aeda7b60372eb93cc2f26",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ae873155c4d68b7b253aeda7b60372eb93cc2f26",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/ae873155c4d68b7b253aeda7b60372eb93cc2f26"
+          }
+        ]
+      },
+      {
+        "sha": "ae873155c4d68b7b253aeda7b60372eb93cc2f26",
+        "node_id": "C_kwDONwbB0doAKGFlODczMTU1YzRkNjhiN2IyNTNhZWRhN2I2MDM3MmViOTNjYzJmMjY",
+        "commit": {
+          "author": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T20:13:45Z"
+          },
+          "committer": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T20:13:45Z"
+          },
+          "message": "Complete comprehensive review - update all documentation dates and finalize validation\n\nCo-authored-by: dbsectrainer <18485041+dbsectrainer@users.noreply.github.com>",
+          "tree": {
+            "sha": "40fa0e910d85b3cac62a6e851d658aaf4e4cd012",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/40fa0e910d85b3cac62a6e851d658aaf4e4cd012"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/ae873155c4d68b7b253aeda7b60372eb93cc2f26",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ae873155c4d68b7b253aeda7b60372eb93cc2f26",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/ae873155c4d68b7b253aeda7b60372eb93cc2f26",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ae873155c4d68b7b253aeda7b60372eb93cc2f26/comments",
+        "author": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "ed0faf34f8fdd43ed33ff82ce5de373816b61b30",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ed0faf34f8fdd43ed33ff82ce5de373816b61b30",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/ed0faf34f8fdd43ed33ff82ce5de373816b61b30"
+          }
+        ]
+      },
+      {
+        "sha": "ed0faf34f8fdd43ed33ff82ce5de373816b61b30",
+        "node_id": "C_kwDONwbB0doAKGVkMGZhZjM0ZjhmZGQ0M2VkMzNmZjgyY2U1ZGUzNzM4MTZiNjFiMzA",
+        "commit": {
+          "author": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T20:10:42Z"
+          },
+          "committer": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T20:10:42Z"
+          },
+          "message": "Update monitoring configurations, fix broken documentation links, and improve Docker setup\n\nCo-authored-by: dbsectrainer <18485041+dbsectrainer@users.noreply.github.com>",
+          "tree": {
+            "sha": "5556055c6de0149313b8a039cc4f1105b290278b",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/5556055c6de0149313b8a039cc4f1105b290278b"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/ed0faf34f8fdd43ed33ff82ce5de373816b61b30",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ed0faf34f8fdd43ed33ff82ce5de373816b61b30",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/ed0faf34f8fdd43ed33ff82ce5de373816b61b30",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/ed0faf34f8fdd43ed33ff82ce5de373816b61b30/comments",
+        "author": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "6df4d97d3aee122ad715da5c8116baca739aa141",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/6df4d97d3aee122ad715da5c8116baca739aa141",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/6df4d97d3aee122ad715da5c8116baca739aa141"
+          }
+        ]
+      },
+      {
+        "sha": "6df4d97d3aee122ad715da5c8116baca739aa141",
+        "node_id": "C_kwDONwbB0doAKDZkZjRkOTdkM2FlZTEyMmFkNzE1ZGE1YzgxMTZiYWNhNzM5YWExNDE",
+        "commit": {
+          "author": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T20:04:54Z"
+          },
+          "committer": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T20:04:54Z"
+          },
+          "message": "Fix documentation links and file references in README.md, CLAUDE.md, and copilot instructions\n\nCo-authored-by: dbsectrainer <18485041+dbsectrainer@users.noreply.github.com>",
+          "tree": {
+            "sha": "95d8e812d909561e886d06bf91b6a453e1860f21",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/95d8e812d909561e886d06bf91b6a453e1860f21"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/6df4d97d3aee122ad715da5c8116baca739aa141",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/6df4d97d3aee122ad715da5c8116baca739aa141",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/6df4d97d3aee122ad715da5c8116baca739aa141",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/6df4d97d3aee122ad715da5c8116baca739aa141/comments",
+        "author": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "0c65a1973257271264074dcac73976176e4d1c70",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/0c65a1973257271264074dcac73976176e4d1c70",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/0c65a1973257271264074dcac73976176e4d1c70"
+          }
+        ]
+      },
+      {
+        "sha": "0c65a1973257271264074dcac73976176e4d1c70",
+        "node_id": "C_kwDONwbB0doAKDBjNjVhMTk3MzI1NzI3MTI2NDA3NGRjYWM3Mzk3NjE3NmU0ZDFjNzA",
+        "commit": {
+          "author": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T19:58:55Z"
+          },
+          "committer": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T19:58:55Z"
+          },
+          "message": "Initial comprehensive review plan for DoD Cybersecurity Framework documentation and configuration update\n\nCo-authored-by: dbsectrainer <18485041+dbsectrainer@users.noreply.github.com>",
+          "tree": {
+            "sha": "0bd5174831543ebfb1c9f7e1f3df1b9a241a1072",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/0bd5174831543ebfb1c9f7e1f3df1b9a241a1072"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/0c65a1973257271264074dcac73976176e4d1c70",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/0c65a1973257271264074dcac73976176e4d1c70",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/0c65a1973257271264074dcac73976176e4d1c70",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/0c65a1973257271264074dcac73976176e4d1c70/comments",
+        "author": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "5cd6efe72c04ff29592b9c322fcf0f5e0af4be45",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/5cd6efe72c04ff29592b9c322fcf0f5e0af4be45",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/5cd6efe72c04ff29592b9c322fcf0f5e0af4be45"
+          }
+        ]
+      },
+      {
+        "sha": "5cd6efe72c04ff29592b9c322fcf0f5e0af4be45",
+        "node_id": "C_kwDONwbB0doAKDVjZDZlZmU3MmMwNGZmMjk1OTJiOWMzMjJmY2YwZjVlMGFmNGJlNDU",
+        "commit": {
+          "author": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T19:52:57Z"
+          },
+          "committer": {
+            "name": "copilot-swe-agent[bot]",
+            "email": "198982749+Copilot@users.noreply.github.com",
+            "date": "2025-08-14T19:52:57Z"
+          },
+          "message": "Initial plan",
+          "tree": {
+            "sha": "8efcf7d8d6c807c48c75996b937144de76b72109",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/8efcf7d8d6c807c48c75996b937144de76b72109"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/5cd6efe72c04ff29592b9c322fcf0f5e0af4be45",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/5cd6efe72c04ff29592b9c322fcf0f5e0af4be45",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/5cd6efe72c04ff29592b9c322fcf0f5e0af4be45",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/5cd6efe72c04ff29592b9c322fcf0f5e0af4be45/comments",
+        "author": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "Copilot",
+          "id": 198982749,
+          "node_id": "BOT_kgDOC9w8XQ",
+          "avatar_url": "https://avatars.githubusercontent.com/in/1143301?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Copilot",
+          "html_url": "https://github.com/apps/copilot-swe-agent",
+          "followers_url": "https://api.github.com/users/Copilot/followers",
+          "following_url": "https://api.github.com/users/Copilot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Copilot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Copilot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Copilot/subscriptions",
+          "organizations_url": "https://api.github.com/users/Copilot/orgs",
+          "repos_url": "https://api.github.com/users/Copilot/repos",
+          "events_url": "https://api.github.com/users/Copilot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Copilot/received_events",
+          "type": "Bot",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "81c833676439f39ff6f5435beac0d995a900561a",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/81c833676439f39ff6f5435beac0d995a900561a",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/81c833676439f39ff6f5435beac0d995a900561a"
+          }
+        ]
+      },
+      {
+        "sha": "81c833676439f39ff6f5435beac0d995a900561a",
+        "node_id": "C_kwDONwbB0doAKDgxYzgzMzY3NjQzOWYzOWZmNmY1NDM1YmVhYzBkOTk1YTkwMDU2MWE",
+        "commit": {
+          "author": {
+            "name": "Donnivis Baker",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2025-08-14T19:50:48Z"
+          },
+          "committer": {
+            "name": "Donnivis Baker",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2025-08-14T19:50:48Z"
+          },
+          "message": "Instructions for DoD Cybersecurity Operations",
+          "tree": {
+            "sha": "8efcf7d8d6c807c48c75996b937144de76b72109",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/8efcf7d8d6c807c48c75996b937144de76b72109"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/81c833676439f39ff6f5435beac0d995a900561a",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/81c833676439f39ff6f5435beac0d995a900561a",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/81c833676439f39ff6f5435beac0d995a900561a",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/81c833676439f39ff6f5435beac0d995a900561a/comments",
+        "author": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "cee5a227ca411475488567b85c9e2c12c8cb075e",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/cee5a227ca411475488567b85c9e2c12c8cb075e",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/cee5a227ca411475488567b85c9e2c12c8cb075e"
+          }
+        ]
+      },
+      {
+        "sha": "cee5a227ca411475488567b85c9e2c12c8cb075e",
+        "node_id": "C_kwDONwbB0doAKGNlZTVhMjI3Y2E0MTE0NzU0ODg1NjdiODVjOWUyYzEyYzhjYjA3NWU",
+        "commit": {
+          "author": {
+            "name": "AI Developer",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2025-04-15T23:40:43Z"
+          },
+          "committer": {
+            "name": "AI Developer",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2025-04-15T23:40:43Z"
+          },
+          "message": "removed",
+          "tree": {
+            "sha": "a338176a8b99b09042ef54fe06ce0f7fdd0d9849",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/a338176a8b99b09042ef54fe06ce0f7fdd0d9849"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/cee5a227ca411475488567b85c9e2c12c8cb075e",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/cee5a227ca411475488567b85c9e2c12c8cb075e",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/cee5a227ca411475488567b85c9e2c12c8cb075e",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/cee5a227ca411475488567b85c9e2c12c8cb075e/comments",
+        "author": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "4a398070a1c65b46dcdd6d2739eb1b91de6b78ec",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/4a398070a1c65b46dcdd6d2739eb1b91de6b78ec",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/4a398070a1c65b46dcdd6d2739eb1b91de6b78ec"
+          }
+        ]
+      },
+      {
+        "sha": "4a398070a1c65b46dcdd6d2739eb1b91de6b78ec",
+        "node_id": "C_kwDONwbB0doAKDRhMzk4MDcwYTFjNjViNDZkY2RkNmQyNzM5ZWIxYjkxZGU2Yjc4ZWM",
+        "commit": {
+          "author": {
+            "name": "AI Developer",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2025-04-15T23:38:31Z"
+          },
+          "committer": {
+            "name": "AI Developer",
+            "email": "dbsectrainer@users.noreply.github.com",
+            "date": "2025-04-15T23:38:31Z"
+          },
+          "message": "not needed at this time",
+          "tree": {
+            "sha": "714bface1681f3e41b879631657e506b22fd5355",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/trees/714bface1681f3e41b879631657e506b22fd5355"
+          },
+          "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/git/commits/4a398070a1c65b46dcdd6d2739eb1b91de6b78ec",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/4a398070a1c65b46dcdd6d2739eb1b91de6b78ec",
+        "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/4a398070a1c65b46dcdd6d2739eb1b91de6b78ec",
+        "comments_url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/4a398070a1c65b46dcdd6d2739eb1b91de6b78ec/comments",
+        "author": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "dbsectrainer",
+          "id": 18485041,
+          "node_id": "MDQ6VXNlcjE4NDg1MDQx",
+          "avatar_url": "https://avatars.githubusercontent.com/u/18485041?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dbsectrainer",
+          "html_url": "https://github.com/dbsectrainer",
+          "followers_url": "https://api.github.com/users/dbsectrainer/followers",
+          "following_url": "https://api.github.com/users/dbsectrainer/following{/other_user}",
+          "gists_url": "https://api.github.com/users/dbsectrainer/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/dbsectrainer/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/dbsectrainer/subscriptions",
+          "organizations_url": "https://api.github.com/users/dbsectrainer/orgs",
+          "repos_url": "https://api.github.com/users/dbsectrainer/repos",
+          "events_url": "https://api.github.com/users/dbsectrainer/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/dbsectrainer/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "cdc0a84ddb6e9968ad4eff874d8c909b6a76f713",
+            "url": "https://api.github.com/repos/dbsectrainer/dod-cybersec-ops-framework/commits/cdc0a84ddb6e9968ad4eff874d8c909b6a76f713",
+            "html_url": "https://github.com/dbsectrainer/dod-cybersec-ops-framework/commit/cdc0a84ddb6e9968ad4eff874d8c909b6a76f713"
+          }
+        ]
+      }
+    ]
+  }
+}

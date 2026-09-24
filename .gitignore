@@ -11,6 +11,7 @@
 *.truststore
 .env
 .env.*
+!.env.example
 credentials.json
 *_rsa
 *_dsa
