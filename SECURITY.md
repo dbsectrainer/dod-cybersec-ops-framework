@@ -69,7 +69,7 @@ For non-critical security issues:
 ## Compliance Requirements
 
 ### DoD Compliance
-- DoD 8570/8140 certification requirements
+- DoD 8140 certification requirements (successor to the legacy DoD 8570.01-M manual)
 - NIST RMF controls
 - DISA STIGs
 - DoD Cloud Computing SRG
@@ -116,7 +116,7 @@ For non-critical security issues:
 - Secure Coding Practices
 
 ### Certifications
-- DoD 8570/8140 Compliance
+- DoD 8140 Compliance
 - Security+ CE
 - CISSP (as required)
 - Role-specific certifications
@@ -183,7 +183,7 @@ This security policy is reviewed and updated:
 - When requirements change
 - As needed for clarity
 
-Last Updated: August 14, 2025
+Last Updated: September 22, 2026
 
 ## Additional Resources
 

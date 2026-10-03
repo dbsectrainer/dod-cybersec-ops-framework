@@ -3,7 +3,7 @@
 **Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)**
 
 **Version: 1.0.0**
-**Last Updated: August 14, 2025**
+**Last Updated: September 22, 2026**
 
 ## Executive Summary
 
@@ -134,7 +134,7 @@ This document outlines the enterprise architecture for the Department of Defense
 
 ### Regulatory Framework Integration
 
-1. **DoD 8570/8140 Compliance**
+1. **DoD 8140 Compliance** (successor to the legacy DoD 8570.01-M manual)
    - Personnel certification tracking
    - Role-based training
    - Continuous education

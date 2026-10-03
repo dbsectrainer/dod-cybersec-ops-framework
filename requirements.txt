@@ -1,35 +1,31 @@
 # Core Dependencies
-streamlit>=1.24.0
-pandas>=2.0.0
-numpy>=1.24.0
+streamlit>=1.24.0,<2.0
+pandas>=2.0.0,<3.0
+numpy>=1.26.0,<3.0
 
 # Data Visualization
-plotly>=5.15.0
-altair>=5.0.0
-bokeh>=3.2.0
+plotly>=5.15.0,<6.0
+altair>=5.0.0,<6.0
+bokeh>=3.2.0,<4.0
 
 # Security & Authentication
-python-jose>=3.3.0
-passlib>=1.7.4
-python-multipart>=0.0.6
-bcrypt>=4.0.1
+python-jose>=3.3.0,<4.0
+passlib>=1.7.4,<2.0
+python-multipart>=0.0.6,<0.1
+bcrypt>=4.0.1,<5.0
 
 # Cloud Integration
-boto3>=1.28.0  # AWS
-azure-identity>=1.13.0  # Azure
-azure-mgmt-resource>=23.0.0
+boto3>=1.28.0,<2.0  # AWS
+azure-identity>=1.13.0,<2.0  # Azure
+azure-mgmt-resource>=23.0.0,<24.0
 
 # Monitoring & Metrics
-prometheus-client>=0.17.0
-elasticsearch>=8.9.0
-opensearch-py>=2.3.0
+# elasticsearch/opensearch-py are unused by dashboard/src today (no code
+# imports them) but track the Elastic Stack 9.x / OpenSearch 2.x floors
+# documented in README.md for when that integration is built.
+prometheus-client>=0.17.0,<1.0
+elasticsearch>=9.0.0,<10.0
+opensearch-py>=2.3.0,<3.0
 
-# Development & Testing
-pytest>=7.4.0
-black>=23.7.0
-flake8>=6.0.0
-mypy>=1.4.0
-
-# Documentation
-sphinx>=7.0.0
-sphinx-rtd-theme>=1.2.0
+# Development, testing, linting, and documentation tooling lives in
+# dashboard/requirements-dev.txt (not installed in production images).

@@ -1,11 +1,19 @@
 # DoD Cybersecurity Operations Dashboard Dockerfile
 # Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
 
-# Use Iron Bank's hardened Python image
-FROM registry1.dso.mil/ironbank/opensource/python/python39:latest
+# Base image, overridable via --build-arg BASE_IMAGE=...:
+#   - Default: Iron Bank's hardened Python image. registry1.dso.mil requires
+#     authenticated DoD PKI-gated registry access — it is NOT reachable from
+#     a standard CI runner without credentials, and this tag should be
+#     verified against https://repo1.dso.mil/dsop/opensource/python/python312
+#     rather than trusted indefinitely.
+#   - CI / standard development environments without Iron Bank access:
+#     --build-arg BASE_IMAGE=python:3.12-slim
+ARG BASE_IMAGE=registry1.dso.mil/ironbank/opensource/python/python312:3.12
+FROM ${BASE_IMAGE}
 
-# For development/testing in standard environments, use:
-# FROM python:3.9-slim
+# Build-time metadata (pass with --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ))
+ARG BUILD_DATE=unknown
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
@@ -17,6 +25,10 @@ ENV PYTHONUNBUFFERED=1 \
 # Set working directory
 WORKDIR /app
 
+# Build context is the repository root (see docker build -f dashboard/Dockerfile
+# invocation in CI/README), so requirements.txt resolves to the repo-root file
+# and only the dashboard/ subtree is copied into the image.
+
 # Copy requirements first for better caching
 COPY requirements.txt .
 
@@ -24,7 +36,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY . .
+COPY dashboard/ .
 
 # Create non-root user
 RUN adduser --system --group appuser && \
@@ -43,9 +55,13 @@ RUN mkdir -p /app/data/metrics /app/data/reports /app/logs && \
 # Security headers and classification banner
 ENV STREAMLIT_SERVER_HEADERS='{"X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff", "X-XSS-Protection": "1; mode=block", "Content-Security-Policy": "default-src '\''self'\''"}'
 
-# Health check
+# Health check (stdlib urllib instead of curl, since the python:3.12-slim
+# CI fallback image doesn't have curl installed and Iron Bank's may not
+# either). Path is prefixed with /dashboard to match CMD's
+# --server.baseUrlPath=/dashboard below — Streamlit's health endpoint moves
+# under that prefix too, not just the app's own pages.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/dashboard/_stcore/health', timeout=5)" || exit 1
 
 # Expose port
 EXPOSE 8501
@@ -63,8 +79,8 @@ CMD ["streamlit", "run", "src/app.py", \
 LABEL org.opencontainers.image.title="DoD Cybersecurity Operations Dashboard" \
       org.opencontainers.image.description="Dashboard for DoD Cybersecurity Operations Framework" \
       org.opencontainers.image.vendor="Department of Defense" \
-      org.opencontainers.image.version="1.0.0" \
-      org.opencontainers.image.created="2025-01-27" \
+      org.opencontainers.image.version="1.1.0" \
+      org.opencontainers.image.created="$BUILD_DATE" \
       org.opencontainers.image.documentation="https://github.com/your-repo/dashboard/README.md" \
       org.opencontainers.image.source="https://github.com/your-repo/dashboard" \
       org.opencontainers.image.licenses="DoD-OSA-1.0" \

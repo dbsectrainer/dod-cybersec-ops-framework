@@ -32,7 +32,7 @@
 <!-- Describe how this change affects compliance requirements -->
 
 ### Compliance Areas Affected
-- [ ] DoD 8570/8140
+- [ ] DoD 8140
 - [ ] NIST RMF
 - [ ] DISA STIGs
 - [ ] Cloud SRG

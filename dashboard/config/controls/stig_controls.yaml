@@ -126,6 +126,8 @@ V-8:
         - "remote_logging: true"
         - "encryption: true"
     - type: "tls_config"
+      # TLS 1.2 is the compliance floor; TLS 1.3 is preferred where the
+      # endpoint supports it, per current DISA guidance.
       parameters:
         - "min_version: TLSv1.2"
         - "ciphers: HIGH:!aNULL:!MD5"

@@ -1,5 +1,8 @@
-# DoD Cybersecurity Operations Dashboard Configuration
+# DoD Cybersecurity Operations Dashboard Configuration — EXAMPLE TEMPLATE
 # Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+#
+# Copy this file to config.yaml (same directory) and adjust values for your
+# environment before running the app.
 
 # Application Settings
 app:

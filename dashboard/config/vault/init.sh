@@ -3,9 +3,16 @@
 # Wait for Vault to start
 sleep 5
 
-# Export Vault address and token
+# Export Vault address and token (sourced from the container environment,
+# which docker-compose populates from .env and requires to be set — see
+# docker-compose.yml). Fail closed rather than falling back to a known
+# default if this script is ever invoked without that environment set.
 export VAULT_ADDR='http://127.0.0.1:8200'
-export VAULT_TOKEN='dev-only-token'
+if [ -z "${VAULT_DEV_ROOT_TOKEN_ID}" ]; then
+    echo "VAULT_DEV_ROOT_TOKEN_ID is not set; refusing to initialize Vault with a default token." >&2
+    exit 1
+fi
+export VAULT_TOKEN="${VAULT_DEV_ROOT_TOKEN_ID}"
 
 # Enable audit logging
 vault audit enable file file_path=/vault/logs/audit.log
@@ -58,9 +65,14 @@ vault policy write sample-policy /vault/config/policies/sample_policy.hcl
 # Enable userpass auth method for testing
 vault auth enable userpass
 
-# Create a test user
+# Create a test user. Fail closed rather than falling back to a known
+# default password if this script is ever invoked without VAULT_TEST_USER_PASSWORD set.
+if [ -z "${VAULT_TEST_USER_PASSWORD}" ]; then
+    echo "VAULT_TEST_USER_PASSWORD is not set; refusing to create testuser with a default password." >&2
+    exit 1
+fi
 vault write auth/userpass/users/testuser \
-    password="testpass123" \
+    password="${VAULT_TEST_USER_PASSWORD}" \
     policies="sample-policy"
 
 echo "Vault initialization completed successfully"

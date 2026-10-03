@@ -43,7 +43,7 @@ assignees: ''
 
 ### Compliance Requirements
 <!-- List compliance requirements -->
-- [ ] DoD 8570/8140 implications
+- [ ] DoD 8140 implications
 - [ ] NIST RMF controls
 - [ ] DISA STIG requirements
 - [ ] Other compliance needs

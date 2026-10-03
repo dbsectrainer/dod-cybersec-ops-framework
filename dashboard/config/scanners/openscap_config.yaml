@@ -1,0 +1,11 @@
+# OpenSCAP scanner configuration — PLACEHOLDER
+# Classification: UNCLASSIFIED // FOR OFFICIAL USE ONLY (FOUO)
+#
+# Referenced by dashboard/config/config.yaml (compliance.scanning.tools) but
+# not yet consumed by any code in dashboard/src — no scanner integration is
+# implemented. This stub exists so the referenced path resolves; see
+# docs/ROADMAP.md for the tracked implementation item.
+
+profile: "xccdf_org.ssgproject.content_profile_stig"
+content: "/usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml"
+results_dir: "data/reports/openscap"

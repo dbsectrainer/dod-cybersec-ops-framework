@@ -111,7 +111,7 @@ This documentation provides the architectural foundation for the DoD Cybersecuri
 - Continuous Verification
 
 ### Compliance Requirements
-- DoD 8570/8140
+- DoD 8140 (successor to the legacy DoD 8570.01-M manual)
 - NIST RMF
 - DISA STIGs
 - Cloud SRG
@@ -181,4 +181,4 @@ This documentation provides the architectural foundation for the DoD Cybersecuri
 - Platform One Integration
 - milCloud 2.0 Migration
 
-Last Updated: August 14, 2025
+Last Updated: September 22, 2026

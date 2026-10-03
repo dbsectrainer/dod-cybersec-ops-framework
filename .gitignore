@@ -11,7 +11,12 @@
 *.truststore
 .env
 .env.*
+!.env.example
+!**/.env.example
 credentials.json
+# Real secrets file (see dashboard/.streamlit/secrets.toml.example for the template).
+# The dashboard/src/.streamlit/secrets.toml symlink that points at this file stays tracked.
+/dashboard/.streamlit/secrets.toml
 *_rsa
 *_dsa
 *_ed25519
@@ -70,6 +75,8 @@ coverage/
 reports/
 .coverage
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 htmlcov/
 .tox/
 junit/

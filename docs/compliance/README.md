@@ -9,7 +9,8 @@ This documentation outlines the compliance requirements, controls, and implement
 ## Regulatory Framework
 
 ### DoD Directives
-- DoD Directive 8140/8570
+- DoD Directive 8140 (Cyberspace Workforce Qualification and Management
+  Program; supersedes the legacy DoD 8570.01-M manual)
 - DoD Cloud Computing SRG
 - DoD Zero Trust Reference Architecture
 - CNSS Instructions
@@ -18,7 +19,8 @@ This documentation outlines the compliance requirements, controls, and implement
 - NIST SP 800-53 Rev 5
 - NIST SP 800-37 (RMF)
 - NIST SP 800-171
-- FedRAMP High
+- FedRAMP Moderate (reconcile with your actual authorization package before
+  relying on this framework beyond a demo/reference deployment)
 
 ### Industry Standards
 - ISO/IEC 27001:2013
@@ -147,7 +149,8 @@ This documentation outlines the compliance requirements, controls, and implement
 
 ### AWS GovCloud
 - FedRAMP Authorization
-- DoD Impact Level 6
+- DoD Impact Level 2–5 (reconcile with your actual authorization package
+  before relying on this framework beyond a demo/reference deployment)
 - DISA Provisional Authorization
 - Security Control Implementation
 
@@ -205,4 +208,4 @@ This documentation outlines the compliance requirements, controls, and implement
 - Monitoring Tools
 - Reporting Tools
 
-Last Updated: August 14, 2025
+Last Updated: September 22, 2026
